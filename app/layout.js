@@ -15,9 +15,9 @@ export default function RootLayout({ children }) {
         <
         MenuContextProvider >
         <
-        MainLayout > { children } < /MainLayout> <
-        /MenuContextProvider> <
-        /body> <
+        MainLayout > { children } < /MainLayout>  <
+        /MenuContextProvider> </body >
+        <
         /html>
     );
 }

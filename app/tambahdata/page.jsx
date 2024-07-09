@@ -9,7 +9,7 @@ const TambahData = () => {
         
       <form className="max-w">
         <label
-          for="email-address-icon"
+          htmlfor="email-address-icon"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
           Nama
@@ -26,7 +26,7 @@ const TambahData = () => {
           /> 
         </div>
         <label
-          for="email-address-icon"
+          htmlfor="email-address-icon"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
           Email
@@ -43,7 +43,7 @@ const TambahData = () => {
           /> 
         </div>
         <label
-          for="email-address-icon"
+          htmlfor="email-address-icon"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
           Password

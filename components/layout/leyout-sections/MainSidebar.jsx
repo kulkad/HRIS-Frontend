@@ -94,7 +94,7 @@ const MainSidebar = () => {
 
         <li className="flex justify-start items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2">
           <FaClock className="mr-2" />
-          <Link href="daftarabsensi" onClick={closeSeideBarHandler}>
+          <Link href="data-absensi" onClick={closeSeideBarHandler}>
             Daftar Absensi
           </Link>
         </li>
