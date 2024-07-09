@@ -59,6 +59,7 @@ const TambahData = () => {
             placeholder="***********"
           /> 
         </div>
+        <input type="submit" className="mt-4 bg-green-400 hover:bg-green-500 hover:text-white" />
       </form>
     </div>
   );

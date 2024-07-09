@@ -4,7 +4,7 @@ const DataKaryawan = () => {
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
       <div className="grid grid-cols-3 gap-4 flex">
-        <p className="px-6 py-10">DATA ABSENSI</p>
+        <p className="px-6 py-10 font-semibold">DATA ABSENSI</p>
         <div className="flex justify-end col-span-2 bg-white p-2 rounded-lg mb-2 dark:bg-gray-600">
           <form className="flex flex-wrap items-center space-x-4">
             <div>
@@ -61,7 +61,7 @@ const DataKaryawan = () => {
             <div className="self-end">
               <button
                 type="submit"
-                className="mb-1 w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="mb-3 w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Search
               </button>

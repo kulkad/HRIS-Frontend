@@ -6,7 +6,7 @@ import { BiSolidUserDetail } from "react-icons/bi";
 const DataKaryawan = () => {
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
-      <p className="mt-1 mb-4">DATA KARYAWAN</p>
+      <p className="mt-1 mb-4 font-semibold">DATA KARYAWAN</p>
 
       <div class="relative overflow-x-auto">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
