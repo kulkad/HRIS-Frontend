@@ -108,7 +108,7 @@ const MainSidebar = () => {
           </Link>
         </li>
 
-        <li className="flex justify-start items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2">
+        <li className="flex justify-start items-center hover:bg-red-300 hover:text-gray-800 rounded-xl p-2">
           <RiLogoutBoxLine className="mr-2 shadow-lg" size={20} />
           <Link href="/logout" onClick={closeSeideBarHandler}>
             Keluar

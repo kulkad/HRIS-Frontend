@@ -6,7 +6,8 @@ import { FaLock } from "react-icons/fa";
 const TambahData = () => {
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
-        
+      <h1 className="mt-1 mb-4 font-semibold">Form Tambah User</h1>  
+
       <form className="max-w">
         <label
           htmlfor="email-address-icon"
@@ -59,7 +60,7 @@ const TambahData = () => {
             placeholder="***********"
           /> 
         </div>
-        <input type="submit" className="mt-4 bg-green-400 hover:bg-green-500 hover:text-white" />
+        <input type="submit" className="inline-block border-rounded w-18 h-15 mt-4 bg-green-400 hover:bg-green-500 hover:text-white" />
       </form>
     </div>
   );
