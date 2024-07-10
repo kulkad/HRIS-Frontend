@@ -8,16 +8,12 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-    return ( <
-        html lang = 'en' >
-        <
-        body >
-        <
-        MenuContextProvider >
-        <
-        MainLayout > { children } < /MainLayout>  <
-        /MenuContextProvider> </body >
-        <
-        /html>
+    return ( 
+    <html lang = 'en' >
+        <body >
+        <MenuContextProvider >
+        <MainLayout > { children } </MainLayout> 
+        </MenuContextProvider> </body >
+        </html>
     );
 }

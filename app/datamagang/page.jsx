@@ -2,7 +2,11 @@ import React from "react";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { BiSolidUserDetail } from "react-icons/bi";
+<<<<<<< HEAD
 import { useState, useEffect } from "react";
+=======
+import Link from "next/link";
+>>>>>>> 450912ed2f663e26617d5308481deab4f327ea8b
 
 const DataMagang = () => {
   // Pengecekan Route Apakah User Sudah Login Atau belum
@@ -21,7 +25,18 @@ const DataMagang = () => {
   if (!user) return <p>Loading...</p>;
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
-      <p className="mt-1 mb-4 font-semibold">DATA MAGANG</p>
+      <div className="grid grid-cols-3 gap-4 flex">
+        <p className="px-6 py-8 font-semibold">DATA MAGANG</p>
+        <div className="flex justify-end col-span-2 bg-white p-2 rounded-lg mb-2 dark:bg-gray-600">
+            <div className="self-end">
+            <div className="self-end items-center bg-green-400 hover:bg-green-6000 hover:text-gray-800 rounded-xl p-2">
+            <Link href="/tambahdata">
+            Tambah Data
+            </Link>
+            </div>
+            </div>
+        </div>
+      </div>
 
       <div class="relative overflow-x-auto">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
