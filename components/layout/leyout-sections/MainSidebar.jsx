@@ -100,14 +100,6 @@ const MainSidebar = () => {
         </li>
 
         <hr className="mt-5 mb-5 border-black border-1" />
-
-        <li className="flex justify-start items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2">
-          <FaUserPlus  className="mr-2" />
-          <Link href="/tambahdata" onClick={closeSeideBarHandler}>
-            Tambah Data
-          </Link>
-        </li>
-
         <li className="flex justify-start items-center hover:bg-red-300 hover:text-gray-800 rounded-xl p-2">
           <RiLogoutBoxLine className="mr-2 shadow-lg" size={20} />
           <Link href="/logout" onClick={closeSeideBarHandler}>
