@@ -62,9 +62,9 @@ const MainSidebar = () => {
         </button>
 
         {isOpen && (
-          <div className="flex right-0 mt-2 w-48 bg-white shadow-lg rounded-xl z-10">
+          <div className="flex right-0 mt-2 w-48 bg-white shadow-lg rounded-xl z-10 dark:bg-gray-800">
             <ul className="py-1">
-              <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+              <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl  p-2">
                 <FaUser className="mr-2" />
                 <Link href="/datamanager" onClick={closeDropdownHandler}>
                   Manager
