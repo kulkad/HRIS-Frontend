@@ -62,7 +62,7 @@ const MainSidebar = () => {
         </button>
 
         {isOpen && (
-          <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-xl z-10">
+          <div className="flex right-0 mt-2 w-48 bg-white shadow-lg rounded-xl z-10">
             <ul className="py-1">
               <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
                 <FaUser className="mr-2" />

@@ -11,7 +11,6 @@ const TambahData = () => {
 
       <form className="max-w">
         <label
-          htmlfor="email-address-icon"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
           Nama
@@ -28,7 +27,6 @@ const TambahData = () => {
           /> 
         </div>
         <label
-          htmlfor="email-address-icon"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
           Email
@@ -45,7 +43,6 @@ const TambahData = () => {
           /> 
         </div>
         <label
-          htmlfor="email-address-icon"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
           Password
@@ -63,7 +60,6 @@ const TambahData = () => {
         </div>
 
         <label
-          htmlfor="email-address-icon"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
           Upload Your Image
