@@ -1,6 +1,24 @@
+"use client";
+
 import React from "react";
+import { useState, useEffect } from "react";
 
 const DataKaryawan = () => {
+  // Pengecekan Route Apakah User Sudah Login Atau belum
+  const [user, setUser] = useState(null);
+  // const router = useRouter();
+
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    if (!userData) {
+      window.location.href = "http://localhost:3000/login";
+    } else {
+      setUser(JSON.parse(userData));
+    }
+  }, []);
+
+  if (!user) return <p>Loading...</p>;
+
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl dark:bg-gray-800">
       <div className="grid grid-cols-3 gap-4">
@@ -69,7 +87,7 @@ const DataKaryawan = () => {
           </form>
         </div>
       </div>
-      
+
       <div className="relative overflow-x-auto mt-5">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-900 uppercase dark:text-gray-400">
