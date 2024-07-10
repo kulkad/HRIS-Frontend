@@ -13,9 +13,9 @@ const Dropdown = () => {
           id="dropdownUserAvatarButton"
         >
           <span className="sr-only">Open user menu</span>
-          <Image
+          <img
             className="w-8 h-8 rounded-full"
-            src="/docs/images/people/profile-picture-3.jpg"
+            src="/assets/images/windah.jpg"
             alt="user photo"
             width={20}
             height={20}
