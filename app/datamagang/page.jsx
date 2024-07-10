@@ -2,11 +2,7 @@ import React from "react";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { BiSolidUserDetail } from "react-icons/bi";
-<<<<<<< HEAD
 import { useState, useEffect } from "react";
-=======
-import Link from "next/link";
->>>>>>> 450912ed2f663e26617d5308481deab4f327ea8b
 
 const DataMagang = () => {
   // Pengecekan Route Apakah User Sudah Login Atau belum
