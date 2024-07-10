@@ -33,7 +33,7 @@ export default function Login() {
       localStorage.setItem("user", JSON.stringify(response.data));
       // router.push("/about-us");
       // redirect("/about-us");
-      window.location.href = "http://localhost:3000/"
+      window.location.href = "http://localhost:3000/home"
     } catch (err) {
       // setError(err.response.data.msg);
       console.error(err);

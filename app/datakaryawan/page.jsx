@@ -5,6 +5,7 @@ import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const DataKaryawan = () => {
   // Pengecekan Route Apakah User Sudah Login Atau belum
@@ -27,13 +28,11 @@ const DataKaryawan = () => {
       <div className="grid grid-cols-3 gap-4 flex">
         <p className="px-6 py-8 font-semibold">DATA KARYAWAN</p>
         <div className="flex justify-end col-span-2 bg-white p-2 rounded-lg mb-2 dark:bg-gray-600">
-            <div className="self-end">
+          <div className="self-end">
             <div className="self-end items-center bg-green-400 hover:bg-green-6000 hover:text-gray-800 rounded-xl p-2">
-            <Link href="/tambahdata">
-            Tambah Data
-            </Link>
+              <Link href="/tambahdata">Tambah Data</Link>
             </div>
-            </div>
+          </div>
         </div>
       </div>
 

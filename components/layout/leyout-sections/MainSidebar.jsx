@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useState } from "react";
 import Link from "next/link";
-import { MenuContext } from "@/context/MenuContext";
+
 import { FaUser, FaClock } from "react-icons/fa";
 import { IoHome } from "react-icons/io5";
 import { AiOutlineHome, AiOutlineClose } from "react-icons/ai";
@@ -9,6 +9,8 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import { SiHelpscout, SiSinglestore } from "react-icons/si";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import { FaUserPlus } from "react-icons/fa";
+import { MenuContext } from '@/context/MenuContext';
+
 
 const MainSidebar = () => {
   const { open, toggle } = useContext(MenuContext);

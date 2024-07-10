@@ -1,3 +1,5 @@
+const path = require('path');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -9,6 +11,10 @@ const nextConfig = {
         pathname: '/img/**',
       },
     ],
+  },
+  webpack(config) {
+    config.resolve.alias['@'] = path.resolve(__dirname, 'components');
+    return config;
   },
 };
 

@@ -1,11 +1,13 @@
 'use client';
 
 import React, { useContext } from 'react';
-import MainHeader from './leyout-sections/MainHeader';
 
-import { MenuContext } from '@/context/MenuContext';
-import MainSidebar from './leyout-sections/MainSidebar';
+
 import MobileButtonNavigation from './leyout-sections/MobileButtonNavigation';
+import MainSidebar from './leyout-sections/MainSidebar';
+import MainHeader from './leyout-sections/MainHeader';
+import { MenuContext } from '../context/MenuContext';
+
 
 const MainLayout = ({ children }) => {
   const { open } = useContext(MenuContext);
