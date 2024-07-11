@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const DetailAbsen = () => {
   return (
@@ -10,9 +11,6 @@ const DetailAbsen = () => {
         <table className="w-full text-sm text-left rtl:text-right border-collapse border border-gray-200 dark:border-gray-600">
           <thead className="text-xs text-gray-900 uppercase dark:text-gray-400">
             <tr>
-              <th scope="col" className="px-6 py-3 border-b">
-                Foto
-              </th>
               <th scope="col" className="px-6 py-3 border-b">
                 Nama
               </th>
@@ -29,7 +27,6 @@ const DetailAbsen = () => {
           </thead>
           <tbody>
             <tr className="bg-white dark:bg-gray-800">
-              <td className="px-6 py-4 border-b"><img src="/assets/img/login.png" alt="" width={80} height={50}/></td>
               <td
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white border-b"
