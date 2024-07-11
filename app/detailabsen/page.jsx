@@ -4,7 +4,18 @@ import Image from "next/image";
 const DetailAbsen = () => {
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
-      <p className="px-6 py-10 font-semibold text-center">DETAIL ABSENSI</p>
+      <div className="grid grid-cols-3 gap-4 flex">
+        <p className="px-6 py-8 font-semibold">DETAIL DATA ABSEN</p>
+        <div className="flex justify-end col-span-2 bg-white p-2 rounded-lg mb-2 dark:bg-gray-600">
+            <div className="self-end">
+            <div className="self-end items-center bg-green-400 hover:bg-green-6000 hover:text-gray-800 rounded-xl p-2">
+            <Link href="/data-absensi">
+            Back
+            </Link>
+            </div>
+            </div>
+        </div>
+      </div>
       <div className="flex justify-end col-span-2 bg-white p-2 rounded-lg mb-2 dark:bg-gray-600">
       </div>
       <div className="relative overflow-x-auto mt-5 border">
