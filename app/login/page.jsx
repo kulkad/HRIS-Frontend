@@ -44,14 +44,13 @@ export default function Login() {
 
   return (
     <div className="flex h-screen bg-green-500">
-  
       <Head>
         <title>Login - HRIS CORPS</title>
       </Head>
       <div className="m-auto bg-white p-10 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-left text-2xl font-bold mb-6">
+        <h2 className="text-left text-l font-bold mb-6">
           Welcome to
-          <p className="text-green-500 font-bold mb-4">HRIS CORPS </p>
+          <p className="text-green-500 font-bold text-xl mb-4">HRIS CORPS </p>
         </h2>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <form onSubmit={handleLogin}>
@@ -65,7 +64,7 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="example@gmail.com"
+              placeholder="contoh@gmail.com"
             />
           </div>
           {/* <div className="mb-4">
@@ -89,12 +88,12 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder=""
+              placeholder="Masukkan password..."
             />
           </div>
           <div className="mb-4">
             <label className="block text-gray-700" htmlFor="password">
-              Confirmasi Password
+              Konfirmasi Password
             </label>
             <input
               type="password"
@@ -102,7 +101,7 @@ export default function Login() {
               value={confPassword}
               onChange={(e) => setconfPassword(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder=""
+              placeholder="Konfirmasi password"
             />
           </div>
           <button
