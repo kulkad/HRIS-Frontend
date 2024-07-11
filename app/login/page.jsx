@@ -44,10 +44,10 @@ export default function Login() {
   return (
     <div className="flex h-screen bg-green-500">
       <Image
-        src="/assets/image/login.png"
+        src="/assets/images/login.png"
         alt="Deskripsi gambar"
-        width={200} // lebar gambar dalam piksel
-        height={2} // tinggi gambar dalam piksel
+        width={500} // lebar gambar dalam piksel
+        height={10} // tinggi gambar dalam piksel
       />
       <Head>
         <title>Login - HRIS CORPS</title>
