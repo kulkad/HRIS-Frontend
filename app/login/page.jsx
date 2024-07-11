@@ -44,7 +44,6 @@ export default function Login() {
 
   return (
     <div className="flex h-screen bg-green-500">
-  
       <Head>
         <title>Login - HRIS CORPS</title>
       </Head>
