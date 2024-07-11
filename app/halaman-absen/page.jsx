@@ -2,13 +2,16 @@
 
 import React, { useRef, useState } from "react";
 import Webcam from "react-webcam";
+import { LuImagePlus } from "react-icons/lu";
+import { VscSend } from "react-icons/vsc";
 
 const HalamanAbsen = () => {
   const webcamRef = useRef(null);
   const [location, setLocation] = useState({ lat: null, long: null });
   const [photo, setPhoto] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("Select an option");
+  const [selectedItem, setSelectedItem] = useState("Alasan");
+  const locationRef = useRef(null); // Ref to store initial location
 
   const capture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -23,7 +26,10 @@ const HalamanAbsen = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        setLocation({ lat: latitude, long: longitude });
+        if (!locationRef.current) {
+          locationRef.current = { lat: latitude, long: longitude };
+          setLocation({ lat: latitude, long: longitude });
+        }
       },
       (error) => {
         console.error("Error getting location:", error.message);
@@ -38,7 +44,7 @@ const HalamanAbsen = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ photo, location }),
+      body: JSON.stringify({ photo, location: locationRef.current }),
     });
     const data = await response.json();
     console.log(data);
@@ -53,7 +59,7 @@ const HalamanAbsen = () => {
     setIsOpen(false);
   };
 
-  const items = ["Izin", "Sakit", "Bekerja di Luar"];
+  const items = ["Izin", "Sakit", "Lainnya"];
 
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl dark:bg-gray-800">
@@ -74,7 +80,7 @@ const HalamanAbsen = () => {
               />
             </div>
             {photo && (
-              <div className="ml-20 border rounded border-gray-900"> 
+              <div className="ml-20 border rounded border-gray-900">
                 <img src={photo} alt="Foto Karyawan" />
                 <p>Latitude: {location.lat}</p>
                 <p>Longitude: {location.long}</p>
@@ -99,51 +105,62 @@ const HalamanAbsen = () => {
           )}
         </div>
 
-        {/* dropdown */}
-        <hr className="mt-10 mb-3 border-black border-1"/>
-        <p className="text-left text-sm font-sans font-semibold text-red-500 mb-10">*Mohon mengisi kolum jika sedang berhalangan hadir.</p>
-        <div className="relative inline-block text-left w-full">
-          <div>
-            <button
-              type="button"
-              className="inline-flex justify-between w-30 rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
-              onClick={toggleDropdown}
-            >
-              {selectedItem}
-              <svg
-                className="-mr-1 ml-2 h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
+        <hr className="mt-10 mb-2 border-black border-1" />
+        <p className="text-left text-sm font-sans font-semibold text-red-500 mb-8">*Mohon mengisi kolum jika sedang berhalangan hadir.</p>
+
+        {/* alasan berhalangan hadir */}
+        <form>
+          <label htmlFor="chat" className="sr-only">Masukkan alasan tidak hadir ....</label>
+          <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700">
+            <div className="relative inline-block text-left w-32">
+              <button
+                type="button"
+                className="inline-flex justify-between w-30 rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
+                onClick={toggleDropdown}
               >
-                <path
-                  fillRule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
+                {selectedItem}
+                <svg
+                  className="-mr-1 ml-2 h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 111.414 1.414l-4 4a1 1 01-1.414 0l-4-4a1 1 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+              {isOpen && (
+                <div className="origin-top-right absolute left-0 mt-2 w-30 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                  <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                    {items.map((item) => (
+                      <a
+                        key={item}
+                        href="#"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                        role="menuitem"
+                        onClick={() => handleItemClick(item)}
+                      >
+                        {item}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            <input type="file" className="hidden" id="fileInput" />
+            <label htmlFor="fileInput" className="cursor-pointer ">
+              <LuImagePlus  size={35} className="ml-1 flex justify-center" />
+            </label>
+            <textarea id="chat" rows="1" className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan alasan..."></textarea>
+            <button type="submit" className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
+            <VscSend />
             </button>
           </div>
-
-          {isOpen && (
-            <div className="origin-top-right absolute left-0 mt-2 w-30 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-              <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                {items.map((item) => (
-                  <a
-                    key={item}
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                    role="menuitem"
-                    onClick={() => handleItemClick(item)}
-                  >
-                    {item}
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+        </form>
       </div>
     </div>
   );
