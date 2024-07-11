@@ -5,6 +5,7 @@ import Head from "next/head";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+
 import React, { useState } from "react";
 //import { useRouter } from "next/router";
 
@@ -43,12 +44,7 @@ export default function Login() {
 
   return (
     <div className="flex h-screen bg-green-500">
-      <Image
-        src="/assets/images/login.png"
-        alt="Deskripsi gambar"
-        width={500} // lebar gambar dalam piksel
-        height={10} // tinggi gambar dalam piksel
-      />
+  
       <Head>
         <title>Login - HRIS CORPS</title>
       </Head>
@@ -93,7 +89,7 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="********"
+              placeholder=""
             />
           </div>
           <div className="mb-4">
@@ -106,7 +102,7 @@ export default function Login() {
               value={confPassword}
               onChange={(e) => setconfPassword(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="********"
+              placeholder=""
             />
           </div>
           <button
