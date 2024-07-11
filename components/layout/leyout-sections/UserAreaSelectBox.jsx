@@ -1,8 +1,30 @@
-import Image from 'next/image';
-import { useState } from 'react';
+import Image from "next/image";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState();
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      // const data = await getUserData();
+      setUser(localStorage.getItem("user"));
+      setLoading(false);
+    };
+
+    fetchUserData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user) {
+    return <div>Please log in to view your profile.</div>;
+  }
 
   return (
     <div className="relative inline-block text-left">
@@ -13,12 +35,12 @@ const Dropdown = () => {
           id="dropdownUserAvatarButton"
         >
           <span className="sr-only">Open user menu</span>
-          <img
+          <Image
             className="w-8 h-8 rounded-full"
             src="/assets/images/windah.jpg"
             alt="user photo"
-            width={20}
-            height={20}
+            width={32}
+            height={32}
           />
         </button>
       </div>
@@ -31,10 +53,9 @@ const Dropdown = () => {
           aria-labelledby="dropdownUserAvatarButton"
         >
           <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <div>Jahdan Kopling</div>
-            <div className="font-medium truncate">jkopsling@gmail.com</div>
+            <div>{user.name}</div>
+            <div className="font-medium truncate"></div>
           </div>
-          
         </div>
       )}
     </div>
