@@ -31,7 +31,7 @@ const DetailUser = () => {
             <tr className="bg-white dark:bg-gray-800">
               <td className="px-6 py-4">
                 <img
-                  className="w-8 h-8"
+                  className="w-24 h-18"
                   src="/assets/images/windah.jpg"
                   alt="user photo"
                 />
