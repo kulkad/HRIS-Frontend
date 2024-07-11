@@ -13,7 +13,7 @@ const MainLayout = ({ children }) => {
   const lessThanLg = typeof window !== 'undefined' ? window?.innerWidth < 1024 : false;
 
   return (
-    <div className='min-h-screen bg-gray-200 dark:bg-slate-700'>
+    <div className='h-screen bg-gray-200 dark:bg-slate-700'>
       <MainSidebar />
       <div className={`${open && lessThanLg ? 'max-lg:blur-xl pointer-events-none' : ''}`}>
         <MainHeader />

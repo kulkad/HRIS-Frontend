@@ -44,7 +44,6 @@ export default function Login() {
 
   return (
     <div className="flex h-screen bg-green-500">
-  
       <Head>
         <title>Login - HRIS CORPS</title>
       </Head>
@@ -94,7 +93,7 @@ export default function Login() {
           </div>
           <div className="mb-4">
             <label className="block text-gray-700" htmlFor="password">
-              Confirmasi Password
+              Konfirmasi Password
             </label>
             <input
               type="password"
