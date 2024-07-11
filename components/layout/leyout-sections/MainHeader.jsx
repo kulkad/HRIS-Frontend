@@ -44,13 +44,6 @@ const MainHeader = () => {
             onClick={() => themeSwitchHandler("light")}
           />
         )}
-
-        <div>
-          <LanguageSelectBox />
-        </div>
-        <div onClick={toggle} className="lg:hidden">
-          <FaBars className="cursor-pointer" />
-        </div>
         <div>
           <UserAreaSelectBox />
         </div>
