@@ -19,6 +19,7 @@ const DataKaryawan = () => {
     } else {
       setUser(JSON.parse(userData));
     }
+    
   }, []);
 
   if (!user) return <p>Loading...</p>;
