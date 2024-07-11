@@ -72,7 +72,7 @@ const DataMagang = () => {
               <td class="px-6 py-4">
                 <li className="flex justify-start items-center hover:bg-green-200 hover:text-gray-800 rounded-xl p-2">
                   <MdEdit className="mr-1" />
-                  <a href="/">Edit</a>
+                  <a href="/edit-data">Edit</a>
                 </li>
                 <li className="flex justify-start items-center hover:bg-red-300 hover:text-gray-800 rounded-xl p-2">
                   <MdDelete className="mr-1" />
