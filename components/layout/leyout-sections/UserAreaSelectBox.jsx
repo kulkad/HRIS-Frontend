@@ -12,7 +12,7 @@ const Dropdown = () => {
       if (userData) {
         setUser(JSON.parse(userData)); // Ubah string JSON menjadi objek JavaScript dan simpan ke state user
       }
-      setLoading(false); // Set loading menjadi false setelah data diambil
+      setLoading(false); // Set loading menjadi false setelah data diambill
     };
 
     fetchUserData(); // Panggil fungsi fetchUserData saat komponen dimuat
