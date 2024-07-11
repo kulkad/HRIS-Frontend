@@ -12,9 +12,6 @@ const DetailAbsen = () => {
           <thead className="text-xs text-gray-900 uppercase dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3 border-b">
-                Foto
-              </th>
-              <th scope="col" className="px-6 py-3 border-b">
                 Nama
               </th>
               <th scope="col" className="px-6 py-3 border-b">
@@ -30,11 +27,6 @@ const DetailAbsen = () => {
           </thead>
           <tbody>
             <tr className="bg-white dark:bg-gray-800">
-              <td className="px-6 py-4 border-b"><img
-                  className="flex w-24 h-18"
-                  src="/assets/images/windah.jpg"
-                  alt="user photo"
-                /></td>
               <td
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white border-b"
