@@ -33,7 +33,7 @@ export default function Login() {
       localStorage.setItem("user", JSON.stringify(response.data));
       // router.push("/about-us");
       // redirect("/about-us");
-      window.location.href = "http://localhost:3000/home"
+      window.location.href = "http://localhost:3000/"
     } catch (err) {
       // setError(err.response.data.msg);
       console.error(err);
@@ -113,7 +113,7 @@ export default function Login() {
             type="submit"
             className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition duration-300"
           >
-            <a href="/home">Login</a>
+            <a>Login</a>
           </button>
         </form>
       </div>

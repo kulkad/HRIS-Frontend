@@ -5,7 +5,7 @@ import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const DataKaryawan = () => {
   // Pengecekan Route Apakah User Sudah Login Atau belum
@@ -19,6 +19,7 @@ const DataKaryawan = () => {
     } else {
       setUser(JSON.parse(userData));
     }
+    
   }, []);
 
   if (!user) return <p>Loading...</p>;
@@ -50,9 +51,6 @@ const DataKaryawan = () => {
                 Jenis Kelamin
               </th>
               <th scope="col" class="px-6 py-3">
-                Password
-              </th>
-              <th scope="col" class="px-6 py-3">
                 Action
               </th>
             </tr>
@@ -67,11 +65,10 @@ const DataKaryawan = () => {
               </th>
               <td class="px-6 py-4">Udin@gmail.com</td>
               <td class="px-6 py-4">Laki-Laki</td>
-              <td class="px-6 py-4">test123#</td>
               <td class="px-6 py-4">
                 <li className="flex justify-start items-center hover:bg-green-200 hover:text-gray-800 rounded-xl p-2">
                   <MdEdit className="mr-1" />
-                  <a href="/">Edit</a>
+                  <a href="/edit-data">Edit</a>
                 </li>
                 <li className="flex justify-start items-center hover:bg-red-300 hover:text-gray-800 rounded-xl p-2">
                   <MdDelete className="mr-1" />
@@ -79,7 +76,7 @@ const DataKaryawan = () => {
                 </li>
                 <li className="flex justify-start items-center hover:bg-blue-200 hover:text-gray-800 rounded-xl p-2">
                   <BiSolidUserDetail te className="mr-1" />
-                  <a href="/">Detail</a>
+                  <a href="/detailabsen">Detail</a>
                 </li>
               </td>
             </tr>
