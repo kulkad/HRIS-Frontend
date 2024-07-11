@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useState, useEffect } from "react";
+import { BiSolidUserDetail } from "react-icons/bi";
 
 const DataKaryawan = () => {
   // Pengecekan Route Apakah User Sudah Login Atau belum
@@ -104,6 +105,9 @@ const DataKaryawan = () => {
               <th scope="col" className="px-6 py-3">
                 Date
               </th>
+              <th scope="col" className="px-6 py-3">
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -117,6 +121,12 @@ const DataKaryawan = () => {
               </th>
               <td className="px-6 py-4">PKL</td>
               <td className="px-6 py-4">123</td>
+              <td className="px-6 py-4">
+                <li className="flex justify-start items-center hover:bg-blue-200 hover:text-gray-800 rounded-xl p-2">
+                  <BiSolidUserDetail te className="mr-1" />
+                  <a href="/detailabsen">Detail</a>
+                </li>
+              </td>
             </tr>
           </tbody>
         </table>
