@@ -1,8 +1,5 @@
 "use client";
 
-import { AiOutlineGithub } from "react-icons/ai";
-import { ImYoutube2 } from "react-icons/im";
-import { MdOutlinePlaylistPlay } from "react-icons/md";
 import React from "react";
 import { useEffect, useState } from "react";
 //import { useRouter } from "next/router";
