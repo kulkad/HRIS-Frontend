@@ -52,9 +52,6 @@ const DataManager = () => {
                 Jenis Kelamin
               </th>
               <th scope="col" class="px-6 py-3">
-                Password
-              </th>
-              <th scope="col" class="px-6 py-3">
                 Action
               </th>
             </tr>
@@ -69,7 +66,6 @@ const DataManager = () => {
               </th>
               <td class="px-6 py-4">Udin@gmail.com</td>
               <td class="px-6 py-4">Laki-Laki</td>
-              <td class="px-6 py-4">test123#</td>
               <td class="px-6 py-4">
                 <li className="flex justify-start items-center hover:bg-green-200 hover:text-gray-800 rounded-xl p-2">
                   <MdEdit className="mr-1" />
