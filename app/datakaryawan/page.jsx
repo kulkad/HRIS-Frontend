@@ -79,7 +79,7 @@ const DataKaryawan = () => {
                 </li>
                 <li className="flex justify-start items-center hover:bg-blue-200 hover:text-gray-800 rounded-xl p-2">
                   <BiSolidUserDetail te className="mr-1" />
-                  <a href="/">Detail</a>
+                  <a href="/detailabsen">Detail</a>
                 </li>
               </td>
             </tr>
