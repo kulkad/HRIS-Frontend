@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useState } from "react";
 import Link from "next/link";
 
+import { FaCamera } from "react-icons/fa";
 import { FaUser, FaClock } from "react-icons/fa";
 import { IoHome } from "react-icons/io5";
 import { AiOutlineHome, AiOutlineClose } from "react-icons/ai";
@@ -97,7 +98,14 @@ const MainSidebar = () => {
         <li className="flex justify-start items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2">
           <FaClock className="mr-2" />
           <Link href="data-absensi" onClick={closeSeideBarHandler}>
-            Daftar Absensi
+            Data Absensi
+          </Link>
+        </li>
+
+        <li className="flex justify-start items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2">
+          <FaCamera className="mr-2" />
+          <Link href="daftarabsen" onClick={closeSeideBarHandler}>
+            Daftar Absen
           </Link>
         </li>
 
