@@ -17,7 +17,7 @@ const MainLayout = ({ children }) => {
       {pathName !== '/login' && <MainSidebar />}
       {pathName !== '/login' && <MainHeader />}
       <div className={`${open && lessThanLg ? 'max-lg blur-xl pointer-events-none' : ''}`}>
-        <main className='lg:ml-[280px]'>{children}</main>
+        <main className={pathName !== '/login' && 'lg:ml-[280px]'}>{children}</main>
       </div>
       <MobileButtonNavigation />
     </div>
