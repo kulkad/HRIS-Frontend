@@ -7,9 +7,9 @@ import { FaLock } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { IoMdImage } from "react-icons/io";
 
-const TambahData = () => {
+const EditData = () => {
   // Pengecekan Route Apakah User Sudah Login Atau belum
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
   // const router = useRouter();
 
   useEffect(() => {
@@ -24,12 +24,10 @@ const TambahData = () => {
   if (!user) return <p>Loading...</p>;
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
-      <h1 className="mt-1 mb-4 font-semibold">Form Tambah User</h1>
+      <h1 className="mt-1 mb-4 font-semibold">Form Edit User</h1>
 
       <form className="max-w">
-        <label
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
+        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
           Nama
         </label>
         <div className="relative">
@@ -43,9 +41,7 @@ const TambahData = () => {
             placeholder="your name"
           />
         </div>
-        <label
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
+        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
           Email
         </label>
         <div className="relative">
@@ -60,9 +56,7 @@ const TambahData = () => {
           />
         </div>
 
-        <label
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
+        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
           Password
         </label>
         <div className="relative">
@@ -101,4 +95,4 @@ const TambahData = () => {
   );
 };
 
-export default TambahData;
+export default EditData;
