@@ -5,6 +5,7 @@ import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 const DataPKL = () => {
   // Pengecekan Route Apakah User Sudah Login Atau belum
