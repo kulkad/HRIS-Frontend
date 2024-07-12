@@ -56,18 +56,24 @@ const DataManager = () => {
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
       <div className="grid grid-cols-3 gap-4 flex">
-        <p className="px-6 py-8 font-semibold">DATA MANAGER / {user["role"]}</p>
-        <div className="flex justify-end col-span-2 bg-white p-2 rounded-lg mb-2 dark:bg-gray-600">
+        <p className="px-6 py-8 font-semibold">DATA MANAGER</p>
+        <div className="flex justify-end col-span-2 bg-white p-5 rounded-lg mb-2 dark:bg-gray-600">
           <Link
             href="/tambahdata"
-            className="bg-green-400 hover:bg-green-600 rounded-xl p-2"
+            className="bg-green-400 hover:bg-green-600 rounded-xl p-2 mr-4"
           >
             Tambah Data
+          </Link>
+          <Link
+            href="/daftarabsen"
+            className="bg-green-400 hover:bg-green-600 rounded-xl p-2"
+          >
+            Daftar Muka
           </Link>
         </div>
       </div>
 
-      <div className="relative overflow-x-auto">
+      <div className="relative overflow-x-auto hidden sm:block">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-900 uppercase dark:text-gray-400">
             <tr>
