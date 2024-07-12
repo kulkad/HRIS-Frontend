@@ -14,7 +14,7 @@ const navButtonsList = [
   { id: 1, label: 'Home', icon: < HiDocumentAdd />, path: '/daftarabsen' },
   { id: 2, label: 'Search', icon: <FaUserCheck />, path: '/halaman-absen' },
   { id: 3, label: 'Add', icon: <MdHome/>, path: '/' },
-  { id: 4, label: 'Favorites', icon: <FaTask />, path: '/data-absensi' },
+  { id: 4, label: 'Favorites', icon: <FaTasks />, path: '/data-absensi' },
   { id: 5, label: 'User Area', icon: <FiUser />, path: '/profile' },
 ];
 
