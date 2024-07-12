@@ -21,6 +21,7 @@ const DataManager = () => {
     }
   }, []);
 
+  //if(userData !== role) return
   useEffect(() => {
     const fetchUsersByRole = async () => {
       try {
@@ -30,16 +31,16 @@ const DataManager = () => {
             withCredentials: true, // Mengirim sesi
           }
         );
+        console.log("coba", response.data);
+
         setUsersByRole(response.data); // Simpan data pengguna berdasarkan role
       } catch (error) {
         console.error("Error fetching users:", error.message);
       }
     };
 
-    if (user) {
-      fetchUsersByRole(); // Panggil fungsi jika user sudah ada
-    }
-  }, [user, role]);
+    fetchUsersByRole(); // Panggil fungsi jika user sudah ada
+  }, []);
 
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => {
@@ -52,12 +53,10 @@ const DataManager = () => {
 
   if (!user) return <p>Loading...</p>;
 
-  
-
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
       <div className="grid grid-cols-3 gap-4 flex">
-        <p className="px-6 py-8 font-semibold">DATA MANAGER</p>
+        <p className="px-6 py-8 font-semibold">DATA MANAGER / {user["role"]}</p>
         <div className="flex justify-end col-span-2 bg-white p-2 rounded-lg mb-2 dark:bg-gray-600">
           <Link
             href="/tambahdata"
