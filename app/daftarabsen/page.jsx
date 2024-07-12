@@ -5,10 +5,11 @@ import * as faceapi from "face-api.js";
 import Webcam from "react-webcam";
 import { LuImagePlus } from "react-icons/lu";
 import { VscSend } from "react-icons/vsc";
+import axios from "axios";
 
 const DaftarAbsen = () => {
   const webcamRef = useRef(null);
-  const [location, setLocation] = useState({ lat: null, long: null });
+  // const [location, setLocation] = useState({ lat: null, long: null });
   const [photo, setPhoto] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState("Alasan");
@@ -28,42 +29,47 @@ const DaftarAbsen = () => {
     loadModels();
   }, []);
 
-  const capture = (imageRef) => {
+  const capture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setPhoto(imageSrc);
-   // imageRef.current.src = imageSrc;
+    // imageRef.current.src = imageSrc;
 
-    const options = {
-      enableHighAccuracy: true,
-      timeout: 15000,
-      maximumAge: 0,
-    };
+    // const options = {
+    //   enableHighAccuracy: true,
+    //   timeout: 15000,
+    //   maximumAge: 0,
+    // };
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        if (!locationRef.current) {
-          locationRef.current = { lat: latitude, long: longitude };
-          setLocation({ lat: latitude, long: longitude });
-        }
-      },
-      (error) => {
-        console.error("Error getting location:", error.message);
-      },
-      options
-    );
+    // navigator.geolocation.getCurrentPosition(
+    //   (position) => {
+    //     const { latitude, longitude } = position.coords;
+    //     if (!locationRef.current) {
+    //       locationRef.current = { lat: latitude, long: longitude };
+    //       setLocation({ lat: latitude, long: longitude });
+    //     }
+    //   },
+    //   (error) => {
+    //     console.error("Error getting location:", error.message);
+    //   },
+    //   options
+    // );
   };
 
   const handleSubmit = async () => {
-    const response = await fetch("http://localhost:5001/absen", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ photo, location: locationRef.current }),
-    });
-    const data = await response.json();
-    console.log(data);
+    try {
+      const formData = new FormData();
+      formData.append("photo", photo);
+
+      const response = await axios.patch("http://localhost:5001/userAbsen", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        //body: JSON.stringify({ photo }),
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error submitting data:", error.message);
+    }
   };
 
   const toggleDropdown = () => {
@@ -105,8 +111,8 @@ const DaftarAbsen = () => {
             {photo && (
               <div className="ml-20 border rounded border-gray-900">
                 <img src={photo} alt="Foto Karyawan" />
-                <p>Latitude: {location.lat}</p>
-                <p>Longitude: {location.long}</p>
+                {/* <p>Latitude: {location.lat}</p>
+                <p>Longitude: {location.long}</p> */}
               </div>
             )}
           </div>
