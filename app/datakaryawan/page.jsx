@@ -1,17 +1,16 @@
 "use client";
 
-import React from "react";
-import { MdEdit } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
+import React, { useState, useEffect } from "react";
+import { MdEdit, MdDelete } from "react-icons/md";
 import { BiSolidUserDetail } from "react-icons/bi";
-import { useState, useEffect } from "react";
-import Link from "next/link";
 import { SlOptionsVertical } from "react-icons/sl";
+import Link from "next/link";
+import axios from "axios";
 
 const DataKaryawan = () => {
-  // Pengecekan Route Apakah User Sudah Login Atau belum
   const [user, setUser] = useState(null);
-  // const router = useRouter();
+  const [usersByRole, setUsersByRole] = useState([]);
+  const role = "Karyawan"; // Sesuaikan dengan role yang ingin Anda ambil datanya
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -22,8 +21,28 @@ const DataKaryawan = () => {
     }
   }, []);
 
-  const [isOpen, setIsOpen] = useState(false);
+  //if(userData !== role) return
+  useEffect(() => {
+    const fetchUsersByRole = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/userbyrole/${role}`,
+          {
+            withCredentials: true, // Mengirim sesi
+          }
+        );
+        console.log("coba", response.data);
 
+        setUsersByRole(response.data); // Simpan data pengguna berdasarkan role
+      } catch (error) {
+        console.error("Error fetching users:", error.message);
+      }
+    };
+
+    fetchUsersByRole(); // Panggil fungsi jika user sudah ada
+  }, []);
+
+  const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -37,18 +56,18 @@ const DataKaryawan = () => {
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
       <div className="grid grid-cols-3 gap-4 flex">
-        <p className="px-6 py-8 font-semibold">DATA KARYAWAN</p>
+        <p className="px-6 py-8 font-semibold">DATA KARYAWAN </p>
         <div className="flex justify-end col-span-2 bg-white p-2 rounded-lg mb-2 dark:bg-gray-600">
-          <div className="self-end">
-            <div className="self-end items-center bg-green-400 hover:bg-green-600 hover:text-gray-800 rounded-xl p-2">
-              <Link href="/tambahdata">Tambah Data</Link>
-            </div>
-          </div>
+          <Link
+            href="/tambahdata"
+            className="bg-green-400 hover:bg-green-600 rounded-xl p-2"
+          >
+            Tambah Data
+          </Link>
         </div>
       </div>
 
-      {/* Tampilan untuk laptop */}
-      <div className="relative overflow-x-auto w-full hidden sm:block">
+      <div className="relative overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-900 uppercase dark:text-gray-400">
             <tr>
@@ -59,7 +78,7 @@ const DataKaryawan = () => {
                 Email
               </th>
               <th scope="col" className="px-6 py-3">
-                Jenis Kelamin
+                Role
               </th>
               <th scope="col" className="px-6 py-3">
                 Action
@@ -67,32 +86,38 @@ const DataKaryawan = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white dark:bg-gray-800">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Udin LinkedIn
-              </th>
-              <td className="px-6 py-4">Udin@gmail.com</td>
-              <td className="px-6 py-4">Laki-Laki</td>
-              <td className="px-6 py-4">
-                <ul>
-                  <li className="flex justify-start items-center hover:bg-green-200 hover:text-gray-800 rounded-xl p-2">
-                    <MdEdit className="mr-1" />
-                    <a href="/edit-data">Edit</a>
-                  </li>
-                  <li className="flex justify-start items-center hover:bg-red-300 hover:text-gray-800 rounded-xl p-2">
-                    <MdDelete className="mr-1" />
-                    <a href="/">Delete</a>
-                  </li>
-                  <li className="flex justify-start items-center hover:bg-blue-200 hover:text-gray-800 rounded-xl p-2">
-                    <BiSolidUserDetail className="mr-1" />
-                    <a href="/detailuser">Detail</a>
-                  </li>
-                </ul>
-              </td>
-            </tr>
+            {usersByRole.map((user) => (
+              <tr key={user.uuid} className="bg-white dark:bg-gray-800">
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  {user.name}
+                </th>
+                <td className="px-6 py-4">{user.email}</td>
+                <td className="px-6 py-4">{user.role}</td>
+                <td className="px-6 py-4">
+                  <Link
+                    href={`/edit-data/${user.uuid}`}
+                    className="flex items-center hover:bg-green-200 hover:text-gray-800 rounded-xl p-2"
+                  >
+                    <MdEdit className="mr-1" /> Edit
+                  </Link>
+                  <Link
+                    href={`/delete-data/${user.uuid}`}
+                    className="flex items-center hover:bg-red-300 hover:text-gray-800 rounded-xl p-2"
+                  >
+                    <MdDelete className="mr-1" /> Delete
+                  </Link>
+                  <Link
+                    href={`/detailuser/${user.uuid}`}
+                    className="flex items-center hover:bg-blue-200 hover:text-gray-800 rounded-xl p-2"
+                  >
+                    <BiSolidUserDetail className="mr-1" /> Detail
+                  </Link>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
