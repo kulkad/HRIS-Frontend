@@ -28,6 +28,8 @@ const Dropdown = () => {
   }
 
   return (
+    <div className="fade-left bg-blue-500 p-4 rounded-lg shadow-lg">
+
     <div className="relative inline-block text-left">
       <div>
         <Link href="/profile" passHref>
@@ -60,7 +62,9 @@ const Dropdown = () => {
             <div className="font-medium truncate">{user.email}</div>
           </div>
         </div>
+
       )}
+    </div>
     </div>
   );
 };
