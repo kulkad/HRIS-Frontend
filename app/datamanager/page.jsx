@@ -10,7 +10,7 @@ import axios from "axios";
 const DataManager = () => {
   const [user, setUser] = useState(null);
   const [usersByRole, setUsersByRole] = useState([]);
-  const role = "Manager"; // Sesuaikan dengan role yang ingin Anda ambil datanya
+  const role = "Manager"; // Sesuaikan dengan role yang ingin Anda ambil datanyaa
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -73,7 +73,7 @@ const DataManager = () => {
         </div>
       </div>
 
-      <div className="relative overflow-x-auto">
+      <div className="relative overflow-x-auto hidden sm:block">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-900 uppercase dark:text-gray-400">
             <tr>
