@@ -5,21 +5,24 @@ import { usePathname } from 'next/navigation';
 import { BiHeart } from 'react-icons/bi';
 import { FiSearch, FiUser } from 'react-icons/fi';
 import { MdHome, MdOutlineAddBox } from 'react-icons/md';
+import { HiDocumentAdd } from "react-icons/hi";
+import { FaUserCheck } from "react-icons/fa";
+import { FaTasks } from "react-icons/fa";
 import Link from 'next/link';
 
 const navButtonsList = [
-  { id: 1, label: 'Home', icon: <MdHome />, path: '/' },
-  { id: 2, label: 'Search', icon: <FiSearch />, path: '/search' },
-  { id: 3, label: 'Add', icon: <MdOutlineAddBox />, path: '/add' },
-  { id: 4, label: 'Favorites', icon: <BiHeart />, path: '/favorites' },
-  { id: 5, label: 'User Area', icon: <FiUser />, path: '/users' },
+  { id: 1, label: 'Home', icon: < HiDocumentAdd />, path: '/daftarabsen' },
+  { id: 2, label: 'Search', icon: <FaUserCheck />, path: '/halaman-absen' },
+  { id: 3, label: 'Add', icon: <MdHome/>, path: '/' },
+  { id: 4, label: 'Favorites', icon: <FaTask />, path: '/data-absensi' },
+  { id: 5, label: 'User Area', icon: <FiUser />, path: '/profile' },
 ];
 
 const MobileButtonNavigation = () => {
   const path = usePathname();
 
   return (
-    <div className='fixed bottom-0 left-0 right-0 w-full h-12 bg-white sm:hidden'>
+    <div className='fixed bottom-0 left-0 right-0 w-full h-12 bg-white sm:hidden dark:bg-gray-800'>
       <div className='flex justify-around items-center h-12 gap-x-3 border-t-2 border-t-gray-200'>
         {navButtonsList.map((item) => (
           <Link
