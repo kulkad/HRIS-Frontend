@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { BiSolidUserDetail } from "react-icons/bi";
+import { SlOptionsVertical } from "react-icons/sl";
 import Link from "next/link";
 import axios from "axios";
 
@@ -40,7 +41,18 @@ const DataManager = () => {
     }
   }, [user, role]);
 
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeDropdownHandler = () => {
+    setIsOpen(false);
+  };
+
   if (!user) return <p>Loading...</p>;
+
+  
 
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
