@@ -6,6 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { SlOptionsVertical } from "react-icons/sl";
 
 const DataPKL = () => {
   // Pengecekan Route Apakah User Sudah Login Atau belum
@@ -20,6 +21,15 @@ const DataPKL = () => {
       setUser(JSON.parse(userData));
     }
   }, []);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeDropdownHandler = () => {
+    setIsOpen(false);
+  };
 
   if (!user) return <p>Loading...</p>;
   return (

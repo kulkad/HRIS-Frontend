@@ -5,6 +5,7 @@ import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { useState, useEffect } from "react";
+import { SlOptionsVertical } from "react-icons/sl";
 import Link from "next/link";
 
 const DataMagang = () => {
@@ -20,6 +21,15 @@ const DataMagang = () => {
       setUser(JSON.parse(userData));
     }
   }, []);
+  
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeDropdownHandler = () => {
+    setIsOpen(false);
+  };
 
   if (!user) return <p>Loading...</p>;
   return (

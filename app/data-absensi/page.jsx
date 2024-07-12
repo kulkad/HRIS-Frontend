@@ -3,6 +3,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { BiSolidUserDetail } from "react-icons/bi";
+import { SlOptionsVertical } from "react-icons/sl";
 
 const DataKaryawan = () => {
   // Pengecekan Route Apakah User Sudah Login Atau belum
@@ -17,6 +18,15 @@ const DataKaryawan = () => {
       setUser(JSON.parse(userData));
     }
   }, []);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeDropdownHandler = () => {
+    setIsOpen(false);
+  };
 
   if (!user) return <p>Loading...</p>;
 

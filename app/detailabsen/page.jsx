@@ -1,6 +1,16 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { SlOptionsVertical } from "react-icons/sl";
+
+const [isOpen, setIsOpen] = useState(false);
+const toggleDropdown = () => {
+  setIsOpen(!isOpen);
+};
+
+const closeDropdownHandler = () => {
+  setIsOpen(false);
+};
 
 const DetailAbsen = () => {
   return (
