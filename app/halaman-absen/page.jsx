@@ -6,19 +6,21 @@ import { LuImagePlus } from "react-icons/lu";
 import { VscSend } from "react-icons/vsc";
 
 const HalamanAbsen = () => {
-  const webcamRef = useRef(null);
-  const [location, setLocation] = useState({ lat: null, long: null });
-  const [photo, setPhoto] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
+  // State variables and references
+  const webcamRef = useRef(null); 
+  const [location, setLocation] = useState({ lat: null, long: null }); 
+  const [photo, setPhoto] = useState(null); 
+  const [isOpen, setIsOpen] = useState(false); 
   const [selectedItem, setSelectedItem] = useState("Alasan");
-  const [isAbsent, setIsAbsent] = useState(false); // New state to handle absence
-  const [showWebcam, setShowWebcam] = useState(true); // New state to handle webcam visibility
-  const locationRef = useRef(null); // Ref to store initial location
+  const [isAbsent, setIsAbsent] = useState(false); 
+  const [showWebcam, setShowWebcam] = useState(true); 
+  const locationRef = useRef(null); 
 
+  // Function to capture a photo and retrieve the user's current location
   const capture = () => {
-    const imageSrc = webcamRef.current.getScreenshot();
+    const imageSrc = webcamRef.current.getScreenshot(); // Capture the photo
     setPhoto(imageSrc);
-    setShowWebcam(false);
+    setShowWebcam(false); 
 
     const options = {
       enableHighAccuracy: true,
@@ -26,6 +28,7 @@ const HalamanAbsen = () => {
       maximumAge: 0,
     };
 
+    // Get the user's current location
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
@@ -41,6 +44,7 @@ const HalamanAbsen = () => {
     );
   };
 
+  // Function untuk kirim foto dan lokasi ke server
   const handleSubmit = async () => {
     const response = await fetch("http://localhost:5000/absensi", {
       method: "POST",
@@ -53,21 +57,23 @@ const HalamanAbsen = () => {
     console.log(data);
   };
 
+  // Function to toggle the dropdown visibility
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
+  // Function to handle item click in the dropdown and set the selected item
   const handleItemClick = (item) => {
     setSelectedItem(item);
     setIsOpen(false);
   };
 
-  const items = ["Izin", "Sakit", "Lainnya"];
-
+  // Function to toggle the absence state and show/hide the absence form
   const toggleAbsent = () => {
     setIsAbsent(!isAbsent);
   };
 
+  // Function to retake the photo by resetting the photo state and showing the webcam
   const retakePhoto = () => {
     setPhoto(null);
     setShowWebcam(true);
@@ -75,20 +81,26 @@ const HalamanAbsen = () => {
 
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl dark:bg-gray-800">
+      {/* Title Section */}
       <div className="grid grid-cols-3 gap-4">
         <p className="px-6 py-10 font-semibold dark:text-white">Halaman Absen</p>
       </div>
+
+      {/* Webcam and Photo Section */}
       <div className="mt-5 place-content-center">
         <div className="flex justify-center">
           <div className="flex flex-row items-start">
             {showWebcam && (
-              <div className="rounded-md overflow-hidden border border-gray-900" style={{ width: "100%", maxWidth: "400px", height: "auto", background: "gray" }}>
+              <div
+                className="rounded-md overflow-hidden border border-gray-900"
+                style={{ width: "100%", maxWidth: "400px", height: "auto", background: "gray" }}
+              >
                 <Webcam
                   audio={false}
                   ref={webcamRef}
                   screenshotFormat="image/png"
                   mirrored={false} // Disable mirroring
-                  style={{ width: "100%", height: "auto" }} // Make webcam responsive
+                  style={{ width: "100%", height: "auto" }} // Responsive design
                 />
               </div>
             )}
@@ -101,6 +113,8 @@ const HalamanAbsen = () => {
             )}
           </div>
         </div>
+
+        {/* Buttons Section */}
         <div className="flex justify-center gap-16 ">
           {showWebcam && (
             <button
@@ -128,23 +142,30 @@ const HalamanAbsen = () => {
           )}
         </div>
 
+        {/* Absen button section */}
         <div className="flex justify-center mt-5">
           <button
             onClick={toggleAbsent}
-            className={`mt-3 w-30 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${isAbsent ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-${isAbsent ? 'red' : 'green'}-500`}
+            className={`mt-3 w-30 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
+              isAbsent ? "bg-red-600 hover:bg-red-700" : "bg-green-600 hover:bg-green-700"
+            } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-${isAbsent ? "red" : "green"}-500`}
           >
             {isAbsent ? "Tidak Hadir" : "Hadir"}
           </button>
         </div>
 
+        {/* Form absen section */}
         {isAbsent && (
           <>
             <hr className="mt-10 mb-2 border-black border-1" />
-            <p className="text-left text-sm font-sans font-semibold text-red-500 mb-8">*Mohon mengisi kolum jika sedang berhalangan hadir.</p>
+            <p className="text-left text-sm font-sans font-semibold text-red-500 mb-8">
+              *Mohon mengisi kolum jika sedang berhalangan hadir.
+            </p>
 
-            {/* alasan berhalangan hadir */}
             <form>
-              <label htmlFor="chat" className="sr-only">Masukkan alasan tidak hadir ....</label>
+              <label htmlFor="chat" className="sr-only">
+                Masukkan alasan tidak hadir ....
+              </label>
               <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700">
                 <div className="relative inline-block text-left w-32">
                   <button
@@ -162,15 +183,20 @@ const HalamanAbsen = () => {
                     >
                       <path
                         fillRule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 111.414 1.414l-4 4a 1 1 01-1.414 0l-4-4a1 1 010-1.414z"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 111.414 1.414l-4 4a1 1 01-1.414 0l-4-4a1 1 010-1.414z"
                         clipRule="evenodd"
                       />
                     </svg>
                   </button>
                   {isOpen && (
                     <div className="origin-top-right absolute left-0 mt-2 w-30 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                      <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                        {items.map((item) => (
+                      <div
+                        className="py-1"
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="options-menu"
+                      >
+                        {["Izin", "Sakit", "Lainnya"].map((item) => (
                           <a
                             key={item}
                             href="#"
@@ -189,8 +215,16 @@ const HalamanAbsen = () => {
                 <label htmlFor="fileInput" className="cursor-pointer ">
                   <LuImagePlus size={35} className="ml-1 flex justify-center" />
                 </label>
-                <textarea id="chat" rows="1" className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan alasan..."></textarea>
-                <button type="submit" className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
+                <textarea
+                  id="chat"
+                  rows="1"
+                  className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Masukkan alasan..."
+                ></textarea>
+                <button
+                  type="submit"
+                  className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600"
+                >
                   <VscSend />
                 </button>
               </div>
@@ -201,5 +235,6 @@ const HalamanAbsen = () => {
     </div>
   );
 };
+
 
 export default HalamanAbsen;

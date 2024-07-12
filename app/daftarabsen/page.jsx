@@ -3,8 +3,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import * as faceapi from "face-api.js";
 import Webcam from "react-webcam";
-import { LuImagePlus } from "react-icons/lu";
-import { VscSend } from "react-icons/vsc";
 
 const DaftarAbsen = () => {
   const webcamRef = useRef(null);
