@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import * as faceapi from "face-api.js";
 import Webcam from "react-webcam";
-import { LuImagePlus } from "react-icons/lu";
-import { VscSend } from "react-icons/vsc";
 
 const DaftarAbsen = () => {
   const webcamRef = useRef(null);
@@ -12,10 +11,25 @@ const DaftarAbsen = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState("Alasan");
   const locationRef = useRef(null); // Ref to store initial location
+  // Pemisah untuk membuat var Facecomparsion
+  const [initializing, setInitializing] = useState(true);
+  // Hook useEffect untuk memuat model face-api.js saat komponen pertama kali di-render
+  useEffect(() => {
+    const loadModels = async () => {
+      const MODEL_URL = "/models";
+      await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+      await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+      await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+      await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
+      setInitializing(false);
+    };
+    loadModels();
+  }, []);
 
-  const capture = () => {
+  const capture = (imageRef) => {
     const imageSrc = webcamRef.current.getScreenshot();
     setPhoto(imageSrc);
+   // imageRef.current.src = imageSrc;
 
     const options = {
       enableHighAccuracy: true,
@@ -39,7 +53,7 @@ const DaftarAbsen = () => {
   };
 
   const handleSubmit = async () => {
-    const response = await fetch("http://localhost:5000/absensi", {
+    const response = await fetch("http://localhost:5001/absen", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,17 +73,24 @@ const DaftarAbsen = () => {
     setIsOpen(false);
   };
 
-  const items = ["Izin", "Sakit", "Lainnya"];
-
+  if (initializing) {
+    return <div>Loading models...</div>;
+  }
+  console.log("tes", initializing);
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl dark:bg-gray-800">
       <div className="grid grid-cols-3 gap-4">
-        <p className="px-6 py-10 font-semibold dark:text-white">Halaman Daftar Absen</p>
+        <p className="px-6 py-10 font-semibold dark:text-white">
+          Halaman Daftar Absen
+        </p>
       </div>
       <div className="mt-5 place-content-center">
         <div className="flex justify-center">
           <div className="flex flex-row items-start">
-            <div className="rounded-md overflow-hidden border border-gray-900" style={{ width: "260px", height: "200px" }}>
+            <div
+              className="rounded-md overflow-hidden border border-gray-900"
+              style={{ width: "260px", height: "200px" }}
+            >
               <Webcam
                 audio={false}
                 ref={webcamRef}
