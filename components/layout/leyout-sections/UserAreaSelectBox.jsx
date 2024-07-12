@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false); // State untuk mengontrol keadaan dropdown terbuka
@@ -12,7 +13,7 @@ const Dropdown = () => {
       if (userData) {
         setUser(JSON.parse(userData)); // Ubah string JSON menjadi objek JavaScript dan simpan ke state user
       }
-      setLoading(false); // Set loading menjadi false setelah data diambill
+      setLoading(false); // Set loading menjadi false setelah data diambil
     };
 
     fetchUserData(); // Panggil fungsi fetchUserData saat komponen dimuat
@@ -29,20 +30,22 @@ const Dropdown = () => {
   return (
     <div className="relative inline-block text-left">
       <div>
-        <button
-          onClick={() => setIsOpen(!isOpen)} // Mengubah keadaan isOpen saat tombol avatar diklik
-          className="flex text-sm bg-gray-800 rounded-full focus:outline-none"
-          id="dropdownUserAvatarButton"
-        >
-          <span className="sr-only">Open user menu</span>
-          <Image
-            className="w-8 h-8 rounded-full"
-            src={user.url}
-            alt="user photo"
-            width={32}
-            height={32}
-          />
-        </button>
+        <Link href="/profile" passHref>
+          <button
+            onClick={() => setIsOpen(!isOpen)} // Mengubah keadaan isOpen saat tombol avatar diklik
+            className="flex text-sm bg-gray-800 rounded-full focus:outline-none"
+            id="dropdownUserAvatarButton"
+          >
+            <span className="sr-only">Open user menu</span>
+            <Image
+              className="w-8 h-8 rounded-full"
+              src={user.url}
+              alt="user photo"
+              width={32}
+              height={32}
+            />
+          </button>
+        </Link>
       </div>
 
       {isOpen && (
