@@ -10,7 +10,7 @@ import axios from "axios";
 const DataManager = () => {
   const [user, setUser] = useState(null);
   const [usersByRole, setUsersByRole] = useState([]);
-  const role = "Manager"; // Sesuaikan dengan role yang ingin Anda ambil datanya
+  const role = "Manager"; // Sesuaikan dengan role yang ingin Anda ambil datanyaa
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
