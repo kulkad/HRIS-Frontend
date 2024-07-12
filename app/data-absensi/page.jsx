@@ -3,6 +3,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { BiSolidUserDetail } from "react-icons/bi";
+import { SlOptionsVertical } from "react-icons/sl";
 
 const DataKaryawan = () => {
   // Pengecekan Route Apakah User Sudah Login Atau belum
@@ -18,12 +19,22 @@ const DataKaryawan = () => {
     }
   }, []);
 
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeDropdownHandler = () => {
+    setIsOpen(false);
+  };
+
   if (!user) return <p>Loading...</p>;
 
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl dark:bg-gray-800">
       <div className="grid grid-cols-3 gap-4">
         <p className="px-6 py-10 font-semibold dark:text-white">DATA ABSENSI</p>
+
         <div className="flex justify-end col-span-2 bg-white p-2 rounded-lg mb-2 dark:bg-gray-800">
           <form className="flex flex-wrap items-center space-x-4">
             <div>
@@ -89,7 +100,9 @@ const DataKaryawan = () => {
         </div>
       </div>
 
-      <div className="relative overflow-x-auto mt-5">
+      {/* Tampilan untuk layar laptop */}
+
+      <div className="relative overflow-x-auto mt-5 hidden sm:block">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-900 uppercase dark:text-gray-400">
             <tr>
@@ -130,6 +143,18 @@ const DataKaryawan = () => {
             </tr>
           </tbody>
         </table>
+      </div>
+
+      {/* Tampilan untuk layar kecil */}
+      <div class="relative overflow-x-auto w-full flex sm:hidden">
+        <div class=" p-4 leading-normal">
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            Ang Badarudin
+          </h5>
+          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            angbadarudin@gmail.com
+          </p>
+        </div>
       </div>
     </div>
   );
