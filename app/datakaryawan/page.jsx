@@ -57,12 +57,18 @@ const DataKaryawan = () => {
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
       <div className="grid grid-cols-3 gap-4 flex">
         <p className="px-6 py-8 font-semibold">DATA KARYAWAN </p>
-        <div className="flex justify-end col-span-2 bg-white p-2 rounded-lg mb-2 dark:bg-gray-600">
+        <div className="flex justify-end col-span-2 bg-white p-5 rounded-lg mb-2 dark:bg-gray-600">
           <Link
             href="/tambahdata"
-            className="bg-green-400 hover:bg-green-600 rounded-xl p-2"
+            className="bg-green-400 hover:bg-green-600 rounded-xl p-2 mr-4"
           >
             Tambah Data
+          </Link>
+          <Link
+            href="/daftarabsen"
+            className="bg-green-400 hover:bg-green-600 rounded-xl p-2"
+          >
+            Daftar Muka
           </Link>
         </div>
       </div>

@@ -4,6 +4,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { SlOptionsVertical } from "react-icons/sl";
+import Link from "next/link";
 
 const DataKaryawan = () => {
   // Pengecekan Route Apakah User Sudah Login Atau belum
