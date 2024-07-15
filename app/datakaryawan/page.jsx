@@ -130,15 +130,16 @@ const DataKaryawan = () => {
       </div>
 
       {/* Tampilan untuk layar kecil */}
+      {usersByRole.map((user) => (
       <div class="relative overflow-x-auto w-full flex sm:hidden">
         <div class=" p-4 leading-normal">
           <div className="flex">
             <div>
               <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Ang Badarudin
+                {user.name}
               </h5>
               <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                angbadarudin@gmail.com
+               {user.email}
               </p>
             </div>
 
@@ -178,6 +179,7 @@ const DataKaryawan = () => {
           </div>
         </div>
       </div>
+      ))}
     </div>
   );
 };
