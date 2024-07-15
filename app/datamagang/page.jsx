@@ -11,7 +11,8 @@ import axios from "axios";
 const DataMagang = () => {
   const [user, setUser] = useState(null);
   const [usersByRole, setUsersByRole] = useState([]);
-  const role = "Magang"; // Sesuaikan dengan role yang ingin Anda ambil datanya
+  const [successMessage, setSuccessMessage] = useState(""); // State untuk pesan berhasil
+  const role = "Magang";
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -31,7 +32,6 @@ const DataMagang = () => {
             withCredentials: true,
           }
         );
-        console.log("coba", response.data);
         setUsersByRole(response.data);
       } catch (error) {
         console.error("Error fetching users:", error.message);
@@ -41,17 +41,7 @@ const DataMagang = () => {
     fetchUsersByRole();
   }, []);
 
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const closeDropdownHandler = () => {
-    setIsOpen(false);
-  };
-
   const deleteProduk = async (uuid) => {
-    console.log("Deleting user with uuid:", uuid);
     try {
       await axios.delete(`http://localhost:5001/users/${uuid}`);
       const response = await axios.get(
@@ -81,7 +71,8 @@ const DataMagang = () => {
           </Link>
         </div>
       </div>
-
+      {successMessage && <p className="text-green-600">{successMessage}</p>}{" "}
+      {/* Tampilkan pesan jika ada */}
       <div className="relative overflow-x-auto hidden sm:block">
         {usersByRole.length === 0 ? (
           <p className="text-center py-4">Tidak ada data</p>
@@ -126,7 +117,13 @@ const DataMagang = () => {
                       href={`/daftarabsen/${user.uuid}`}
                       className="flex items-center hover:bg-blue-200 hover:text-gray-800 rounded-xl p-2"
                     >
-                      <MdInsertEmoticon className="mr-1" /> Daftar Muka
+                      {user.url_foto_absen == null ? (
+                        <>
+                          <MdInsertEmoticon className="mr-1" /> Daftar Muka
+                        </>
+                      ) : (
+                        <span>Muka Sudah Terdaftar</span>
+                      )}
                     </Link>
                   </td>
                 </tr>
@@ -135,58 +132,6 @@ const DataMagang = () => {
           </table>
         )}
       </div>
-
-      {/* Tampilan untuk layar kecil */}
-      {usersByRole.length === 0 ? (
-        <p className="text-center py-4 sm:hidden">Tidak ada data</p>
-      ) : (
-        usersByRole.map((user) => (
-          <div key={user.uuid} className="relative overflow-x-auto w-full flex sm:hidden p-4 leading-normal">
-            <div className="flex justify-between items-center">
-              <div>
-                <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                  {user.name}
-                </h5>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                  {user.email}
-                </p>
-              </div>
-              <div>
-                <button
-                  onClick={toggleDropdown}
-                  className="flex justify-end items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2"
-                >
-                  <SlOptionsVertical className="mr-2" />
-                </button>
-                {isOpen && (
-                  <div className="flex right-0 mt-2 w-48 bg-white shadow-lg rounded-xl z-10 dark:bg-gray-800">
-                    <ul className="py-1">
-                      <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
-                        <MdEdit className="mr-2" />
-                        <Link href={`/edit-data/${user.uuid}`} onClick={closeDropdownHandler}>
-                          Edit
-                        </Link>
-                      </li>
-                      <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
-                        <MdDelete className="mr-2" />
-                        <button onClick={() => deleteProduk(user.uuid)} className="text-red-500">
-                          Delete
-                        </button>
-                      </li>
-                      <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
-                        <BiSolidUserDetail className="mr-2" />
-                        <Link href={`/detailuser/${user.uuid}`} onClick={closeDropdownHandler}>
-                          Detail
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        ))
-      )}
     </div>
   );
 };
