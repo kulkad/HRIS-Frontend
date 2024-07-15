@@ -10,8 +10,7 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import { SiHelpscout, SiSinglestore } from "react-icons/si";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import { FaUserPlus } from "react-icons/fa";
-import { MenuContext } from '@/context/MenuContext';
-
+import { MenuContext } from "@/context/MenuContext";
 
 const MainSidebar = () => {
   const { open, toggle } = useContext(MenuContext);
@@ -44,12 +43,12 @@ const MainSidebar = () => {
           />
         </li>
 
-        <li className="flex justify-start items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2">
-          <IoHome className="mr-2" />
-          <Link href="/" onClick={closeSeideBarHandler}>
+        <Link href="/" onClick={closeSeideBarHandler}>
+          <li className="flex justify-start items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2">
+            <IoHome className="mr-2" />
             Beranda
-          </Link>
-        </li>
+          </li>
+        </Link>
 
         <button
           onClick={toggleDropdown}
@@ -67,48 +66,48 @@ const MainSidebar = () => {
         {isOpen && (
           <div className="flex right-0 mt-2 w-48 bg-white shadow-lg rounded-xl z-10 dark:bg-gray-800">
             <ul className="py-1">
-              <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl  p-2">
-                <FaUser className="mr-2" />
-                <Link href="/datamanager" onClick={closeDropdownHandler}>
+              <Link href="/datamanager" onClick={closeDropdownHandler}>
+                <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl  p-2">
+                  <FaUser className="mr-2" />
                   Manager
-                </Link>
-              </li>
-              <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
-                <FaUser className="mr-2" />
-                <Link href="/datakaryawan" onClick={closeDropdownHandler}>
+                </li>
+              </Link>
+              <Link href="/datakaryawan" onClick={closeDropdownHandler}>
+                <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                  <FaUser className="mr-2" />
                   Karyawan
-                </Link>
-              </li>
-              <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
-                <FaUser className="mr-2" />
-                <Link href="/datamagang" onClick={closeDropdownHandler}>
+                </li>
+              </Link>
+              <Link href="/datamagang" onClick={closeDropdownHandler}>
+                <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                  <FaUser className="mr-2" />
                   Magang
-                </Link>
-              </li>
-              <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
-                <FaUser className="mr-2" />
-                <Link href="/datapkl" onClick={closeDropdownHandler}>
+                </li>
+              </Link>
+              <Link href="/datapkl" onClick={closeDropdownHandler}>
+                <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                  <FaUser className="mr-2" />
                   PKL
-                </Link>
-              </li>
+                </li>
+              </Link>
             </ul>
           </div>
         )}
 
-        <li className="flex justify-start items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2">
-          <FaClock className="mr-2" />
-          <Link href="data-absensi" onClick={closeSeideBarHandler}>
+        <Link href="data-absensi" onClick={closeSeideBarHandler}>
+          <li className="flex justify-start items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2">
+            <FaClock className="mr-2" />
             Data Absensi
-          </Link>
-        </li>
+          </li>
+        </Link>
 
         <hr className="mt-5 mb-5 border-black border-1" />
-        <li className="flex justify-start items-center hover:bg-red-300 hover:text-gray-800 rounded-xl p-2">
-          <RiLogoutBoxLine className="mr-2 shadow-lg" size={20} />
-          <Link href="/logout" onClick={closeSeideBarHandler}>
+        <Link href="/logout" onClick={closeSeideBarHandler}>
+          <li className="flex justify-start items-center hover:bg-red-300 hover:text-gray-800 rounded-xl p-2">
+            <RiLogoutBoxLine className="mr-2 shadow-lg" size={20} />
             Keluar
-          </Link>
-        </li>
+          </li>
+        </Link>
       </ul>
     </aside>
   );

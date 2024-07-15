@@ -59,9 +59,9 @@ const DataManager = () => {
   if (!user) return <p>Loading...</p>;
 
   return (
-    <div className="bg-white rounded-lg mx-4 p-4 text-xl">
+    <div className="bg-white rounded-lg mx-4 p-4 text-xl sm:block">
       <div className="grid grid-cols-3 gap-4 flex">
-        <p className="px-6 py-8 font-semibold">DATA MANAGER</p>
+        <p className="px-4 py-6 font-semibold">DATA MANAGER</p>
         <div className="flex justify-end col-span-2 bg-white p-5 rounded-lg mb-2 dark:bg-gray-600">
           <Link
             href="/tambahdata"
@@ -132,6 +132,58 @@ const DataManager = () => {
           </table>
         )}
       </div>
+
+      {/* Tampilan untuk layar kecil */}
+      {usersByRole.length === 0 ? (
+        <p className="text-center py-4 sm:hidden">Tidak ada data</p>
+      ) : (
+        usersByRole.map((user) => (
+          <div key={user.uuid} className="bg-white min-h-screen flex flex-col rounded-lg mx-2 p-3 text-xl sm:hidden">
+            <div className="flex justify-between items-center">
+              <div>
+                <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  {user.name}
+                </h5>
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  {user.email}
+                </p>
+              </div>
+              <div>
+                <button
+                  onClick={toggleDropdown}
+                  className="flex justify-end items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2"
+                >
+                  <SlOptionsVertical className="mr-2" />
+                </button>
+                {isOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-xl z-10 dark:bg-gray-800">
+                    <ul className="py-1">
+                      <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                        <MdEdit className="mr-2" />
+                        <Link href={`/edit-data/${user.uuid}`} onClick={closeDropdownHandler}>
+                          Edit
+                        </Link>
+                      </li>
+                      <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                        <MdDelete className="mr-2" />
+                        <button onClick={() => deleteProduk(user.uuid)} className="text-red-500">
+                          Delete
+                        </button>
+                      </li>
+                      <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                        <BiSolidUserDetail className="mr-2" />
+                        <Link href={`/detailuser/${user.uuid}`} onClick={closeDropdownHandler}>
+                          Detail
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 };
