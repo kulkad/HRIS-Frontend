@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { SlOptionsVertical } from "react-icons/sl";
+import { MdInsertEmoticon } from "react-icons/md";
 import Link from "next/link";
 import axios from "axios";
 
@@ -79,12 +80,6 @@ const DataKaryawan = () => {
           >
             Tambah Data
           </Link>
-          <Link
-            href="/daftarabsen"
-            className="bg-green-400 hover:bg-green-600 rounded-xl p-2"
-          >
-            Daftar Muka
-          </Link>
         </div>
       </div>
 
@@ -107,6 +102,34 @@ const DataKaryawan = () => {
                 <th scope="col" className="px-6 py-3">
                   Aksi
                 </th>
+                <td className="px-6 py-4">{user.email}</td>
+                <td className="px-6 py-4">{user.role}</td>
+                <td className="px-6 py-4">
+                  <Link
+                    href={`/edit-data/${user.uuid}`}
+                    className="flex items-center hover:bg-green-200 hover:text-gray-800 rounded-xl p-2"
+                  >
+                    <MdEdit className="mr-1" /> Edit
+                  </Link>
+                  <Link
+                    href={`/delete-data/${user.uuid}`}
+                    className="flex items-center hover:bg-red-300 hover:text-gray-800 rounded-xl p-2"
+                  >
+                    <MdDelete className="mr-1" /> Delete
+                  </Link>
+                  <Link
+                    href={`/detailuser/${user.uuid}`}
+                    className="flex items-center hover:bg-blue-200 hover:text-gray-800 rounded-xl p-2"
+                  >
+                    <BiSolidUserDetail className="mr-1" /> Detail
+                  </Link>
+                  <Link
+                    href={`/daftarabsen/${user.uuid}`}
+                    className="flex items-center hover:bg-blue-200 hover:text-gray-800 rounded-xl p-2"
+                  >
+                    <MdInsertEmoticon className="mr-1" /> Daftar Muka
+                  </Link>
+                </td>
               </tr>
             </thead>
             <tbody>
@@ -148,54 +171,56 @@ const DataKaryawan = () => {
       </div>
 
       {/* Tampilan untuk layar kecil */}
-      <div className="relative overflow-x-auto w-full flex sm:hidden">
-        <div className="p-4 leading-normal">
-          <div className="flex">
-            <div>
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Ang Badarudin
-              </h5>
-              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                angbadarudin@gmail.com
-              </p>
-            </div>
+      {usersByRole.map((user) => (
+        <div class="relative overflow-x-auto w-full flex sm:hidden">
+          <div class=" p-4 leading-normal">
+            <div className="flex">
+              <div>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  {user.name}
+                </h5>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  {user.email}
+                </p>
+              </div>
 
-            <div>
-              <button
-                onClick={toggleDropdown}
-                className="flex justify-end items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2"
-              >
-                <SlOptionsVertical className="mr-2" />
-              </button>
+              <div>
+                <button
+                  onClick={toggleDropdown}
+                  className="flex justify-end items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2"
+                >
+                  <SlOptionsVertical className="mr-2" />
+                </button>
 
-              {isOpen && (
-                <div className="flex right-0 mt-2 w-48 bg-white shadow-lg rounded-xl z-10 dark:bg-gray-800">
-                  <ul className="py-1">
-                    <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
-                      <MdEdit className="mr-2" />
-                      <Link href="/edit-data" onClick={closeDropdownHandler}>
-                        Edit
-                      </Link>
-                    </li>
-                    <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
-                      <MdDelete className="mr-2" />
-                      <Link href="/" onClick={closeDropdownHandler}>
-                        Delete
-                      </Link>
-                    </li>
-                    <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
-                      <BiSolidUserDetail className="mr-2" />
-                      <Link href="/detailuser" onClick={closeDropdownHandler}>
-                        Detail
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              )}
+                {isOpen && (
+                  <div className="flex right-0 mt-2 w-48 bg-white shadow-lg rounded-xl z-10 dark:bg-gray-800">
+                    <ul className="py-1">
+                      <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                        <MdEdit className="mr-2" />
+                        <Link href="/edit-data" onClick={closeDropdownHandler}>
+                          Edit
+                        </Link>
+                      </li>
+                      <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                        <MdDelete className="mr-2" />
+                        <Link href="/" onClick={closeDropdownHandler}>
+                          Delete
+                        </Link>
+                      </li>
+                      <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                        <BiSolidUserDetail className="mr-2" />
+                        <Link href="/detailuser" onClick={closeDropdownHandler}>
+                          Detail
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 };
