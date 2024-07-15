@@ -56,6 +56,16 @@ const DataPkl = () => {
     }
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeDropdownHandler = () => {
+    setIsOpen(false);
+  };
+
+
   if (!user) return <p>Loading...</p>;
 
   return (

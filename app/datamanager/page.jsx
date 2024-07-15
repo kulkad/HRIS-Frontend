@@ -56,6 +56,15 @@ const DataManager = () => {
     }
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeDropdownHandler = () => {
+    setIsOpen(false);
+  };
+
   if (!user) return <p>Loading...</p>;
 
   return (
@@ -132,13 +141,15 @@ const DataManager = () => {
           </table>
         )}
       </div>
-
       {/* Tampilan untuk layar kecil */}
       {usersByRole.length === 0 ? (
         <p className="text-center py-4 sm:hidden">Tidak ada data</p>
       ) : (
         usersByRole.map((user) => (
-          <div key={user.uuid} className="bg-white min-h-screen flex flex-col rounded-lg mx-2 p-3 text-xl sm:hidden">
+          <div
+            key={user.uuid}
+            className="bg-white min-h-screen flex flex-col rounded-lg mx-2 p-3 text-xl sm:hidden"
+          >
             <div className="flex justify-between items-center">
               <div>
                 <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -160,19 +171,28 @@ const DataManager = () => {
                     <ul className="py-1">
                       <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
                         <MdEdit className="mr-2" />
-                        <Link href={`/edit-data/${user.uuid}`} onClick={closeDropdownHandler}>
+                        <Link
+                          href={`/edit-data/${user.uuid}`}
+                          onClick={closeDropdownHandler}
+                        >
                           Edit
                         </Link>
                       </li>
                       <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
                         <MdDelete className="mr-2" />
-                        <button onClick={() => deleteProduk(user.uuid)} className="text-red-500">
+                        <button
+                          onClick={() => deleteProduk(user.uuid)}
+                          className="text-red-500"
+                        >
                           Delete
                         </button>
                       </li>
                       <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
                         <BiSolidUserDetail className="mr-2" />
-                        <Link href={`/detailuser/${user.uuid}`} onClick={closeDropdownHandler}>
+                        <Link
+                          href={`/detailuser/${user.uuid}`}
+                          onClick={closeDropdownHandler}
+                        >
                           Detail
                         </Link>
                       </li>
