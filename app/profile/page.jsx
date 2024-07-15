@@ -5,11 +5,6 @@ import { IoLogOutOutline } from "react-icons/io5";
 
 export default function Profile() {
   const menuItems = [
-    {
-      icon: FaBox,
-      text: "Pesanan",
-      description: "Cek riwayat & pesanan aktif",
-    },
     { icon: FaTags, text: "Detail Akun", link: "/detailuser" },
     { icon: FiEdit3, text: "Edit Profile", link: "/edit-data" },
     { icon: IoLogOutOutline, text: "Logout", link: "/logout" },
