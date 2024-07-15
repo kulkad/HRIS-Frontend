@@ -51,6 +51,15 @@ const DataManager = () => {
     setIsOpen(false);
   };
 
+  const deleteProduk = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5001/users/${id}`);
+      getProduks();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (!user) return <p>Loading...</p>;
 
   return (
@@ -113,7 +122,11 @@ const DataManager = () => {
                     href={`/delete-data/${user.uuid}`}
                     className="flex items-center hover:bg-red-300 hover:text-gray-800 rounded-xl p-2"
                   >
-                    <MdDelete className="mr-1" /> Delete
+                    <MdDelete
+                      className="mr-1"
+                      onClick={() => deleteProduk(user.id)}
+                    />{" "}
+                    Delete
                   </Link>
                   <Link
                     href={`/detailuser/${user.uuid}`}
