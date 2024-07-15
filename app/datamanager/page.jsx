@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { SlOptionsVertical } from "react-icons/sl";
+import { MdInsertEmoticon } from "react-icons/md";
 import Link from "next/link";
 import axios from "axios";
 
@@ -64,12 +65,6 @@ const DataManager = () => {
           >
             Tambah Data
           </Link>
-          <Link
-            href="/daftarabsen"
-            className="bg-green-400 hover:bg-green-600 rounded-xl p-2"
-          >
-            Daftar Muka
-          </Link>
         </div>
       </div>
 
@@ -120,6 +115,12 @@ const DataManager = () => {
                     className="flex items-center hover:bg-blue-200 hover:text-gray-800 rounded-xl p-2"
                   >
                     <BiSolidUserDetail className="mr-1" /> Detail
+                  </Link>
+                  <Link
+                    href={`/daftarabsen/${user.uuid}`}
+                    className="flex items-center hover:bg-blue-200 hover:text-gray-800 rounded-xl p-2"
+                  >
+                    <MdInsertEmoticon className="mr-1" /> Daftar Muka
                   </Link>
                 </td>
               </tr>
