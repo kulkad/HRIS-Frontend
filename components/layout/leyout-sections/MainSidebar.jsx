@@ -64,28 +64,28 @@ const MainSidebar = () => {
         </button>
 
         {isOpen && (
-          <div className="flex right-0 mt-2 w-48 bg-white shadow-lg rounded-xl z-10 dark:bg-gray-800">
+          <div className="flex right-0 mt-2 w-32 bg-white shadow-lg rounded-xl z-10 dark:bg-gray-800">
             <ul className="py-1">
               <Link href="/datamanager" onClick={closeDropdownHandler}>
-                <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl  p-2">
+                <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2 w-full cursor-pointer">
                   <FaUser className="mr-2" />
                   Manager
                 </li>
               </Link>
               <Link href="/datakaryawan" onClick={closeDropdownHandler}>
-                <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2 w-full cursor-pointer">
                   <FaUser className="mr-2" />
                   Karyawan
                 </li>
               </Link>
               <Link href="/datamagang" onClick={closeDropdownHandler}>
-                <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2 w-full cursor-pointer">
                   <FaUser className="mr-2" />
                   Magang
                 </li>
               </Link>
               <Link href="/datapkl" onClick={closeDropdownHandler}>
-                <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2 w-full cursor-pointer">
                   <FaUser className="mr-2" />
                   PKL
                 </li>
