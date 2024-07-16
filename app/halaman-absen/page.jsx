@@ -87,7 +87,7 @@ export default function Capture() {
       const logoImg = new Image();
       logoImg.src = "/assets/images/windah.jpg";
       logoImg.onload = () => {
-        // Perbesar logo dan posisikan di tengah area latar belakang transparan
+        // Perbesar logo dan posisikan di tengah area latar belakang transparann
         const logoWidth = 70; // Perbesar lebar logo
         const logoHeight = 70; // Perbesar tinggi logo
         const logoX = 10; // Posisi X logo
