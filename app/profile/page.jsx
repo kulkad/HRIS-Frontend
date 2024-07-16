@@ -23,11 +23,12 @@ export default function Profile() {
     { icon: IoLogOutOutline, text: "Logout", link: "/logout" },
   ];
 
-  return (
-    <div className="w-full size-full min-h-screen bg-gray-100 p-4">
-      <div
-        className="w-full max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl"
-        data-aos="fade-left"
+return (
+  <div
+    className="w-full max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl"
+    data-aos="fade-right"
+  >
+    <div
       >
         <div className="p-4 border-b flex items-center">
           <Link href="/">
@@ -61,6 +62,6 @@ export default function Profile() {
           </ul>
         </div>
       </div>
-    </div>
-  );
-}
+  </div>
+);
+};
