@@ -31,7 +31,7 @@ export default function Profile() {
       >
         <div className="p-4 border-b flex items-center">
           <Link href="/">
-            <li className="flex justify-start items-center py-3">
+            <li className="flex items-center py-3">
               <IoIosArrowBack className="mr-1"/>
             </li>
           </Link>
