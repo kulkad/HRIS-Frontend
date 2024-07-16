@@ -134,7 +134,7 @@ export default function Capture() {
             audio={false}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
-            className="border border-gray-400"
+            className="border border-gray-300"
             width="640"
             height="480"
             videoConstraints={{
