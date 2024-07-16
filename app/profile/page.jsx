@@ -5,6 +5,7 @@ import { FiEdit3 } from "react-icons/fi";
 import { IoLogOutOutline } from "react-icons/io5";
 import Link from "next/link";
 import { useEffect } from "react";
+import { IoIosArrowBack } from "react-icons/io";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -28,7 +29,12 @@ export default function Profile() {
         className="w-full max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl"
         data-aos="fade-left"
       >
-        <div className="p-4 border-b">
+        <div className="p-4 border-b flex items-center">
+          <Link href="/">
+            <li className="flex items-center py-3">
+              <IoIosArrowBack className="mr-1"/>
+            </li>
+          </Link>
           <h1 className="text-xl font-semibold">Profilku</h1>
         </div>
         <div className="p-4">
