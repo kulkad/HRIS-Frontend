@@ -1,9 +1,21 @@
-import { FaBox, FaTags, FaChevronRight, FaRegEdit } from "react-icons/fa";
+"use client";
+
+import { FaTags, FaChevronRight } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
-import Link from "next/link";
 import { IoLogOutOutline } from "react-icons/io5";
+import Link from "next/link";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function Profile() {
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      easing: "ease-in-out",
+    });
+  }, []);
+
   const menuItems = [
     { icon: FaTags, text: "Detail Akun", link: "/detailuser" },
     { icon: FiEdit3, text: "Edit Profile", link: "/edit-data" },
@@ -12,7 +24,10 @@ export default function Profile() {
 
   return (
     <div className="w-full size-full min-h-screen bg-gray-100 p-4">
-      <div className="w-full max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+      <div
+        className="w-full max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl"
+        data-aos="fade-left"
+      >
         <div className="p-4 border-b">
           <h1 className="text-xl font-semibold">Profilku</h1>
         </div>

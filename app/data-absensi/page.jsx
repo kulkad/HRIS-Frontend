@@ -32,7 +32,7 @@ const DataKaryawan = () => {
   if (!user) return <p>Loading...</p>;
 
   return (
-    <div className="bg-white rounded-lg mx-4 p-4 text-xl dark:bg-gray-800">
+    <div className="bg-white rounded-lg mx-4 p-2 text-xl dark:bg-gray-800">
       <div className="grid grid-cols-3 gap-4">
         <p className="px-6 py-10 font-semibold dark:text-white">DATA ABSENSI</p>
 
