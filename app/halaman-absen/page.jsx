@@ -75,7 +75,7 @@ const FaceComparison = () => {
       .detectSingleFace(img2, new faceapi.SsdMobilenetv1Options())
       .withFaceLandmarks()
       .withFaceDescriptor();
-
+//
       console.log('coba', detection1);
 
       if (detection1 && detection2) {
