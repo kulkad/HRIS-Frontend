@@ -11,6 +11,8 @@ const DaftarAbsen = () => {
   const webcamRef = useRef(null);
   const [photo, setPhoto] = useState(null);
   const [initializing, setInitializing] = useState(true);
+  const [similarity, setSimilarity] = useState(null);
+  const [absenSuccess, setAbsenSuccess] = useState(false);
 
   useEffect(() => {
     const loadModels = async () => {
@@ -27,6 +29,12 @@ const DaftarAbsen = () => {
   const capture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setPhoto(imageSrc);
+  };
+
+  const retakePhoto = () => {
+    setPhoto(null);
+    setSimilarity(null);
+    setAbsenSuccess(false);
   };
 
   const handleSubmit = async () => {
@@ -50,8 +58,8 @@ const DaftarAbsen = () => {
       );
 
       console.log(updateResponse.data);
-      // Redirect ke datapkl setelah berhasil
-      window.location.href = "/datapkl";
+      setAbsenSuccess(true); // Set success message
+      window.location.href = "/datapkl"; // Redirect setelah berhasil
     } catch (error) {
       console.error("Error submitting data:", error.message);
       alert("Gagal mengirim data, silakan coba lagi."); // Pesan error
@@ -69,46 +77,58 @@ const DaftarAbsen = () => {
           Halaman Daftar Absen
         </p>
       </div>
-      <div className="mt-5 place-content-center">
-        <div className="flex justify-center">
-          <div className="flex flex-row items-start">
-            <div
-              className="rounded-md overflow-hidden border border-gray-900"
-              style={{ width: "260px", height: "200px" }}
-            >
-              <Webcam
-                audio={false}
-                ref={webcamRef}
-                screenshotFormat="image/png"
-                width="260"
-                height="200"
-                videoConstraints={{ width: 260, height: 200 }}
-              />
-            </div>
-            {photo && (
-              <div className="ml-20 border rounded border-gray-900">
-                <img src={photo} alt="Foto Karyawan" />
-              </div>
-            )}
-          </div>
+      <div className="mt-5 flex justify-center">
+        <div className="flex flex-col items-center">
+          {!photo && (
+            <Webcam
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              width="640"
+              height="480"
+              videoConstraints={{
+                facingMode: "user",
+              }}
+              className="transform scaleX-[-1]"
+            />
+          )}
+          {photo && (
+            <img
+              src={photo}
+              alt="Captured"
+              className="mt-4"
+            />
+          )}
         </div>
-        <div className="flex justify-center gap-16 ">
+      </div>
+      <div className="flex justify-center gap-16 mt-4">
+        {!photo && (
           <button
             onClick={capture}
             className="flex self-start mt-3 w-30 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Ambil Foto
           </button>
-          {photo && (
+        )}
+        {photo && (
+          <div className="flex space-x-2 mt-4">
+            <button
+              onClick={retakePhoto}
+              className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+            >
+              Retake Photo
+            </button>
             <button
               onClick={handleSubmit}
-              className="mt-3 w-30 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
             >
               Kirim Data
             </button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
+      {similarity && <p className="text-red-600 font-semibold mb-4">Kemiripan wajah : {similarity}</p>}
+      {absenSuccess && <p className="text-blue-600 font-semibold">Absen berhasil! Silahkan melanjutkan aktifitas anda!</p>}
     </div>
   );
 };
