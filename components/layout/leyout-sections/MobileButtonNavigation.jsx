@@ -12,9 +12,9 @@ import Link from "next/link";
 
 const navButtonsList = [
   { id: 1, label: "Home", icon: <MdHome />, path: "/" },
-  { id: 2, label: "Add", icon: <HiDocumentAdd />, path: "/about-us" },
+  { id: 2, label: "Data", icon: <FaTasks />, path: "/data-absensi" },
   { id: 3, label: "Absen", icon: <FaUserCheck />, path: "/halaman-absen" },
-  { id: 4, label: "Data", icon: <FaTasks />, path: "/data-absensi" },
+  { id: 4, label: "Add", icon: <HiDocumentAdd />, path: "/about-us" },
 ];
 
 const MobileButtonNavigation = () => {

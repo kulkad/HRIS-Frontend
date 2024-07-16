@@ -81,7 +81,7 @@ const FaceComparison = () => {
           detection1.descriptor,
           detection2.descriptor
         );
-        const similarityScore = (1 - distance).toFixed(2); // Skor kesamaan
+        const similarityScore = (1 - distance).toFixed(2); // Skor kesamaann
         console.log(similarityScore);
 
         if (similarityScore >= 0.6) {
