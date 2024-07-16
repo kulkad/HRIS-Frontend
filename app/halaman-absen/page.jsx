@@ -1,35 +1,15 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import * as faceapi from "face-api.js";
-
-const Facecomparsion = () => {
-  // State untuk mengatur apakah model sedang diinisialisasi
-  const [initializing, setInitializing] = useState(true);
-  // State untuk menyimpan nilai kesamaan wajah
-  const [similarity, setSimilarity] = useState(null);
-};
+import Webcam from "react-webcam";
 
 export default function Capture() {
-  const videoRef = useRef(null);
+  const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [photo, setPhoto] = useState(null);
   const [location, setLocation] = useState({ latitude: null, longitude: null });
-  const [stream, setStream] = useState(null);
 
   useEffect(() => {
-    // Akses webcam
-    navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then((stream) => {
-        videoRef.current.srcObject = stream;
-        videoRef.current.play();
-        setStream(stream);
-      })
-      .catch((err) => {
-        console.error("Error accessing webcam: ", err);
-      });
-
     // Ambil geolocation
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -69,92 +49,81 @@ export default function Capture() {
   };
 
   const capturePhoto = () => {
+    const imageSrc = webcamRef.current.getScreenshot();
     const context = canvasRef.current.getContext("2d");
-    // Set background color
-    context.fillStyle = "white";
-    context.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-
-    // Flip the image horizontally
-    context.translate(canvasRef.current.width, 0);
-    context.scale(-1, 1);
-    context.drawImage(
-      videoRef.current,
-      0,
-      0,
-      canvasRef.current.width,
-      canvasRef.current.height
-    );
-    context.setTransform(1, 0, 0, 1, 0, 0);
-
-    // Ambil waktu sekarang
-    const date = getFormattedDate();
-    const time = getFormattedTime();
-
-    // Menggambar latar belakang transparan untuk keterangan
-    context.fillStyle = "rgba(128, 128, 128, 0.5)";
-    context.fillRect(
-      0,
-      canvasRef.current.height - 150,
-      canvasRef.current.width,
-      150
-    );
-
-    // Muat logo dari direktori publik dan gambar di latar belakang transparan
     const img = new Image();
+
     img.onload = () => {
-      // Perbesar logo dan posisikan di tengah area latar belakang transparan
-      const logoWidth = 70; // Perbesar lebar logo
-      const logoHeight = 70; // Perbesar tinggi logo
-      const logoX = 10; // Posisi X logo
-      const logoY = canvasRef.current.height - 140; // Posisi Y logo
-      context.drawImage(img, logoX, logoY, logoWidth, logoHeight);
-
-      // Tulis keterangan setelah logo dimuat
-      context.font = "20px Arial";
+      // Set background color
       context.fillStyle = "white";
-      const textX = logoX + logoWidth + 10; // Mulai teks setelah logo
-      if (location.latitude && location.longitude) {
-        context.fillText(
-          `Lokasi Anda: ${location.latitude}, ${location.longitude}`,
-          textX,
-          canvasRef.current.height - 100
-        );
-      }
-      context.fillText(
-        `Tanggal: ${date}`,
-        textX,
-        canvasRef.current.height - 70
+      context.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+
+      // Flip the image horizontally
+      context.translate(canvasRef.current.width, 0);
+      context.scale(-1, 1);
+      context.drawImage(
+        img,
+        0,
+        0,
+        canvasRef.current.width,
+        canvasRef.current.height
       );
-      context.fillText(`Waktu: ${time}`, textX, canvasRef.current.height - 40);
+      context.setTransform(1, 0, 0, 1, 0, 0);
 
-      // Set foto dengan keterangan yang telah ditambahkan
-      const image = canvasRef.current.toDataURL("image/png");
-      setPhoto(image);
+      // Ambil waktu sekarang
+      const date = getFormattedDate();
+      const time = getFormattedTime();
 
-      // Stop video stream
-      if (stream) {
-        stream.getTracks().forEach((track) => track.stop());
-      }
+      // Menggambar latar belakang transparan untuk keterangan
+      context.fillStyle = "rgba(128, 128, 128, 0.5)";
+      context.fillRect(
+        0,
+        canvasRef.current.height - 150,
+        canvasRef.current.width,
+        150
+      );
+
+      // Muat logo dari direktori publik dan gambar di latar belakang transparan
+      const logoImg = new Image();
+      logoImg.src = "/assets/images/windah.jpg";
+      logoImg.onload = () => {
+        // Perbesar logo dan posisikan di tengah area latar belakang transparan
+        const logoWidth = 70; // Perbesar lebar logo
+        const logoHeight = 70; // Perbesar tinggi logo
+        const logoX = 10; // Posisi X logo
+        const logoY = canvasRef.current.height - 140; // Posisi Y logo
+        context.drawImage(logoImg, logoX, logoY, logoWidth, logoHeight);
+
+        // Tulis keterangan setelah logo dimuat
+        context.font = "20px Arial";
+        context.fillStyle = "white";
+        const textX = logoX + logoWidth + 10; // Mulai teks setelah logo
+        if (location.latitude && location.longitude) {
+          context.fillText(
+            `Lokasi Anda: ${location.latitude}, ${location.longitude}`,
+            textX,
+            canvasRef.current.height - 100
+          );
+        }
+        context.fillText(
+          `Tanggal: ${date}`,
+          textX,
+          canvasRef.current.height - 70
+        );
+        context.fillText(`Waktu: ${time}`, textX, canvasRef.current.height - 40);
+
+        // Set foto dengan keterangan yang telah ditambahkan
+        const image = canvasRef.current.toDataURL("image/png");
+        setPhoto(image);
+      };
     };
 
-    img.src = "/assets/images/windah.jpg";
+    img.src = imageSrc;
   };
 
   const retakePhoto = () => {
     setPhoto(null);
     setLocation({ latitude: null, longitude: null });
-
-    // Restart video stream
-    navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then((stream) => {
-        videoRef.current.srcObject = stream;
-        videoRef.current.play();
-        setStream(stream);
-      })
-      .catch((err) => {
-        console.error("Error accessing webcam: ", err);
-      });
 
     // Ambil geolocation lagi
     if (navigator.geolocation) {
@@ -172,7 +141,7 @@ export default function Capture() {
       );
     }
   };
-  //
+
   const submitData = () => {
     // Kirim data photo dan geolocation ke server
     console.log("Photo:", photo);
@@ -187,14 +156,18 @@ export default function Capture() {
       </h1>
       {!photo && (
         <div className="flex flex-col items-center">
-          <video
-            ref={videoRef}
+          <Webcam
+            audio={false}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
             className="border border-gray-400"
             width="640"
             height="480"
-            autoPlay
+            videoConstraints={{
+              facingMode: "user",
+            }}
             style={{ transform: "scaleX(-1)" }}
-          ></video>
+          />
           <button
             onClick={capturePhoto}
             className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
