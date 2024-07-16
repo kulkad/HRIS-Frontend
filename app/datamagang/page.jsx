@@ -11,8 +11,11 @@ import axios from "axios";
 const DataMagang = () => {
   const [user, setUser] = useState(null);
   const [usersByRole, setUsersByRole] = useState([]);
-  const [successMessage, setSuccessMessage] = useState(""); // State untuk pesan berhasil
-  const role = "Magang";
+  const [openDropdown, setOpenDropdown] = useState(null); // State for the opened dropdown UUID
+  const [currentPage, setCurrentPage] = useState(1); // State for the current page
+  const [usersPerPage] = useState(5); // Number of users per page
+  const role = "Magang"; // Role to fetch data for
+  const [successMessage, setSuccessMessage] = useState(""); // State for success message
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -67,6 +70,14 @@ const DataMagang = () => {
 
   if (!user) return <p>Loading...</p>;
 
+  // Calculating the users to be displayed on the current page
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = usersByRole.slice(indexOfFirstUser, indexOfLastUser);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl sm:block">
       <div className="grid grid-cols-3 gap-4 flex">
@@ -96,7 +107,7 @@ const DataMagang = () => {
               </tr>
             </thead>
             <tbody>
-              {usersByRole.map((user) => (
+              {currentUsers.map((user) => (
                 <tr key={user.uuid} className="bg-white dark:bg-gray-800">
                   <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {user.name}
@@ -140,17 +151,39 @@ const DataMagang = () => {
             </tbody>
           </table>
         )}
+        {/* Pagination Controls */}
+        <div className="flex justify-center mt-4">
+          <nav>
+            <ul className="inline-flex items-center -space-x-px">
+              {[
+                ...Array(Math.ceil(usersByRole.length / usersPerPage)).keys(),
+              ].map((number) => (
+                <li key={number} className="px-2">
+                  <button
+                    onClick={() => paginate(number + 1)}
+                    className={`px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${
+                      currentPage === number + 1 ? "bg-gray-300" : ""
+                    }`}
+                  >
+                    {number + 1}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </div>
+
+
       {/* Tampilan untuk layar kecil */}
-      {usersByRole.length === 0 ? (
-        <p className="text-center py-4 sm:hidden">Tidak ada data</p>
-      ) : (
-        usersByRole.map((user) => (
-          <div
-            key={user.uuid}
-            className="bg-white min-h-screen flex flex-col rounded-lg mx-2 p-3 text-xl sm:hidden"
-          >
-            <div className="flex justify-between items-center">
+      <div
+        className="bg-white min-h-screen flex flex-col rounded-lg mx-2 p-3 text-xl sm:hidden"
+      >
+        {usersByRole.length === 0 ? (
+          <p className="text-center py-4 sm:hidden">Tidak ada data</p>
+        ) : (
+          currentUsers.map((user) => (
+            <div key={user.uuid} className="flex justify-between items-center mt-5 border border-gray-500 p-5 hover:bg-gray-200 rounded-xl">
               <div>
                 <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                   {user.name}
@@ -201,9 +234,30 @@ const DataMagang = () => {
                 )}
               </div>
             </div>
-          </div>
-        ))
-      )}
+          ))
+        )}
+        {/* Pagination Controls for Mobile */}
+        <div className="flex justify-center mt-4 sm:hidden">
+          <nav>
+            <ul className="inline-flex items-center -space-x-px">
+              {[
+                ...Array(Math.ceil(usersByRole.length / usersPerPage)).keys(),
+              ].map((number) => (
+                <li key={number} className="px-2">
+                  <button
+                    onClick={() => paginate(number + 1)}
+                    className={`px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${
+                      currentPage === number + 1 ? "bg-gray-300" : ""
+                    }`}
+                  >
+                    {number + 1}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </div>
     </div>
   );
 };
