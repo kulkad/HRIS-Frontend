@@ -48,7 +48,6 @@ const Dropdown = () => {
     <div className="relative inline-block text-left">
       <div>
         <Link href="/profile" passHref>
-          <a></a>
           <button
             onClick={toggleProfile} // Menggunakan toggleProfile sebagai handler onClick
             className="flex text-sm bg-gray-800 rounded-full focus:outline-none transition-transform duration-300 ease-in-out transform hover:scale-105"
@@ -63,19 +62,7 @@ const Dropdown = () => {
               role="menu"
               aria-orientation="vertical"
               aria-labelledby="dropdownUserAvatarButton"
-            >
-              <div className="p-4">
-                <Image
-                  className="w-8 h-8 rounded-full"
-                  src={user.url}
-                  alt="user photo"
-                  width={32}
-                  height={32}
-                />
-                <p className="text-sm font-semibold">{user.name}</p>
-                {/* Informasi tambahan seperti email, bio, dsb. */}
-              </div>
-            </div>
+            ></div>
             <span className="sr-only">Open user menu</span>
             <Image
               className="w-8 h-8 rounded-full"
