@@ -63,14 +63,17 @@ const FaceComparison = () => {
     let isAbsenSuccess = false;
     
     for (let userPhoto of userPhotos) {
-      const img1 = new Image();
-      img1.src = userPhoto.url_foto_absen;
-      await new Promise((resolve) => (img1.onload = resolve));
-      
-      const detection1 = await faceapi
-      .detectSingleFace(img1, new faceapi.SsdMobilenetv1Options())
-      .withFaceLandmarks()
-      .withFaceDescriptor();
+        const img1 = new Image();
+        img1.src = userPhoto.url_foto_absen;
+        await new Promise((resolve) => (img1.onload = resolve));
+
+        
+        const detection1 = await faceapi
+        .detectSingleFace(img1, new faceapi.SsdMobilenetv1Options())
+        .withFaceLandmarks()
+        .withFaceDescriptor();
+        console.log('coba', detection1);
+        
       const detection2 = await faceapi
       .detectSingleFace(img2, new faceapi.SsdMobilenetv1Options())
       .withFaceLandmarks()

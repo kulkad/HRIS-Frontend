@@ -1,33 +1,35 @@
-import React from 'react';
-import { usePathname } from 'next/navigation';
+import React from "react";
+import { usePathname } from "next/navigation";
 
 // icons
-import { BiHeart } from 'react-icons/bi';
-import { FiSearch, FiUser } from 'react-icons/fi';
-import { MdHome, MdOutlineAddBox } from 'react-icons/md';
+import { BiHeart } from "react-icons/bi";
+import { FiSearch, FiUser } from "react-icons/fi";
+import { MdHome, MdOutlineAddBox } from "react-icons/md";
 import { HiDocumentAdd } from "react-icons/hi";
 import { FaUserCheck } from "react-icons/fa";
 import { FaTasks } from "react-icons/fa";
-import Link from 'next/link';
+import Link from "next/link";
 
 const navButtonsList = [
-  { id: 1, label: 'Home', icon: <MdHome/>, path: '/' },
-  { id: 2, label: 'Add', icon: < HiDocumentAdd />, path: '/daftarabsen' },
-  { id: 3, label: 'Absen', icon: <FaUserCheck />, path: '/halaman-absen' },
-  { id: 4, label: 'Data', icon: <FaTasks />, path: '/data-absensi' },
+  { id: 1, label: "Home", icon: <MdHome />, path: "/" },
+  { id: 2, label: "Add", icon: <HiDocumentAdd />, path: "/about-us" },
+  { id: 3, label: "Absen", icon: <FaUserCheck />, path: "/halaman-absen" },
+  { id: 4, label: "Data", icon: <FaTasks />, path: "/data-absensi" },
 ];
 
 const MobileButtonNavigation = () => {
   const path = usePathname();
 
   return (
-    <div className='fixed bottom-0 left-0 right-0 w-full h-12 bg-white sm:hidden dark:bg-gray-800'>
-      <div className='flex justify-around items-center h-12 gap-x-3 border-t-2 border-t-gray-200'>
+    <div className="fixed bottom-0 left-0 right-0 w-full h-12 bg-white sm:hidden dark:bg-gray-800">
+      <div className="flex justify-around items-center h-12 gap-x-3 border-t-2 border-t-gray-200">
         {navButtonsList.map((item) => (
           <Link
             key={item.id}
             href={item.path}
-            className={`text-3xl ${path === item.path ? 'text-gray-800' : 'text-gray-400'}`}
+            className={`text-3xl ${
+              path === item.path ? "text-white-700" : "text-gray-400"
+            }`}
           >
             {item.icon}
           </Link>
