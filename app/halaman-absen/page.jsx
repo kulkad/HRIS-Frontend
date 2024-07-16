@@ -1,211 +1,95 @@
 "use client";
-
+// src/FaceComparison.js
 import React, { useState, useRef, useEffect } from "react";
+import * as faceapi from "face-api.js";
 import Webcam from "react-webcam";
 
-export default function Capture() {
+// Komponen utama FaceComparison
+const FaceComparison = () => {
+  // State untuk mengatur apakah model sedang diinisialisasi
+  const [initializing, setInitializing] = useState(true);
+  // State untuk menyimpan nilai kesamaan wajah
+  const [similarity, setSimilarity] = useState(null);
+  // State untuk menyimpan gambar yang diambil
+  const [image1, setImage1] = useState(null);
+  const [image2, setImage2] = useState(null);
+  // Refs untuk referensi webcam dan gambar
   const webcamRef = useRef(null);
-  const canvasRef = useRef(null);
-  const [photo, setPhoto] = useState(null);
-  const [location, setLocation] = useState({ latitude: null, longitude: null });
+  const imageRef1 = useRef(null);
+  const imageRef2 = useRef(null);
 
+  // Hook useEffect untuk memuat model face-api.js saat komponen pertama kali di-render
   useEffect(() => {
-    // Ambil geolocation
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-        },
-        (error) => {
-          console.error("Error accessing geolocation: ", error);
-        },
-        { enableHighAccuracy: true }
-      );
-    }
+    const loadModels = async () => {
+      const MODEL_URL = "/models";
+      await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+      await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+      await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+      await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
+      setInitializing(false);
+    };
+    loadModels();
   }, []);
 
-  const getFormattedDate = () => {
-    const now = new Date();
-    const options = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    return now.toLocaleDateString("id-ID", options);
-  };
-
-  const getFormattedTime = () => {
-    const now = new Date();
-    return now.toLocaleTimeString("id-ID", {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: false,
-    });
-  };
-
-  const capturePhoto = () => {
+  // Fungsi untuk mengambil gambar dari webcam dan menyimpannya ke state
+  const capture = (setImage, imageRef) => {
     const imageSrc = webcamRef.current.getScreenshot();
-    const context = canvasRef.current.getContext("2d");
-    const img = new Image();
-
-    img.onload = () => {
-      // Set background color
-      context.fillStyle = "white";
-      context.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-
-      // Flip the image horizontally
-      context.translate(canvasRef.current.width, 0);
-      context.scale(-1, 1);
-      context.drawImage(
-        img,
-        0,
-        0,
-        canvasRef.current.width,
-        canvasRef.current.height
-      );
-      context.setTransform(1, 0, 0, 1, 0, 0);
-
-      // Ambil waktu sekarang
-      const date = getFormattedDate();
-      const time = getFormattedTime();
-
-      // Menggambar latar belakang transparan untuk keterangan
-      context.fillStyle = "rgba(128, 128, 128, 0.5)";
-      context.fillRect(
-        0,
-        canvasRef.current.height - 150,
-        canvasRef.current.width,
-        150
-      );
-
-      // Muat logo dari direktori publik dan gambar di latar belakang transparan
-      const logoImg = new Image();
-      logoImg.src = "/assets/images/windah.jpg";
-      logoImg.onload = () => {
-        // Perbesar logo dan posisikan di tengah area latar belakang transparann
-        const logoWidth = 70; // Perbesar lebar logo
-        const logoHeight = 70; // Perbesar tinggi logo
-        const logoX = 10; // Posisi X logo
-        const logoY = canvasRef.current.height - 140; // Posisi Y logo
-        context.drawImage(logoImg, logoX, logoY, logoWidth, logoHeight);
-
-        // Tulis keterangan setelah logo dimuat
-        context.font = "20px Arial";
-        context.fillStyle = "white";
-        const textX = logoX + logoWidth + 10; // Mulai teks setelah logo
-        if (location.latitude && location.longitude) {
-          context.fillText(
-            `Lokasi Anda: ${location.latitude}, ${location.longitude}`,
-            textX,
-            canvasRef.current.height - 100
-          );
-        }
-        context.fillText(
-          `Tanggal: ${date}`,
-          textX,
-          canvasRef.current.height - 70
-        );
-        context.fillText(`Waktu: ${time}`, textX, canvasRef.current.height - 40);
-
-        // Set foto dengan keterangan yang telah ditambahkan
-        const image = canvasRef.current.toDataURL("image/png");
-        setPhoto(image);
-      };
-    };
-
-    img.src = imageSrc;
+    setImage(imageSrc);
+    imageRef.current.src = imageSrc;
   };
 
-  const retakePhoto = () => {
-    setPhoto(null);
-    setLocation({ latitude: null, longitude: null });
+  // Fungsi untuk menghitung kesamaan antara dua wajah
+  const calculateSimilarity = async () => {
+    const img1 = imageRef1.current;
+    const img2 = imageRef2.current;
 
-    // Ambil geolocation lagi
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-        },
-        (error) => {
-          console.error("Error accessing geolocation: ", error);
-        },
-        { enableHighAccuracy: true }
+    const detection1 = await faceapi
+      .detectSingleFace(img1, new faceapi.SsdMobilenetv1Options())
+      .withFaceLandmarks()
+      .withFaceDescriptor();
+    const detection2 = await faceapi
+      .detectSingleFace(img2, new faceapi.SsdMobilenetv1Options())
+      .withFaceLandmarks()
+      .withFaceDescriptor();
+
+    if (detection1 && detection2) {
+      const distance = faceapi.euclideanDistance(
+        detection1.descriptor,
+        detection2.descriptor
       );
+      setSimilarity((1 - distance).toFixed(2)); // Skor kesamaan
+    } else {
+      setSimilarity("Unable to detect both faces"); // Tidak dapat mendeteksi kedua wajah
     }
   };
 
-  const submitData = () => {
-    // Kirim data photo dan geolocation ke server
-    console.log("Photo:", photo);
-    console.log("Location:", location);
-    alert("Data submitted!");
-  };
+  // Jika model masih dalam proses inisialisasi, tampilkan pesan loading
+  if (initializing) {
+    return <div>Loading models...</div>;
+  }
 
+  // Tampilkan antarmuka pengguna
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 relative">
-      <h1 className="text-2xl font-bold mb-4 absolute top-4 left-4">
-        Halaman Absen
-      </h1>
-      {!photo && (
-        <div className="flex flex-col items-center">
-          <Webcam
-            audio={false}
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            className="border border-gray-400"
-            width="640"
-            height="480"
-            videoConstraints={{
-              facingMode: "user",
-            }}
-            style={{ transform: "scaleX(-1)" }}
-          />
-          <button
-            onClick={capturePhoto}
-            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            disabled={location.latitude === null || location.longitude === null}
-          >
-            Ambil Foto
-          </button>
-        </div>
-      )}
-      {photo && (
-        <div className="mt-4 flex flex-col items-center">
-          <img
-            src={photo}
-            alt="Captured"
-            className="border border-gray-400 mt-2"
-          />
-          <div className="flex space-x-2 mt-4">
-            <button
-              onClick={retakePhoto}
-              className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-            >
-              Retake Photo
-            </button>
-            <button
-              onClick={submitData}
-              className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-            >
-              Kirim Data
-            </button>
-          </div>
-        </div>
-      )}
-      <canvas
-        ref={canvasRef}
-        className="hidden"
-        width="640"
-        height="480"
-      ></canvas>
+    <div>
+      <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
+      <button onClick={() => capture(setImage1, imageRef1)}>
+        Capture Image 1
+      </button>
+      <button onClick={() => capture(setImage2, imageRef2)}>
+        Capture Image 2
+      </button>
+      <div>
+        <h3>Image 1</h3>
+        <img ref={imageRef1} alt="Image 1" />
+      </div>
+      <div>
+        <h3>Image 2</h3>
+        <img ref={imageRef2} alt="Image 2" />
+      </div>
+      <button onClick={calculateSimilarity}>Calculate Similarity</button>
+      {similarity && <h2>Similarity: {similarity}</h2>}
     </div>
   );
-}
+};
+
+export default FaceComparison;
