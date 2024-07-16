@@ -9,7 +9,7 @@ import { SlOptionsVertical } from "react-icons/sl";
 
 const DetailUser = () => {
   return (
-    <div className="bg-white rounded-lg mx-4 p-4 text-xl">
+    <div className="bg-white rounded-lg mx-4 p-4 text-xl dark:bg-slate-900 dark:text-white">
       
 
       {/* Tampilan Untuk Laptop */}
@@ -17,7 +17,7 @@ const DetailUser = () => {
       <div className="relative overflow-x-auto hidden sm:block">
       <p className="px-6 py-10 font-semibold">DETAIL USER</p>
         <table className="w-full text-sm text-left rtl:text-right">
-          <thead className="text-xs text-gray-900 uppercase dark:text-gray-400">
+          <thead className="text-xs text-gray-900 uppercase dark:text-white">
             <tr>
               <th scope="col" className="px-6 py-3">
                 Foto
@@ -37,7 +37,7 @@ const DetailUser = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white dark:bg-gray-800">
+            <tr className="bg-white dark:bg-slate-900">
               <td className="px-6 py-4">
                 <img
                   className="w-24 h-18"
@@ -51,11 +51,11 @@ const DetailUser = () => {
               >
                 Jahdan Kopling
               </td>
-              <td className="px-6 py-4 font-medium text-gray-900 ">PKL</td>
-              <td className="px-6 py-4 font-medium text-gray-900">
+              <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">PKL</td>
+              <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">
                 jahdankopling@gmail.com
               </td>
-              <td className="px-6 py-4 font-medium text-gray-900">Laki-Laki</td>
+              <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">Laki-Laki</td>
             </tr>
           </tbody>
         </table>
