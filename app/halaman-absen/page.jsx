@@ -1,4 +1,3 @@
-// src/FaceComparison.js
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
@@ -18,7 +17,6 @@ const FaceComparison = () => {
   const [absenSuccess, setAbsenSuccess] = useState(false);
   // Refs untuk referensi webcam dan gambar
   const webcamRef = useRef(null);
-  const imageRef1 = useRef(null);
   const imageRef2 = useRef(null);
 
   // Hook useEffect untuk memuat model face-api.js saat komponen pertama kali di-render
@@ -38,7 +36,6 @@ const FaceComparison = () => {
   const fetchUserPhotos = async () => {
     try {
       const response = await axios.get("http://localhost:5001/userfotoabsen"); // Ganti dengan endpoint API Anda
-      console.log("coba aja", response.data);
       setUserPhotos(response.data);
     } catch (error) {
       console.error("Error fetching user photos: ", error);
@@ -46,7 +43,6 @@ const FaceComparison = () => {
   };
 
   useEffect(() => {
-    console.log("coba");
     fetchUserPhotos();
   }, []);
 
@@ -61,25 +57,22 @@ const FaceComparison = () => {
   const calculateSimilarity = async () => {
     const img2 = imageRef2.current;
     let isAbsenSuccess = false;
-    
-    for (let userPhoto of userPhotos) {
-        const img1 = new Image();
-        img1.src = userPhoto.url_foto_absen;
-        await new Promise((resolve) => (img1.onload = resolve));
 
-        
-        const detection1 = await faceapi
+    for (let userPhoto of userPhotos) {
+      const img1 = new Image();
+      img1.crossOrigin = "anonymous";
+      img1.src = userPhoto.url_foto_absen;
+      await new Promise((resolve) => (img1.onload = resolve));
+
+      const detection1 = await faceapi
         .detectSingleFace(img1, new faceapi.SsdMobilenetv1Options())
         .withFaceLandmarks()
         .withFaceDescriptor();
-        console.log('coba', detection1);
-        
+
       const detection2 = await faceapi
-      .detectSingleFace(img2, new faceapi.SsdMobilenetv1Options())
-      .withFaceLandmarks()
-      .withFaceDescriptor();
-//
-      console.log('coba', detection1);
+        .detectSingleFace(img2, new faceapi.SsdMobilenetv1Options())
+        .withFaceLandmarks()
+        .withFaceDescriptor();
 
       if (detection1 && detection2) {
         const distance = faceapi.euclideanDistance(
