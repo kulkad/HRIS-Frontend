@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import * as faceapi from "face-api.js";
 
+const Facecomparsion = () => {
+  // State untuk mengatur apakah model sedang diinisialisasi
+  const [initializing, setInitializing] = useState(true);
+  // State untuk menyimpan nilai kesamaan wajah
+  const [similarity, setSimilarity] = useState(null);
+};
 
 export default function Capture() {
   const videoRef = useRef(null);
