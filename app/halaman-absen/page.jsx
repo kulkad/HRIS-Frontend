@@ -100,11 +100,10 @@ const FaceComparison = () => {
       await axios.post("/api/absen", { photo: image2 });
     } else {
       setSimilarity("Tidak dapat mendeteksi kedua wajah");
-      console.log(similarity)
     }
   };
 
-  // Jika model masih dalam proses inisialisasi, tampilkan pesan loading
+  // Jika model masih dalam proses inisialisasi, tampilkan pesan loadingg
   if (initializing) {
     return <div>Loading models...</div>;
   }
@@ -120,11 +119,18 @@ const FaceComparison = () => {
       className="mt-4 rounded-md w-96 h-auto" 
     />
     <div>
-      <img 
-        ref={imageRef2} 
-        className="hidden" 
-        alt="Captured Image" 
-      />
+      <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
+      <button onClick={() => capture(setImage2, imageRef2)}>
+        Capture Image
+      </button>
+      <div>
+        <h3>Captured Image</h3>
+        <img ref={imageRef2} alt="Captured Image" />
+      </div>
+      <button onClick={calculateSimilarity}>Calculate Similarity</button>
+      {similarity && <h2>Similarity: {similarity}</h2>}
+      {absenSuccess && <h2>Absen berhasil!</h2>}
+      {/* <h2>Nama : {userPhotos.name}</h2> */}
     </div>
     <button 
       className="flex justify-self-center ml-40 mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
