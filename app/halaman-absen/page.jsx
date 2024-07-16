@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import * as faceapi from "face-api.js";
 
 const Facecomparsion = () => {
-  // State untuk mengatur apakah model sedang diinisialisasi
+  // State untuk mengatur apakah model sedang diinisialisasii
   const [initializing, setInitializing] = useState(true);
   // State untuk menyimpan nilai kesamaan wajah
   const [similarity, setSimilarity] = useState(null);
