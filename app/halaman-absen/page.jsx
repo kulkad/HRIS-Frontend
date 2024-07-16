@@ -103,7 +103,7 @@ const FaceComparison = () => {
     }
   };
 
-  // Jika model masih dalam proses inisialisasi, tampilkan pesan loadingg
+  // Jika model masih dalam proses inisialisasi, tampilkan pesan loading
   if (initializing) {
     return <div>Loading models...</div>;
   }
@@ -112,12 +112,7 @@ const FaceComparison = () => {
   return (
     <div className="flex justify-center bg-gray-300 dark:bg-gray-600 mt-2 ml-4 rounded-md">
   <div>
-    <Webcam 
-      audio={false} 
-      ref={webcamRef} 
-      screenshotFormat="image/jpeg" 
-      className="mt-4 rounded-md w-96 h-auto" 
-    />
+    
     <div>
       <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
       <button onClick={() => capture(setImage2, imageRef2)}>
