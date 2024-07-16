@@ -80,6 +80,7 @@ const FaceComparison = () => {
           detection2.descriptor
         );
         const similarityScore = (1 - distance).toFixed(2); // Skor kesamaan
+        console.log(similarityScore);
 
         if (similarityScore >= 0.6) {
           // Tentukan threshold kesamaan
@@ -97,6 +98,7 @@ const FaceComparison = () => {
       await axios.post("/api/absen", { photo: image2 });
     } else {
       setSimilarity("Tidak dapat mendeteksi kedua wajah");
+      console.log(similarity)
     }
   };
 
