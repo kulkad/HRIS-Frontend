@@ -55,6 +55,8 @@ const FaceComparison = () => {
 
   // Fungsi untuk menghitung kesamaan antara dua wajah
   const calculateSimilarity = async () => {
+    capture(setImage2, imageRef2);
+
     const img2 = imageRef2.current;
     let isAbsenSuccess = false;
 
@@ -108,6 +110,14 @@ const FaceComparison = () => {
 
   // Tampilkan antarmuka pengguna
   return (
+    <div className="flex justify-center bg-gray-300 dark:bg-gray-600 mt-2 ml-4 rounded-md">
+  <div>
+    <Webcam 
+      audio={false} 
+      ref={webcamRef} 
+      screenshotFormat="image/jpeg" 
+      className="mt-4 rounded-md w-96 h-auto" 
+    />
     <div>
       <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
       <button onClick={() => capture(setImage2, imageRef2)}>
@@ -122,6 +132,17 @@ const FaceComparison = () => {
       {absenSuccess && <h2>Absen berhasil!</h2>}
       {/* <h2>Nama : {userPhotos.name}</h2> */}
     </div>
+    <button 
+      className="flex justify-self-center ml-40 mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
+      onClick={calculateSimilarity}
+    >
+      Absen
+    </button>
+    {similarity && <p className="text-red-600 font-semibold mb-4">Kemiripan wajah : <span className="mb-4 text-blue-800 font-semibold">{similarity}</span></p>}
+    {absenSuccess && <p className="text-blue-600 font-semibold">Absen berhasil! Silahkan melanjutkan aktifitas anda !</p>}
+  </div>
+</div>
+
   );
 };
 
