@@ -82,7 +82,7 @@ const FaceComparison = () => {
         const similarityScore = (1 - distance).toFixed(2); // Skor kesamaan
 
         if (similarityScore >= 0.6) {
-          // Tentukan threshold kesamaan
+          // Tentukan threshold kesamaann
           isAbsenSuccess = true;
           setSimilarity(similarityScore);
           break;
