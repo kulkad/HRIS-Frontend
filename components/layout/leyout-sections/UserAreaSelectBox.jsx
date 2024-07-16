@@ -14,7 +14,7 @@ const Dropdown = () => {
     const fetchUserData = () => {
       const userData = localStorage.getItem("user");
       if (userData) {
-        setUser(JSON.parse(userData));
+        setUser(JSON.parse(userData)); // Ubah string JSON menjadi objek JavaScript dan simpan ke state userr
       }
       setLoading(false);
     };

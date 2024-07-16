@@ -113,7 +113,7 @@ export default function Capture() {
       );
     }
   };
-
+// 
   const submitData = () => {
     // Kirim data photo dan geolocation ke server
     console.log('Photo:', photo);
