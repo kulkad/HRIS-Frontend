@@ -12,7 +12,7 @@ import "aos/dist/aos.css";
 export default function Profile() {
   useEffect(() => {
     AOS.init({
-      duration: 800,
+      duration: 600,
       easing: "ease-in-out",
     });
   }, []);
@@ -26,10 +26,8 @@ export default function Profile() {
 return (
   <div
     className="w-full max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl"
-    data-aos="fade-right"
+    data-aos="fade-down"
   >
-    <div
-      >
         <div className="p-4 border-b flex items-center">
           <Link href="/">
             <li className="flex items-center py-3">
@@ -62,6 +60,6 @@ return (
           </ul>
         </div>
       </div>
-  </div>
+  
 );
 };
