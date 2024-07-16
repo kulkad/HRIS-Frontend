@@ -81,7 +81,7 @@ const FaceComparison = () => {
           detection1.descriptor,
           detection2.descriptor
         );
-        const similarityScore = (1 - distance).toFixed(2); // Skor kesamaann
+        const similarityScore = (1 - distance).toFixed(2); // Skor kesamaan
         console.log(similarityScore);
 
         if (similarityScore >= 0.6) {
@@ -103,7 +103,7 @@ const FaceComparison = () => {
     }
   };
 
-  // Jika model masih dalam proses inisialisasi, tampilkan pesan loading
+  // Jika model masih dalam proses inisialisasi, tampilkan pesan loadingg
   if (initializing) {
     return <div>Loading models...</div>;
   }
@@ -112,20 +112,18 @@ const FaceComparison = () => {
   return (
     <div className="flex justify-center bg-gray-300 dark:bg-gray-600 mt-2 ml-4 rounded-md">
   <div>
-    
+    <Webcam 
+      audio={false} 
+      ref={webcamRef} 
+      screenshotFormat="image/jpeg" 
+      className="mt-4 rounded-md w-96 h-auto" 
+    />
     <div>
-      <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
-      <button onClick={() => capture(setImage2, imageRef2)}>
-        Capture Image
-      </button>
-      <div>
-        <h3>Captured Image</h3>
-        <img ref={imageRef2} alt="Captured Image" />
-      </div>
-      <button onClick={calculateSimilarity}>Calculate Similarity</button>
-      {similarity && <h2>Similarity: {similarity}</h2>}
-      {absenSuccess && <h2>Absen berhasil!</h2>}
-      {/* <h2>Nama : {userPhotos.name}</h2> */}
+      <img 
+        ref={imageRef2} 
+        className="hidden" 
+        alt="Captured Image" 
+      />
     </div>
     <button 
       className="flex justify-self-center ml-40 mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
