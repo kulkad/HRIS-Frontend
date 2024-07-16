@@ -98,11 +98,10 @@ const FaceComparison = () => {
       await axios.post("/api/absen", { photo: image2 });
     } else {
       setSimilarity("Tidak dapat mendeteksi kedua wajah");
-      console.log(similarity)
     }
   };
 
-  // Jika model masih dalam proses inisialisasi, tampilkan pesan loading
+  // Jika model masih dalam proses inisialisasi, tampilkan pesan loadingg
   if (initializing) {
     return <div>Loading models...</div>;
   }
@@ -121,6 +120,7 @@ const FaceComparison = () => {
       <button onClick={calculateSimilarity}>Calculate Similarity</button>
       {similarity && <h2>Similarity: {similarity}</h2>}
       {absenSuccess && <h2>Absen berhasil!</h2>}
+      {/* <h2>Nama : {userPhotos.name}</h2> */}
     </div>
   );
 };
