@@ -83,7 +83,7 @@ const FaceComparison = () => {
         console.log(similarityScore);
 
         if (similarityScore >= 0.6) {
-          // Tentukan threshold kesamaan
+          // Tentukan threshold kesamaann
           isAbsenSuccess = true;
           setSimilarity(similarityScore);
           break;
