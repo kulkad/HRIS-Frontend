@@ -88,6 +88,7 @@ const EditData = () => {
         },
       });
       alert("Behasil Edit Data");
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }

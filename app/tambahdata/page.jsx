@@ -67,6 +67,7 @@ const TambahData = () => {
         },
       });
       alert("Behasil Tambah Data");
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
