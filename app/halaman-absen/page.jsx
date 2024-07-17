@@ -138,7 +138,8 @@ const FaceComparison = () => {
         )}
         {absenSuccess && (
           <p className="text-blue-600 font-semibold">
-            Absen berhasil! Silahkan melanjutkan aktifitas anda !
+            Haii {userPhotos.name} Absen berhasil! Silahkan melanjutkan
+            aktifitas anda !
           </p>
         )}
       </div>

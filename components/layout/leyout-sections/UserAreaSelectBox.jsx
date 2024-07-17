@@ -12,6 +12,7 @@ const Dropdown = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  //Mengambil user yg sedang login brok
   useEffect(() => {
     const fetchUserData = () => {
       const userData = localStorage.getItem("user");
