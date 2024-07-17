@@ -7,14 +7,16 @@ import { FiSearch, FiUser } from "react-icons/fi";
 import { MdHome, MdOutlineAddBox } from "react-icons/md";
 import { HiDocumentAdd } from "react-icons/hi";
 import { FaUserCheck } from "react-icons/fa";
+import { PiUserFocusDuotone } from "react-icons/pi";
+import { PiFolderSimpleUserLight } from "react-icons/pi";
 import { FaTasks } from "react-icons/fa";
 import Link from "next/link";
 
 const navButtonsList = [
   { id: 1, label: "Home", icon: <MdHome />, path: "/" },
   { id: 2, label: "Data", icon: <FaTasks />, path: "/data-absensi" },
-  { id: 3, label: "Absen", icon: <FaUserCheck />, path: "/halaman-absen" },
-  { id: 4, label: "Add", icon: <HiDocumentAdd />, path: "/about-us" },
+  { id: 3, label: "Absen", icon: <PiUserFocusDuotone />, path: "/halaman-absen" },
+  { id: 4, label: "Add", icon: <PiFolderSimpleUserLight />, path: "/halaman-data" },
 ];
 
 const MobileButtonNavigation = () => {
