@@ -59,13 +59,14 @@ const DataMagang = () => {
     }
   };
 
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+  const toggleDropdown = (uuid) => {
+    setOpenDropdown((prevOpenDropdown) =>
+      prevOpenDropdown === uuid ? null : uuid
+    );
   };
 
   const closeDropdownHandler = () => {
-    setIsOpen(false);
+    setOpenDropdown(null);
   };
 
   if (!user) return <p>Loading...</p>;
@@ -163,7 +164,7 @@ const DataMagang = () => {
                 <li key={number} className="px-2">
                   <button
                     onClick={() => paginate(number + 1)}
-                    className={`px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${
+                    className={`px-3 py-2 leading-tight text-gray-500 bg-gray-100 border border-gray-300 hover:bg-sky-100 hover:text-gray-700 rounded-xl dark:hover:bg-sky-200 dark:bg-gray-50 ${
                       currentPage === number + 1 ? "bg-gray-300" : ""
                     }`}
                   >
@@ -176,14 +177,14 @@ const DataMagang = () => {
         </div>
       </div>
       {/* Tampilan untuk layar kecil */}
-      <div className="bg-white min-h-screen flex flex-col rounded-lg mx-2 p-3 text-xl sm:hidden">
+      <div className="bg-white min-h-screen flex flex-col rounded-lg mx-2 p-3 text-xl dark:bg-slate-900 sm:hidden">
         {usersByRole.length === 0 ? (
           <p className="text-center py-4 sm:hidden">Tidak ada data</p>
         ) : (
           currentUsers.map((user) => (
             <div
               key={user.uuid}
-              className="flex justify-between items-center mt-5 border border-gray-500 p-5 hover:bg-gray-200 rounded-xl"
+              className="flex justify-between items-center mt-5 border border-gray-500 p-5 rounded-xl relative"
             >
               <div>
                 <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -195,12 +196,12 @@ const DataMagang = () => {
               </div>
               <div>
                 <button
-                  onClick={toggleDropdown}
+                  onClick={() => toggleDropdown(user.uuid)}
                   className="flex justify-end items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2"
                 >
                   <SlOptionsVertical className="mr-2" />
                 </button>
-                {isOpen && (
+                {openDropdown === user.uuid && (
                   <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-xl z-10 dark:bg-gray-800">
                     <ul className="py-1">
                       <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
@@ -215,8 +216,10 @@ const DataMagang = () => {
                       <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
                         <MdDelete className="mr-2" />
                         <button
-                          onClick={() => deleteProduk(user.uuid)}
-                          className="text-red-500"
+                          onClick={() => {
+                            deleteProduk(user.uuid);
+                            closeDropdownHandler();
+                          }}
                         >
                           Delete
                         </button>
@@ -230,6 +233,21 @@ const DataMagang = () => {
                           Detail
                         </Link>
                       </li>
+                      <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                        {user.url_foto_absen == null ? (
+                          <>
+                            <MdInsertEmoticon className="mr-2" />
+                            <Link
+                              href={`/daftarabsen/${user.uuid}`}
+                              onClick={closeDropdownHandler}
+                            >
+                              Daftar Muka
+                            </Link>
+                          </>
+                        ) : (
+                          <span>Muka Sudah Terdaftar</span>
+                        )}
+                      </li>
                     </ul>
                   </div>
                 )}
@@ -237,7 +255,7 @@ const DataMagang = () => {
             </div>
           ))
         )}
-        {/* Pagination Controls for Mobile */}
+        {/* Pagination Controls */}
         <div className="flex justify-center mt-4 sm:hidden">
           <nav>
             <ul className="inline-flex items-center -space-x-px">
@@ -247,7 +265,7 @@ const DataMagang = () => {
                 <li key={number} className="px-2">
                   <button
                     onClick={() => paginate(number + 1)}
-                    className={`px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${
+                    className={`px-3 py-2 leading-tight text-gray-500 bg-gray-100 border border-gray-300 hover:bg-sky-100 hover:text-gray-700 rounded-xl dark:hover:bg-sky-200 dark:bg-gray-50 ${
                       currentPage === number + 1 ? "bg-gray-300" : ""
                     }`}
                   >

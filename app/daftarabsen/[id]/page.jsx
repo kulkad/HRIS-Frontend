@@ -100,6 +100,7 @@ const DaftarAbsen = () => {
                 facingMode: "user",
               }}
               className="transform scaleX-[-1]"
+              style={{ transform: "scaleX(-1)" }}
             />
           )}
           {photo && <img src={photo} alt="Captured" className="mt-4" />}

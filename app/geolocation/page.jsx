@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Webcam from "react-webcam";
+import { FaRegImage } from "react-icons/fa6";
 
 export default function Capture() {
   const webcamRef = useRef(null);
@@ -9,6 +10,7 @@ export default function Capture() {
   const [photo, setPhoto] = useState(null);
   const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [attendance, setAttendance] = useState("Hadir");
+  const fileInputRef = useRef(null); // Tambahkan ref untuk input file
 
   useEffect(() => {
     // Ambil geolocation
@@ -121,6 +123,7 @@ export default function Capture() {
 
     img.src = imageSrc;
   };
+  
 
   const retakePhoto = () => {
     setPhoto(null);
@@ -154,6 +157,10 @@ export default function Capture() {
     setAttendance((prev) => (prev === "Hadir" ? "Tidak Hadir" : "Hadir"));
   };
 
+  const handleFileUploadClick = () => {
+    fileInputRef.current.click();
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center rounded-md ml-4 bg-gray-100 dark:bg-slate-900 relative">
       <h1 className="text-2xl mt-2 font-bold mb-4 absolute top-4 left-4 dark:text-white">
@@ -166,8 +173,8 @@ export default function Capture() {
             ref={webcamRef}
             screenshotFormat="image/jpeg"
             className="border border-gray-400 mt-20 rounded-md"
-            width="640"
-            height="480"
+            width="500"
+            height="350"
             videoConstraints={{
               facingMode: "user",
             }}
@@ -219,14 +226,14 @@ export default function Capture() {
         <div className="flex justify-center mt-10">
           <form>
             <label htmlFor="chat" className="sr-only">
-              Berikan alasannya...
+              Alasan
             </label>
             <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700">
-              <div className="relative inline-block w-80">
-                <select className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option>Izin</option>
-                  <option>Sakit</option>
-                  <option>Lainnya</option>
+              <div className="relative inline-block w-auto sm:w-auto">
+                <select className="block appearance-none w-28 bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option className="mr-2 ml-2">Izin</option>
+                  <option className="mr-2 ml-2">Sakit</option>
+                  <option className="mr-2 ml-2">Lainnya</option>
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-white">
                   <svg
@@ -240,41 +247,22 @@ export default function Capture() {
               </div>
               <button
                 type="button"
-                className="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 ml-2"
+                className="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text- dark:hover:bg-gray-600 ml-2"
+                onClick={handleFileUploadClick}
               >
-                <svg
-                  className="w-5 h-5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 18"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"
-                  />
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"
-                  />
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"
-                  />
-                </svg>
-                <span className="sr-only">Upload image</span>
+                <input
+                  type="file"
+                  className="hidden"
+                  ref={fileInputRef}
+                />
+                <FaRegImage size={ 24 }/>
+                <span className="sr-only">Masukkan foto</span>
               </button>
               <textarea
                 id="chat"
                 rows="1"
                 className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-00 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Berikan alasannya..."
+                placeholder="Keterangan..."
               ></textarea>
               <button
                 type="submit"
@@ -289,7 +277,7 @@ export default function Capture() {
                 >
                   <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
                 </svg>
-                <span className="sr-only">Send message</span>
+                <span className="sr-only">Kirim</span>
               </button>
             </div>
           </form>
