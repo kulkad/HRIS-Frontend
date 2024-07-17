@@ -161,7 +161,7 @@ const DataMagang = () => {
                 <li key={number} className="px-2">
                   <button
                     onClick={() => paginate(number + 1)}
-                    className={`px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${
+                    className={`px-3 py-2 leading-tight text-gray-500 bg-gray-100 border border-gray-300 hover:bg-sky-100 hover:text-gray-700 rounded-xl dark:hover:bg-sky-200 dark:bg-gray-50 ${
                       currentPage === number + 1 ? "bg-gray-300" : ""
                     }`}
                   >
@@ -246,7 +246,7 @@ const DataMagang = () => {
                 <li key={number} className="px-2">
                   <button
                     onClick={() => paginate(number + 1)}
-                    className={`px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${
+                    className={`px-3 py-2 leading-tight text-gray-500 bg-gray-100 border border-gray-300 hover:bg-sky-100 hover:text-gray-700 dark:hover:bg-sky-200 dark:bg-gray-50 ${
                       currentPage === number + 1 ? "bg-gray-300" : ""
                     }`}
                   >
