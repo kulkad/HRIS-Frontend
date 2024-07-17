@@ -84,7 +84,8 @@ const DataMagang = () => {
         <p className="px-4 py-6 font-semibold">DATA MAGANG</p>
         <div className="flex justify-end col-span-2 bg-white p-5 rounded-lg mb-2 dark:bg-slate-900">
           <Link
-            href="/tambahdata"
+            key={user.uuid}
+            href={`/tambahdata/?role=Magang`}
             className="bg-green-400 hover:bg-green-600 rounded-xl p-2 mr-4"
           >
             Tambah Data
@@ -173,17 +174,16 @@ const DataMagang = () => {
           </nav>
         </div>
       </div>
-
-
       {/* Tampilan untuk layar kecil */}
-      <div
-        className="bg-white min-h-screen flex flex-col rounded-lg mx-2 p-3 text-xl sm:hidden"
-      >
+      <div className="bg-white min-h-screen flex flex-col rounded-lg mx-2 p-3 text-xl sm:hidden">
         {usersByRole.length === 0 ? (
           <p className="text-center py-4 sm:hidden">Tidak ada data</p>
         ) : (
           currentUsers.map((user) => (
-            <div key={user.uuid} className="flex justify-between items-center mt-5 border border-gray-500 p-5 hover:bg-gray-200 rounded-xl">
+            <div
+              key={user.uuid}
+              className="flex justify-between items-center mt-5 border border-gray-500 p-5 hover:bg-gray-200 rounded-xl"
+            >
               <div>
                 <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                   {user.name}

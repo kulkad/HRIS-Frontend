@@ -88,7 +88,7 @@ export default function Capture() {
 
       // Muat logo dari direktori publik dan gambar di latar belakang transparan
       const logoImg = new Image();
-      logoImg.src = "/assets/images/windah.jpg";
+      logoImg.src = "/assets/images/gmt-ultra-full-extra-hd.png";
       logoImg.onload = () => {
         // Perbesar logo dan posisikan di tengah area latar belakang transparan
         const logoWidth = 70; // Perbesar lebar logo
