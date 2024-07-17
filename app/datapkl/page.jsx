@@ -84,7 +84,8 @@ const DataMagang = () => {
         <p className="px-4 py-6 font-semibold">Data Praktek Kerja Lapangan</p>
         <div className="flex justify-end col-span-2 bg-white p-5 rounded-lg mb-2 dark:bg-gray-600">
           <Link
-            href="/tambahdata"
+              key={user.uuid}
+              href={`/tambahdata/?role=Pkl`}
             className="bg-green-400 hover:bg-green-600 rounded-xl p-2 mr-4"
           >
             Tambah Data

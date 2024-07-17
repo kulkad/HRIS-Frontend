@@ -8,6 +8,15 @@ import { useParams } from "next/navigation";
 
 const DaftarAbsen = () => {
   const { id } = useParams(); // Mengambil ID dari URL
+  const [role, setRole] = useState("");
+
+  useEffect(() => {
+    // Mengambil parameter query 'role' dari URL
+    const queryParams = new URLSearchParams(window.location.search);
+    const roleFromUrl = queryParams.get("role");
+    setRole(roleFromUrl);
+  }, []);
+
   const webcamRef = useRef(null);
   const [photo, setPhoto] = useState(null);
   const [initializing, setInitializing] = useState(true);
@@ -59,7 +68,8 @@ const DaftarAbsen = () => {
 
       console.log(updateResponse.data);
       setAbsenSuccess(true); // Set success message
-      window.location.href = "/datapkl"; // Redirect setelah berhasil
+      alert("Berhasil Daftar Absen");
+      window.location.href = "/"; // Redirect setelah berhasil
     } catch (error) {
       console.error("Error submitting data:", error.message);
       alert("Gagal mengirim data, silakan coba lagi."); // Pesan error
@@ -92,13 +102,7 @@ const DaftarAbsen = () => {
               className="transform scaleX-[-1]"
             />
           )}
-          {photo && (
-            <img
-              src={photo}
-              alt="Captured"
-              className="mt-4"
-            />
-          )}
+          {photo && <img src={photo} alt="Captured" className="mt-4" />}
         </div>
       </div>
       <div className="flex justify-center gap-16 mt-4">
@@ -127,8 +131,16 @@ const DaftarAbsen = () => {
           </div>
         )}
       </div>
-      {similarity && <p className="text-red-600 font-semibold mb-4">Kemiripan wajah : {similarity}</p>}
-      {absenSuccess && <p className="text-blue-600 font-semibold">Absen berhasil! Silahkan melanjutkan aktifitas anda!</p>}
+      {similarity && (
+        <p className="text-red-600 font-semibold mb-4">
+          Kemiripan wajah : {similarity}
+        </p>
+      )}
+      {absenSuccess && (
+        <p className="text-blue-600 font-semibold">
+          Absen berhasil! Silahkan melanjutkan aktifitas anda!
+        </p>
+      )}
     </div>
   );
 };
