@@ -81,7 +81,7 @@ const DataMagang = () => {
 
   return (
     <div className="bg-white dark:bg-slate-900 dark:text-white rounded-lg mx-4 p-4 text-xl sm:block">
-      <div className="grid grid-cols-3 gap-4 flex">
+      <div className="grid grid-cols-3 gap-4">
         <p className="px-4 py-6 font-semibold">DATA KARYAWAN</p>
         <div className="flex justify-end col-span-2 bg-white p-5 rounded-lg mb-2 dark:bg-slate-900">
           <Link

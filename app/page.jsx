@@ -18,7 +18,7 @@ const HomePage = () => {
 
   return (
     <div
-      className="w-full bg-white dark:bg-slate-900 dark:text-white max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden md:max-w-2xl"
+      className="w-full bg-white dark:bg-slate-900 dark:text-white max-w-md mx-auto rounded-lg shadow-md overflow-hidden md:max-w-2xl"
       data-aos="zoom-in"
     >
       <div className="mx-4 p-4">
