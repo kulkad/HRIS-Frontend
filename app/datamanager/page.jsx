@@ -87,7 +87,7 @@ const DataMagang = () => {
           <Link
             key={user.uuid}
             href={`/tambahdata/?role=Manager`}
-            className="bg-green-400 hover:bg-green-600 rounded-xl p-2 mr-4"
+            className="bg-green-400 hover:bg-green-600 rounded-xl w-36 h-11 text-center py-1"
           >
             Tambah Data
           </Link>
