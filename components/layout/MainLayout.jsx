@@ -16,10 +16,13 @@ const MainLayout = ({ children }) => {
     <div className='min-h-screen bg-gray-200 dark:bg-slate-700'>
       {pathName !== '/login' && <MainSidebar />}
       {pathName !== '/login' && <MainHeader />}
+      {pathName !== '/login' && <MobileButtonNavigation />}
+      
+
       <div className={`${open && lessThanLg ? 'max-lg blur-xl pointer-events-none' : ''}`}>
         <main className={pathName !== '/login' && 'lg:ml-[280px]'}>{children}</main>
       </div>
-      <MobileButtonNavigation />
+      {/* <MobileButtonNavigation /> */}
     </div>
   );
 };
