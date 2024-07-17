@@ -173,8 +173,8 @@ export default function Capture() {
             ref={webcamRef}
             screenshotFormat="image/jpeg"
             className="border border-gray-400 mt-20 rounded-md"
-            width="640"
-            height="480"
+            width="500"
+            height="350"
             videoConstraints={{
               facingMode: "user",
             }}
@@ -226,7 +226,7 @@ export default function Capture() {
         <div className="flex justify-center mt-10">
           <form>
             <label htmlFor="chat" className="sr-only">
-              Berikan alasannya...
+              Alasan
             </label>
             <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700">
               <div className="relative inline-block w-auto sm:w-auto">
@@ -256,13 +256,13 @@ export default function Capture() {
                   ref={fileInputRef}
                 />
                 <FaRegImage size={ 24 }/>
-                <span className="sr-only">Upload image</span>
+                <span className="sr-only">Masukkan foto</span>
               </button>
               <textarea
                 id="chat"
                 rows="1"
                 className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-00 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Berikan alasannya..."
+                placeholder="Keterangan..."
               ></textarea>
               <button
                 type="submit"
@@ -277,7 +277,7 @@ export default function Capture() {
                 >
                   <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
                 </svg>
-                <span className="sr-only">Send message</span>
+                <span className="sr-only">Kirim</span>
               </button>
             </div>
           </form>
