@@ -6,6 +6,8 @@ import { IoLogOutOutline } from "react-icons/io5";
 import Link from "next/link";
 import { useEffect } from "react";
 import { IoIosArrowBack } from "react-icons/io";
+import { LiaUserCircleSolid } from "react-icons/lia";
+import { MdAccountCircle } from "react-icons/md";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -18,7 +20,7 @@ export default function Profile() {
   }, []);
 
   const menuItems = [
-    { icon: FaTags, text: "Detail Akun", link: "/detailuser" },
+    { icon: LiaUserCircleSolid, text: "Detail Akun", link: "/detailuser" },
     { icon: FiEdit3, text: "Edit Profile", link: "/edit-data" },
     { icon: IoLogOutOutline, text: "Logout", link: "/logout" },
   ];
