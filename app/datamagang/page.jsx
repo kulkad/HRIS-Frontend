@@ -5,6 +5,7 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { SlOptionsVertical } from "react-icons/sl";
 import { MdInsertEmoticon } from "react-icons/md";
+import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
 import axios from "axios";
 
@@ -81,6 +82,11 @@ const DataMagang = () => {
 
   return (
     <div className="bg-white dark:bg-slate-900 dark:text-white rounded-lg mx-4 p-4 text-xl sm:block">
+      <Link href="/halaman-data">
+            <li className="flex items-center sm:hidden">
+              <IoIosArrowBack className="mr-1 ml-1"/>
+            </li>
+          </Link>
       <div className="grid grid-cols-3 gap-4">
         <p className="px-4 py-6 font-semibold">DATA MAGANG</p>
         <div className="flex justify-end col-span-2 bg-white p-5 rounded-lg mb-2 dark:bg-slate-900">
