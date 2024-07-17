@@ -18,10 +18,10 @@ const HomePage = () => {
 
   return (
     <div
-      className="w-full max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl"
-      data-aos="fade-right"
+      className="w-full bg-white dark:bg-slate-900 dark:text-white max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden md:max-w-2xl"
+      data-aos="zoom-in"
     >
-      <div className="bg-white dark:bg-slate-900 dark:text-white rounded-lg mx-4 p-4">
+      <div className="mx-4 p-4">
         <h1 className="text-2xl font-semibold">Selamat Datang, {user.name}</h1>
         <hr className="mt-5 mb-5" />
         <a href="geolocation">

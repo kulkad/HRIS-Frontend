@@ -3,25 +3,8 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-//import { useRouter } from "next/router";
 
 export default function Logout() {
-  // Pengecekan Route Apakah User Sudah Login Atau belum
-  // const [user, setUser] = useState(null);
-  // // const router = useRouter();
-
-  // useEffect(() => {
-  //   const userData = localStorage.getItem("user");
-  //   if (!userData) {
-  //     window.location.href = "http://localhost:3000/login";
-  //   } else {
-  //     setUser(JSON.parse(userData));
-  //   }
-  // }, []);
-
-  // if (!user) return <p>Loading...</p>;
-
-  //const router = useRouter();
   let router;
   useEffect(() => {
     const logoutUser = async () => {
@@ -41,6 +24,9 @@ export default function Logout() {
   return (
     <div className="flex h-screen bg-green-500">
       <div className="m-auto bg-white p-10 rounded-lg shadow-lg w-full max-w-md text-center">
+        <div className="flex justify-center items-center mb-6">
+          <div className="w-16 h-16 border-t-4 border-b-4 border-green-700 rounded-full animate-spin"></div>
+        </div>
         <h2 className="text-2xl font-bold text-green-700 mb-6">
           Logging out...
         </h2>

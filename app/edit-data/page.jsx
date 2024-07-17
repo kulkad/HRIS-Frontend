@@ -1,11 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
 import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { IoMdImage } from "react-icons/io";
+import { IoMdImage, IoIosArrowBack } from "react-icons/io";
 
 const EditData = () => {
   // Pengecekan Route Apakah User Sudah Login Atau belum
@@ -24,7 +25,12 @@ const EditData = () => {
   if (!user) return <p>Loading...</p>;
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
-      <h1 className="mt-1 mb-4 font-semibold">Form Edit User</h1>
+      <Link href="/profile">
+        <li className="flex items-center py-3">
+          <IoIosArrowBack className="mr-1" />
+        </li>
+      </Link>
+      <h1 className="mt-1 mb-4 font-semibold">Edit Data</h1>
 
       <form className="max-w">
         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">

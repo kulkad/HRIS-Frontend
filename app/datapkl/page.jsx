@@ -79,10 +79,10 @@ const DataMagang = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="bg-white rounded-lg mx-4 p-4 text-xl sm:block">
+    <div className="bg-white dark:bg-slate-900 dark:text-white rounded-lg mx-4 p-4 text-xl sm:block">
       <div className="grid grid-cols-3 gap-4 flex">
         <p className="px-4 py-6 font-semibold">Data Praktek Kerja Lapangan</p>
-        <div className="flex justify-end col-span-2 bg-white p-5 rounded-lg mb-2 dark:bg-gray-600">
+        <div className="flex justify-end col-span-2 bg-white p-5 rounded-lg mb-2 dark:bg-slate-900">
           <Link
               key={user.uuid}
               href={`/tambahdata/?role=Pkl`}
@@ -98,8 +98,8 @@ const DataMagang = () => {
         {usersByRole.length === 0 ? (
           <p className="text-center py-4">Tidak ada data</p>
         ) : (
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-900 uppercase dark:text-gray-400">
+          <table className="w-full text-sm text-left text-gray-500 dark:text-white">
+            <thead className="text-xs text-gray-900 uppercase ">
               <tr>
                 <th className="px-6 py-3">Nama</th>
                 <th className="px-6 py-3">Email</th>
@@ -110,7 +110,7 @@ const DataMagang = () => {
             <tbody>
               {currentUsers.map((user) => (
                 <tr key={user.uuid} className="bg-white dark:bg-gray-800">
-                  <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                     {user.name}
                   </th>
                   <td className="px-6 py-4">{user.email}</td>

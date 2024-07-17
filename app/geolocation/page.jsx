@@ -8,6 +8,7 @@ export default function Capture() {
   const canvasRef = useRef(null);
   const [photo, setPhoto] = useState(null);
   const [location, setLocation] = useState({ latitude: null, longitude: null });
+  const [attendance, setAttendance] = useState("Hadir");
 
   useEffect(() => {
     // Ambil geolocation
@@ -149,9 +150,13 @@ export default function Capture() {
     alert("Data submitted!");
   };
 
+  const toggleAttendance = () => {
+    setAttendance((prev) => (prev === "Hadir" ? "Tidak Hadir" : "Hadir"));
+  };
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 relative">
-      <h1 className="text-2xl font-bold mb-4 absolute top-4 left-4">
+    <div className="min-h-screen flex flex-col items-center justify-center rounded-md ml-4 bg-gray-100 dark:bg-slate-900 relative">
+      <h1 className="text-2xl mt-2 font-bold mb-4 absolute top-4 left-4 dark:text-white">
         Geolocation
       </h1>
       {!photo && (
@@ -160,7 +165,7 @@ export default function Capture() {
             audio={false}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
-            className="border border-gray-400"
+            className="border border-gray-400 mt-20 rounded-md"
             width="640"
             height="480"
             videoConstraints={{
@@ -200,16 +205,102 @@ export default function Capture() {
           </div>
         </div>
       )}
+      <button
+        onClick={toggleAttendance}
+        className={`mt-4 px-4 py-2 rounded ${
+          attendance === "Hadir"
+            ? "bg-green-500 text-white hover:bg-green-600"
+            : "bg-red-500 text-white hover:bg-red-600"
+        }`}
+      >
+        {attendance === "Hadir" ? "Hadir" : "Tidak Hadir"}
+      </button>
+      {attendance === "Tidak Hadir" && (
+        <div className="flex justify-center mt-10">
+          <form>
+            <label htmlFor="chat" className="sr-only">
+              Berikan alasannya...
+            </label>
+            <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700">
+              <div className="relative inline-block w-80">
+                <select className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option>Izin</option>
+                  <option>Sakit</option>
+                  <option>Lainnya</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-white">
+                  <svg
+                    className="fill-current h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M10 3a1 1 0 0 1 .832.445l5 7a1 1 0 0 1-1.664 1.11L10 5.66l-4.168 5.895a1 1 0 1 1-1.664-1.11l5-7A1 1 0 0 1 10 3z" />
+                  </svg>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 ml-2"
+              >
+                <svg
+                  className="w-5 h-5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 20 18"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"
+                  />
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"
+                  />
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z"
+                  />
+                </svg>
+                <span className="sr-only">Upload image</span>
+              </button>
+              <textarea
+                id="chat"
+                rows="1"
+                className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-00 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Berikan alasannya..."
+              ></textarea>
+              <button
+                type="submit"
+                className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600"
+              >
+                <svg
+                  className="w-5 h-5 rotate-90 rtl:-rotate-90"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 18 20"
+                >
+                  <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
+                </svg>
+                <span className="sr-only">Send message</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
       <canvas
         ref={canvasRef}
         className="hidden"
         width="640"
         height="480"
       ></canvas>
-
-      <hr className="mt-10 mb-2"/>
-      <p className="size-xs font-semibold teks-red-600 mt-4"> * Mohon mengisi form jika berhalangan hadir</p>
-      
     </div>
   );
 }
