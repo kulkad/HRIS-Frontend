@@ -4,6 +4,8 @@ import React, { useState, useRef, useEffect } from "react";
 import * as faceapi from "face-api.js";
 import Webcam from "react-webcam";
 import axios from "axios";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 // Komponen utama FaceComparison
 const FaceComparison = () => {
@@ -105,7 +107,15 @@ const FaceComparison = () => {
 
   // Jika model masih dalam proses inisialisasi, tampilkan pesan loadingg
   if (initializing) {
-    return <div>Loading models...</div>;
+    return (
+      <div className="w-full bg-white dark:bg-slate-900 dark:text-white max-w-md mx-auto rounded-lg shadow-md overflow-hidden md:max-w-2xl p-4">
+        <Skeleton height={40} count={1} className="mb-4"/>
+        <Skeleton height={20} count={1} className="mb-4"/>
+        <Skeleton height={20} count={1} className="mb-4"/>
+        <Skeleton height={50} width={150} className="mb-4"/>
+        <Skeleton height={50} width={150} className="mb-4"/>
+      </div>
+    );
   }
 
   // Tampilkan antarmuka pengguna

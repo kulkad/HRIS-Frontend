@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const HomePage = () => {
   const [user, setUser] = useState(null);
@@ -14,12 +16,21 @@ const HomePage = () => {
     }
   }, []);
 
-  if (!user) return <p>Loading...</p>;
+  if (!user) {
+    return (
+      <div className="w-full bg-white dark:bg-slate-900 dark:text-white max-w-md mx-auto rounded-lg shadow-md overflow-hidden md:max-w-2xl p-4">
+        <Skeleton height={40} count={1} className="mb-4"/>
+        <Skeleton height={20} count={1} className="mb-4"/>
+        <Skeleton height={20} count={1} className="mb-4"/>
+        <Skeleton height={50} width={150} className="mb-4"/>
+        <Skeleton height={50} width={150} className="mb-4"/>
+      </div>
+    );
+  }
 
   return (
     <div
       className="w-full bg-white dark:bg-slate-900 dark:text-white max-w-md mx-auto rounded-lg shadow-md overflow-hidden md:max-w-2xl"
-      data-aos="zoom-in"
     >
       <div className="mx-4 p-4">
         <h1 className="text-2xl font-semibold">Selamat Datang, {user.name}</h1>

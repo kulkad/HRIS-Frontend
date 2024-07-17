@@ -6,6 +6,8 @@ import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 import { IoMdImage, IoIosArrowBack } from "react-icons/io";
 
 const EditData = () => {
@@ -22,7 +24,15 @@ const EditData = () => {
     }
   }, []);
 
-  if (!user) return <p>Loading...</p>;
+  if (!user) return (
+    <div className="w-full bg-white dark:bg-slate-900 dark:text-white max-w-md mx-auto rounded-lg shadow-md overflow-hidden md:max-w-2xl p-4">
+      <Skeleton height={40} count={1} className="mb-4"/>
+      <Skeleton height={20} count={1} className="mb-4"/>
+      <Skeleton height={20} count={1} className="mb-4"/>
+      <Skeleton height={50} width={150} className="mb-4"/>
+      <Skeleton height={50} width={150} className="mb-4"/>
+    </div>
+  );
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
       <Link href="/profile">
