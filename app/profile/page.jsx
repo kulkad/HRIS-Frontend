@@ -24,6 +24,7 @@ export default function Profile() {
     { icon: FiEdit3, text: "Edit Profile", link: "/edit-data" },
     { icon: IoLogOutOutline, text: "Logout", link: "/logout" },
   ];
+  
 
 return (
   <div

@@ -6,6 +6,8 @@ import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { IoMdImage, IoIosArrowBack } from "react-icons/io";
 import axios from "axios";
 import { useParams } from "next/navigation";
@@ -67,7 +69,6 @@ const EditData = () => {
     // console.log("coba", password);
     // console.log("coba lama", confpassword);
 
-
     // if (password == null && confpassword == null)
     //   alert("Anda Yakin Tidak Mengubah Password anda?");
 
@@ -79,7 +80,7 @@ const EditData = () => {
 
     // if (password !== confpassword)
     //   alert("Password dan Confirmasi Password Tidak Cocok");
-    
+
     try {
       await axios.patch(`http://localhost:5001/updateuser/${id}`, formdata, {
         headers: {
@@ -91,8 +92,16 @@ const EditData = () => {
       console.log(error);
     }
   };
-
-  if (!user) return <p>Loading...</p>;
+  if (!user)
+    return (
+      <div className="w-full bg-white dark:bg-slate-900 dark:text-white max-w-md mx-auto rounded-lg shadow-md overflow-hidden md:max-w-2xl p-4">
+        <Skeleton height={40} count={1} className="mb-4" />
+        <Skeleton height={20} count={1} className="mb-4" />
+        <Skeleton height={20} count={1} className="mb-4" />
+        <Skeleton height={50} width={150} className="mb-4" />
+        <Skeleton height={50} width={150} className="mb-4" />
+      </div>
+    );
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
       <h1 className="mt-1 mb-4 font-semibold">Form Tambah User</h1>
