@@ -8,6 +8,8 @@ import { MdInsertEmoticon } from "react-icons/md";
 import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
 import axios from "axios";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const DataMagang = () => {
   const [user, setUser] = useState(null);
@@ -90,7 +92,17 @@ const DataMagang = () => {
     setOpenDropdown(null);
   };
 
-  if (!user) return <p>Loading...</p>;
+  if (!user) {
+    return (
+      <div className="w-full bg-white dark:bg-slate-900 dark:text-white max-w-md mx-auto rounded-lg shadow-md overflow-hidden md:max-w-2xl p-4">
+        <Skeleton height={40} count={1} className="mb-4"/>
+        <Skeleton height={20} count={1} className="mb-4"/>
+        <Skeleton height={20} count={1} className="mb-4"/>
+        <Skeleton height={50} width={150} className="mb-4"/>
+        <Skeleton height={50} width={150} className="mb-4"/>
+      </div>
+    );
+  }
 
 // Calculating the users to be displayed on the current page
   const indexOfLastUser = currentPage * usersPerPage;

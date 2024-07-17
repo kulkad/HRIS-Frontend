@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 import { IoMdImage } from "react-icons/io";
 import axios from "axios";
 import { useParams } from "next/navigation";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const TambahData = () => {
   const { id } = useParams(); // Mengambil ID dari URL
@@ -53,7 +55,7 @@ const TambahData = () => {
     formdata.append("email", email);
     formdata.append("role", role);
     formdata.append("password", password);
-    formdata.append("confPassword", confpassword)
+    formdata.append("confPassword", confpassword);
 
     if (password !== confpassword)
       alert("Password dan Confirmasi Password Tidak Cocok");
@@ -65,11 +67,24 @@ const TambahData = () => {
         },
       });
       alert("Behasil Tambah Data");
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
   };
-  if (!user) return <p>Loading...</p>;
+
+  if (!user) {
+    return (
+      <div className="w-full bg-white dark:bg-slate-900 dark:text-white max-w-md mx-auto rounded-lg shadow-md overflow-hidden md:max-w-2xl p-4">
+        <Skeleton height={40} count={1} className="mb-4" />
+        <Skeleton height={20} count={1} className="mb-4" />
+        <Skeleton height={20} count={1} className="mb-4" />
+        <Skeleton height={50} width={150} className="mb-4" />
+        <Skeleton height={50} width={150} className="mb-4" />
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
       <h1 className="mt-1 mb-4 font-semibold">Form Tambah User</h1>
