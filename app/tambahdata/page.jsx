@@ -7,20 +7,19 @@ import { FaLock } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { IoMdImage } from "react-icons/io";
 import axios from "axios";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const TambahData = () => {
   const { id } = useParams(); // Mengambil ID dari URL
-  const router = useRouter(); // Tambahkan useRouter
   const [role, setRole] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confpassword, setConfpassword] = useState("");
   const [file, setFile] = useState("");
-  const [preview, setPreview] = useState("");
+  const [preview, setpreview] = useState("");
 
   useEffect(() => {
     // Mengambil parameter query 'role' dari URL
@@ -31,6 +30,7 @@ const TambahData = () => {
 
   // Pengecekan Route Apakah User Sudah Login Atau belum
   const [user, setUser] = useState(null);
+  // const router = useRouter();
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -44,7 +44,7 @@ const TambahData = () => {
   const loadImage = (e) => {
     const image = e.target.files[0];
     setFile(image);
-    setPreview(URL.createObjectURL(image));
+    setpreview(URL.createObjectURL(image));
   };
 
   const saveData = async (e) => {
@@ -57,10 +57,8 @@ const TambahData = () => {
     formdata.append("password", password);
     formdata.append("confPassword", confpassword);
 
-    if (password !== confpassword) {
+    if (password !== confpassword)
       alert("Password dan Confirmasi Password Tidak Cocok");
-      return;
-    }
 
     try {
       await axios.post("http://localhost:5001/users", formdata, {
@@ -68,8 +66,7 @@ const TambahData = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      alert("Berhasil Tambah Data");
-      router.reload(); // Refresh halaman setelah berhasil menambah data
+      alert("Behasil Tambah Data");
     } catch (error) {
       console.log(error);
     }
@@ -167,7 +164,7 @@ const TambahData = () => {
             <IoMdImage className="mr-5" size={24} />
           </div>
           <input
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             aria-describedby="user_avatar_help"
             id="user_avatar"
             onChange={loadImage}
