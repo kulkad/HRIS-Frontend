@@ -21,7 +21,7 @@ export default function Profile() {
 
   const menuItems = [
     { icon: LiaUserCircleSolid, text: "Detail Akun", link: "/detailuser" },
-    { icon: FiEdit3, text: "Edit Profile", link: "/edit-data" },
+    { icon: FiEdit3, text: "Edit Foto Profile", link: "/edit-potoprofile" },
     { icon: IoLogOutOutline, text: "Logout", link: "/logout" },
   ];
 
@@ -32,11 +32,11 @@ export default function Profile() {
     >
       <div className="p-4 border-b flex items-center">
         <Link href="/">
-          <li className="flex items-center py-3">
+          <div className="flex items-center space-x-2 cursor-pointer">
             <IoIosArrowBack className="mr-1" />
-          </li>
+            <h1 className="text-xl font-semibold">Profilku</h1>
+          </div>
         </Link>
-        <h1 className="text-xl font-semibold">Profilku</h1>
       </div>
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-4">Akun</h2>
