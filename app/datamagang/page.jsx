@@ -229,43 +229,84 @@ const DataMagang = () => {
           </nav>
         </div>
       </div>
-      {/* Tampilan untuk layar kecil */}
-      <div className="bg-white min-h-screen flex flex-col rounded-lg mx-2 p-3 text-xl dark:bg-slate-900 sm:hidden">
+            {/* Tampilan untuk layar kecil */}
+            <div className="bg-white min-h-screen flex flex-col rounded-lg mx-2 p-3 text-xl dark:bg-slate-900 sm:hidden">
         {usersByRole.length === 0 ? (
-          <p className="text-center py-4">Tidak ada data</p>
+          <p className="text-center py-4 sm:hidden">Tidak ada data</p>
         ) : (
-          <>
-            {currentUsers.map((user) => (
-              <div
-                key={user.uuid}
-                className="bg-gray-200 dark:bg-gray-800 rounded-xl mb-4 p-4"
-              >
-                <p className="font-semibold">{user.name}</p>
-                <p>{user.email}</p>
-                <p>{user.role}</p>
-                <div className="flex justify-between mt-2">
-                  <Link
-                    href={`/edit-data/${user.uuid}`}
-                    className="bg-green-400 hover:bg-green-600 rounded-xl px-4 py-1 text-center"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    onClick={() => openDeleteModal(user.uuid)}
-                    className="bg-red-400 hover:bg-red-600 rounded-xl px-4 py-1 text-center"
-                  >
-                    Delete
-                  </button>
-                  <Link
-                    href={`/detailuser/${user.uuid}`}
-                    className="bg-blue-400 hover:bg-blue-600 rounded-xl px-4 py-1 text-center"
-                  >
-                    Detail
-                  </Link>
-                </div>
+          currentUsers.map((user) => (
+            <div
+              key={user.uuid}
+              className="flex justify-between items-center mt-5 border border-gray-500 p-5 rounded-xl relative"
+            >
+              <div>
+                <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  {user.name}
+                </h5>
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  {user.email}
+                </p>
               </div>
-            ))}
-          </>
+              <div>
+                <button
+                  onClick={() => toggleDropdown(user.uuid)}
+                  className="flex justify-end items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2"
+                >
+                  <SlOptionsVertical className="mr-2" />
+                </button>
+                {openDropdown === user.uuid && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-xl z-10 dark:bg-gray-800">
+                    <ul className="py-1">
+                      <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                        <MdEdit className="mr-2" />
+                        <Link
+                          href={`/edit-data/${user.uuid}`}
+                          onClick={closeDropdownHandler}
+                        >
+                          Edit
+                        </Link>
+                      </li>
+                      <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                        <MdDelete className="mr-2" />
+                        <button
+                          onClick={() => {
+                            openDeleteModal(user.uuid);
+                            closeDropdownHandler();
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </li>
+                      <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                        <BiSolidUserDetail className="mr-2" />
+                        <Link
+                          href={`/detailuser/${user.uuid}`}
+                          onClick={closeDropdownHandler}
+                        >
+                          Detail
+                        </Link>
+                      </li>
+                      <li className="flex justify-start items-center hover:bg-teal-100 hover:text-black rounded-xl p-2">
+                        {user.url_foto_absen == null ? (
+                          <>
+                            <MdInsertEmoticon className="mr-2" />
+                            <Link
+                              href={`/daftarabsen/${user.uuid}`}
+                              onClick={closeDropdownHandler}
+                            >
+                              Daftar Muka
+                            </Link>
+                          </>
+                        ) : (
+                          <span>Muka Sudah Terdaftar</span>
+                        )}
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))
         )}
         {/* Pagination Controls */}
         <div className="flex justify-center mt-4">
