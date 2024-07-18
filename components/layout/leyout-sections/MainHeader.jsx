@@ -47,9 +47,7 @@ const MainHeader = () => {
           />
         )}
         <Link href="/setting-pulang">
-                <li className="flex justify-start items-cente rounded-xl p-2 w-full cursor-pointer">
                   <MdSettings size={24} />
-                </li>
         </Link>
         <div>
           <UserAreaSelectBox />
