@@ -12,6 +12,7 @@ const DataAbsen = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -23,15 +24,15 @@ const DataAbsen = () => {
   }, []);
 
   useEffect(() => {
-    // Fetch data absensi dari backend menggunakan axios
     const fetchAbsens = async () => {
       try {
         const response = await axios.get("http://localhost:5001/absens");
         setData(response.data);
       } catch (error) {
         console.error("Error fetching absens:", error);
+      } finally {
+        setLoading(false);
       }
-      console.log("coba", data);
     };
     fetchAbsens();
   }, []);
@@ -162,22 +163,36 @@ const DataAbsen = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((item, index) => (
-              <tr key={item.uuid} className="bg-white dark:bg-gray-800">
-                <td className="px-6 py-4">{index + 1}</td>
-                <td className="px-6 py-4">{item.user.name}</td>
-                <td className="px-6 py-4">{item.user.role}</td>
-                <td className="px-6 py-4">{item.waktu_datang}</td>
-                <td className="px-6 py-4">
-                  <Link href="/detailabsen">
-                    <div className="flex justify-start items-center hover:bg-blue-200 hover:text-gray-800 rounded-xl p-2">
-                      <BiSolidUserDetail className="mr-1" />
-                      Detail
-                    </div>
-                  </Link>
+            {loading ? (
+              <tr>
+                <td colSpan="5" className="text-center">
+                  <Skeleton height={40} count={1} className="mb-4" />
                 </td>
               </tr>
-            ))}
+            ) : filteredData.length === 0 ? (
+              <tr>
+                <td colSpan="5" className="text-center py-4">
+                  Tidak ada data
+                </td>
+              </tr>
+            ) : (
+              filteredData.map((item, index) => (
+                <tr key={item.uuid} className="bg-white dark:bg-gray-800">
+                  <td className="px-6 py-4">{index + 1}</td>
+                  <td className="px-6 py-4">{item.user.name}</td>
+                  <td className="px-6 py-4">{item.user.role}</td>
+                  <td className="px-6 py-4">{item.waktu_datang}</td>
+                  <td className="px-6 py-4">
+                    <Link href="/detailabsen">
+                      <div className="flex justify-start items-center hover:bg-blue-200 hover:text-gray-800 rounded-xl p-2">
+                        <BiSolidUserDetail className="mr-1" />
+                        Detail
+                      </div>
+                    </Link>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
