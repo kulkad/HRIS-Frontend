@@ -51,23 +51,19 @@ const FaceComparison = () => {
     // console.log("Captured image:", imageSrc);
   };
 
-  // console.log("coba", currentUser);
-
   const calculateSimilarity = async () => {
     capture(setImage2, imageRef2);
-    
+
     const img2 = imageRef2.current;
     let isAbsenSuccess = false;
     let matchedUser = null;
-    
+
     for (let userPhoto of userPhotos) {
-      // console.log('coba', userPhoto.url_foto_absen);
+      // console.log("Comparing with user photo:", userPhoto.url_foto_absen);
       const img1 = new Image();
       img1.crossOrigin = "anonymous";
       img1.src = userPhoto.url_foto_absen;
       await new Promise((resolve) => (img1.onload = resolve));
-      
-      // console.log("Comparing with user photo:", userPhoto);
 
       const detection1 = await faceapi
         .detectSingleFace(img1, new faceapi.SsdMobilenetv1Options())
@@ -102,10 +98,15 @@ const FaceComparison = () => {
       setAbsenSuccess(true);
       setCurrentUser(matchedUser);
       console.log("Absen berhasil untuk user:", matchedUser);
-      await axios.post("http://localhost:5001/absen", {
-        userId: matchedUser.uuid,
-      });
-      alert("Absen berhasil!");
+      try {
+        await axios.post("http://localhost:5001/absen", {
+          userId: matchedUser.id,
+        });
+        alert("Absen berhasil!");
+      } catch (error) {
+        console.error("Error posting absen:", error);
+        alert(`Gagal absen: ${error.response?.data?.msg || error.message}`);
+      }
     } else {
       setSimilarity("Tidak dapat mendeteksi wajah");
     }
