@@ -60,12 +60,12 @@ const EditFotoProfile = () => {
   }
 
   return (
-    <div className="bg-white rounded-lg mx-4 p-4 text-xl">
+    <div className="bg-white rounded-lg mx-4 p-4 text-xl dark:bg-slate-900">
       <div className="flex items-center mb-4">
-        <Link href="/detailuser">
-          <IoIosArrowBack className="mr-2 text-xl" />
+        <Link href="/profile">
+          <IoIosArrowBack className="mr-2 text-xl dark:text-white" />
         </Link>
-        <h1 className="text-lg font-semibold">Edit Foto Profil</h1>
+        <h1 className="text-lg font-semibold dark:text-white">Edit Foto Profil</h1>
       </div>
 
       <form className="max-w" onSubmit={saveFotoProfile}>
@@ -74,7 +74,7 @@ const EditFotoProfile = () => {
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-            <IoMdImage className="mr-5" size={24} />
+            <IoMdImage className="mr-5 dark:text-white" size={24} />
           </div>
           <input
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
