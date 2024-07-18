@@ -97,7 +97,7 @@ const FaceComparison = () => {
 
     if (isAbsenSuccess) {
       setAbsenSuccess(true);
-      alert("Absen berhasil!");
+      alert("Absen Pulang berhasil!");
       // Kirim data absen ke database
       await axios.post("/api/absen", { photo: image2 });
     } else {

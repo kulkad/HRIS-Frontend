@@ -4,24 +4,19 @@ import React, { useState, useRef, useEffect } from "react";
 import * as faceapi from "face-api.js";
 import Webcam from "react-webcam";
 import axios from "axios";
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
-// Komponen utama FaceComparison
 const FaceComparison = () => {
-  // State untuk mengatur apakah model sedang diinisialisasi
   const [initializing, setInitializing] = useState(true);
-  // State untuk menyimpan nilai kesamaan wajah
   const [similarity, setSimilarity] = useState(null);
-  // State untuk menyimpan gambar yang diambil
   const [image2, setImage2] = useState(null);
   const [userPhotos, setUserPhotos] = useState([]);
   const [absenSuccess, setAbsenSuccess] = useState(false);
-  // Refs untuk referensi webcam dan gambar
+  const [currentUser, setCurrentUser] = useState(null);
   const webcamRef = useRef(null);
   const imageRef2 = useRef(null);
 
-  // Hook useEffect untuk memuat model face-api.js saat komponen pertama kali di-render
   useEffect(() => {
     const loadModels = async () => {
       const MODEL_URL = "/models";
@@ -34,10 +29,9 @@ const FaceComparison = () => {
     loadModels();
   }, []);
 
-  // Mengambil URL foto dari database
   const fetchUserPhotos = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/userfotoabsen"); // Ganti dengan endpoint API Anda
+      const response = await axios.get("http://localhost:5001/userfotoabsen");
       setUserPhotos(response.data);
     } catch (error) {
       console.error("Error fetching user photos: ", error);
@@ -48,19 +42,18 @@ const FaceComparison = () => {
     fetchUserPhotos();
   }, []);
 
-  // Fungsi untuk mengambil gambar dari webcam dan menyimpannya ke state
   const capture = (setImage, imageRef) => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImage(imageSrc);
     imageRef.current.src = imageSrc;
   };
 
-  // Fungsi untuk menghitung kesamaan antara dua wajah
   const calculateSimilarity = async () => {
     capture(setImage2, imageRef2);
 
     const img2 = imageRef2.current;
     let isAbsenSuccess = false;
+    let matchedUser = null;
 
     for (let userPhoto of userPhotos) {
       const img1 = new Image();
@@ -83,42 +76,41 @@ const FaceComparison = () => {
           detection1.descriptor,
           detection2.descriptor
         );
-        const similarityScore = (1 - distance).toFixed(2); // Skor kesamaan
-        console.log(similarityScore);
+        const similarityScore = (1 - distance).toFixed(2);
 
         if (similarityScore >= 0.6) {
-          // Tentukan threshold kesamaann
           isAbsenSuccess = true;
           setSimilarity(similarityScore);
+          matchedUser = userPhoto;
           break;
         }
       }
     }
 
-    if (isAbsenSuccess) {
+    if (isAbsenSuccess && matchedUser) {
       setAbsenSuccess(true);
+      setCurrentUser(matchedUser);
+      await axios.post("http://localhost:5001/absen", {
+        userId: matchedUser.uuid,
+      });
       alert("Absen berhasil!");
-      // Kirim data absen ke database
-      await axios.post("/api/absen", { photo: image2 });
     } else {
       setSimilarity("Tidak dapat mendeteksi kedua wajah");
     }
   };
 
-  // Jika model masih dalam proses inisialisasi, tampilkan pesan loadingg
   if (initializing) {
     return (
       <div className="w-full bg-white dark:bg-slate-900 dark:text-white max-w-md mx-auto rounded-lg shadow-md overflow-hidden md:max-w-2xl p-4">
-        <Skeleton height={40} count={1} className="mb-4"/>
-        <Skeleton height={20} count={1} className="mb-4"/>
-        <Skeleton height={20} count={1} className="mb-4"/>
-        <Skeleton height={50} width={150} className="mb-4"/>
-        <Skeleton height={50} width={150} className="mb-4"/>
+        <Skeleton height={40} count={1} className="mb-4" />
+        <Skeleton height={20} count={1} className="mb-4" />
+        <Skeleton height={20} count={1} className="mb-4" />
+        <Skeleton height={50} width={150} className="mb-4" />
+        <Skeleton height={50} width={150} className="mb-4" />
       </div>
     );
   }
 
-  // Tampilkan antarmuka pengguna
   return (
     <div className="flex justify-center bg-gray-300 dark:bg-gray-600 mt-2 ml-4 rounded-md">
       <div>
@@ -146,10 +138,10 @@ const FaceComparison = () => {
             </span>
           </p>
         )}
-        {absenSuccess && (
+        {absenSuccess && currentUser && (
           <p className="text-blue-600 font-semibold">
-            Haii {userPhotos.name} Absen berhasil! Silahkan melanjutkan
-            aktifitas anda !
+            Hai {currentUser.name}, absen berhasil!
+            Silahkan melanjutkan aktifitas anda!
           </p>
         )}
       </div>
