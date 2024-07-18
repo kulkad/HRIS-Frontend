@@ -5,6 +5,7 @@ import { FaBars, FaSun, FaMoon } from "react-icons/fa";
 import UserAreaSelectBox from "./UserAreaSelectBox";
 import LanguageSelectBox from "./LanguageSelectBox";
 import { MenuContext } from "@/context/MenuContext";
+import { MdSettings } from "react-icons/md";
 
 const MainHeader = () => {
   const initialTheme =
@@ -44,7 +45,7 @@ const MainHeader = () => {
             onClick={() => themeSwitchHandler("light")}
           />
         )}
-
+        <MdSettings size={ 24 } />
         <div>
           <UserAreaSelectBox />
         </div>
