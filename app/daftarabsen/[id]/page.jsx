@@ -5,6 +5,8 @@ import * as faceapi from "face-api.js";
 import Webcam from "react-webcam";
 import axios from "axios";
 import { useParams } from "next/navigation";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const DaftarAbsen = () => {
   const { id } = useParams(); // Mengambil ID dari URL
@@ -77,7 +79,15 @@ const DaftarAbsen = () => {
   };
 
   if (initializing) {
-    return <div>Loading models...</div>;
+    return (
+      <div className="w-full bg-white dark:bg-slate-900 dark:text-white max-w-md mx-auto rounded-lg shadow-md overflow-hidden md:max-w-2xl p-4">
+        <Skeleton height={40} count={1} className="mb-4"/>
+        <Skeleton height={20} count={1} className="mb-4"/>
+        <Skeleton height={20} count={1} className="mb-4"/>
+        <Skeleton height={50} width={150} className="mb-4"/>
+        <Skeleton height={50} width={150} className="mb-4"/>
+      </div>
+    );
   }
 
   return (
