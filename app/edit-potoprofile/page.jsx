@@ -62,7 +62,7 @@ const EditFotoProfile = () => {
   return (
     <div className="bg-white rounded-lg mx-4 p-4 text-xl">
       <div className="flex items-center mb-4">
-        <Link href="/detailuser">
+        <Link href="/profile">
           <IoIosArrowBack className="mr-2 text-xl" />
         </Link>
         <h1 className="text-lg font-semibold">Edit Foto Profil</h1>
