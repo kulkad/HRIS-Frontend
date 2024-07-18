@@ -6,8 +6,8 @@ import { BiSolidUserDetail } from "react-icons/bi";
 import { SlOptionsVertical } from "react-icons/sl";
 import { MdInsertEmoticon } from "react-icons/md";
 import { IoIosArrowBack } from "react-icons/io";
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import Link from "next/link";
 import axios from "axios";
 
@@ -95,16 +95,16 @@ const DataMagang = () => {
   if (!user) {
     return (
       <div className="w-full bg-white dark:bg-slate-900 dark:text-white max-w-md mx-auto rounded-lg shadow-md overflow-hidden md:max-w-2xl p-4">
-        <Skeleton height={40} count={1} className="mb-4"/>
-        <Skeleton height={20} count={1} className="mb-4"/>
-        <Skeleton height={20} count={1} className="mb-4"/>
-        <Skeleton height={50} width={150} className="mb-4"/>
-        <Skeleton height={50} width={150} className="mb-4"/>
+        <Skeleton height={40} count={1} className="mb-4" />
+        <Skeleton height={20} count={1} className="mb-4" />
+        <Skeleton height={20} count={1} className="mb-4" />
+        <Skeleton height={50} width={150} className="mb-4" />
+        <Skeleton height={50} width={150} className="mb-4" />
       </div>
     );
   }
 
-// Calculating the users to be displayed on the current page
+  // Calculating the users to be displayed on the current page
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = usersByRole.slice(indexOfFirstUser, indexOfLastUser);
@@ -116,7 +116,7 @@ const DataMagang = () => {
     <div className="bg-white dark:bg-slate-900 dark:text-white rounded-lg mx-4 p-4 text-xl sm:block ">
       <Link href="/halaman-data">
         <li className="flex items-center sm:hidden">
-          <IoIosArrowBack className="mr-1 ml-1"/>
+          <IoIosArrowBack className="mr-1 ml-1" />
         </li>
       </Link>
       <div className="grid grid-cols-3 gap-4">
@@ -166,7 +166,7 @@ const DataMagang = () => {
                         openDeleteModal(user.uuid);
                         closeDropdownHandler();
                       }}
-                      className="flex items-center hover:bg-red-300 hover:text-gray-800 rounded-xl p-2"
+                      className="flex items-center hover:bg-red-200 hover:text-gray-800 rounded-xl p-2 w-full"
                     >
                       <MdDelete className="mr-1" /> Delete
                     </button>
