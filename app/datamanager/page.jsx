@@ -14,11 +14,30 @@ import axios from "axios";
 const DataMagang = () => {
   const [user, setUser] = useState(null);
   const [usersByRole, setUsersByRole] = useState([]);
-  const [openDropdown, setOpenDropdown] = useState(null); // State for the opened dropdown UUID
-  const [currentPage, setCurrentPage] = useState(1); // State for the current page
-  const [usersPerPage] = useState(5); // Number of users per page
-  const role = "Manager"; // Role to fetch data for
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(5);
+  const role = "Manager";
   const [successMessage, setSuccessMessage] = useState(""); // State for success message
+  const [showModal, setShowModal] = useState(false); // State for modal visibility
+  const [userToDelete, setUserToDelete] = useState(null); // State for the user to delete
+
+  const openDeleteModal = (uuid) => {
+    setUserToDelete(uuid);
+    setShowModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setUserToDelete(null);
+    setShowModal(false);
+  };
+
+  const confirmDelete = () => {
+    if (userToDelete) {
+      deleteProduk(userToDelete);
+      closeDeleteModal();
+    }
+  };
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -57,6 +76,7 @@ const DataMagang = () => {
         }
       );
       setUsersByRole(response.data);
+      setSuccessMessage("User berhasil dihapus.");
     } catch (error) {
       console.log(error);
     }
@@ -84,7 +104,7 @@ const DataMagang = () => {
     );
   }
 
-  // Calculating the users to be displayed on the current page
+// Calculating the users to be displayed on the current page
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = usersByRole.slice(indexOfFirstUser, indexOfLastUser);
@@ -95,10 +115,10 @@ const DataMagang = () => {
   return (
     <div className="bg-white dark:bg-slate-900 dark:text-white rounded-lg mx-4 p-4 text-xl sm:block ">
       <Link href="/halaman-data">
-            <li className="flex items-center sm:hidden">
-              <IoIosArrowBack className="mr-1 ml-1"/>
-            </li>
-          </Link>
+        <li className="flex items-center sm:hidden">
+          <IoIosArrowBack className="mr-1 ml-1"/>
+        </li>
+      </Link>
       <div className="grid grid-cols-3 gap-4">
         <p className="px-4 py-6 font-semibold">DATA MANAGER</p>
         <div className="flex justify-end col-span-2 bg-white p-5 rounded-lg mb-2 dark:bg-slate-900">
@@ -111,7 +131,7 @@ const DataMagang = () => {
           </Link>
         </div>
       </div>
-      {successMessage && <p className="text-green-600">{successMessage}</p>}{" "}
+      {successMessage && <p className="text-green-600">{successMessage}</p>}
       {/* Tampilkan pesan jika ada */}
       <div className="relative overflow-x-auto hidden sm:block">
         {usersByRole.length === 0 ? (
@@ -142,7 +162,10 @@ const DataMagang = () => {
                       <MdEdit className="mr-1" /> Edit
                     </Link>
                     <button
-                      onClick={() => deleteProduk(user.uuid)}
+                      onClick={() => {
+                        openDeleteModal(user.uuid);
+                        closeDropdownHandler();
+                      }}
                       className="flex items-center hover:bg-red-300 hover:text-gray-800 rounded-xl p-2"
                     >
                       <MdDelete className="mr-1" /> Delete
@@ -194,6 +217,7 @@ const DataMagang = () => {
           </nav>
         </div>
       </div>
+
       {/* Tampilan untuk layar kecil */}
       <div className="bg-white min-h-screen flex flex-col rounded-lg mx-2 p-3 text-xl dark:bg-slate-900 sm:hidden">
         {usersByRole.length === 0 ? (
@@ -235,7 +259,7 @@ const DataMagang = () => {
                         <MdDelete className="mr-2" />
                         <button
                           onClick={() => {
-                            deleteProduk(user.uuid);
+                            openDeleteModal(user.uuid);
                             closeDropdownHandler();
                           }}
                         >
@@ -295,6 +319,29 @@ const DataMagang = () => {
           </nav>
         </div>
       </div>
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white rounded-lg p-6 text-center">
+            <h2 className="text-2xl font-bold mb-4">Konfirmasi Hapus</h2>
+            <p className="mb-4">Apakah Anda yakin ingin menghapus item ini?</p>
+            <div className="flex justify-center">
+              <button
+                onClick={confirmDelete}
+                className="bg-red-500 text-white px-4 py-2 rounded-lg mr-2"
+              >
+                Hapus
+              </button>
+              <button
+                onClick={closeDeleteModal}
+                className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg"
+              >
+                Batal
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
