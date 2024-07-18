@@ -35,30 +35,30 @@ const HomePage = () => {
         <hr className="mt-5 mb-5" />
 
         <div
-          class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+          className="flex flex-col p-4 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
         >
           <img
-            class="object-cover w-full rounded-lg h-96 md:h-auto md:w-48 md:rounded-lg ml-3"
+            className="object-cover w-full rounded-lg md:h-auto md:w-48 md:rounded-lg md:ml-0 sm:w-32 h-64"
             src="/assets/images/windah.jpg"
             alt=""
           />
-          <div class="flex flex-col justify-between p-5 leading-normal">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ml">
+          <div className="flex flex-col justify-between p-5 leading-normal">
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ml">
              {user.name}
             </h5>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
              Jam Masuk :
             </p>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
              Jam Pulang :
             </p>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
              Estimasi Denda : 
             </p>
             <a href="geolocation">
           <button
             type="button"
-            className="focus:outline-none text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+            className="focus:outline-none mt-2 text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
           >
             Total Denda Keterlambatan
           </button>

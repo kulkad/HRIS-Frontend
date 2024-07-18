@@ -27,7 +27,14 @@ const DetailUser = () => {
     <div className="bg-white rounded-lg mx-4 p-4 text-xl dark:bg-slate-900 dark:text-white">
       {/* Tampilan Untuk Laptop */}
       <div className="relative overflow-x-auto hidden sm:block">
-        <p className="px-6 py-10 font-semibold">DETAIL USER</p>
+        <div className="flex items-center mb-4">
+          <Link href="/profile">
+            <div className="flex items-center cursor-pointer">
+              <IoIosArrowBack className="mr-2" />
+              <p className="font-semibold">DETAIL USER</p>
+            </div>
+          </Link>
+        </div>
         <table className="w-full text-sm text-left rtl:text-right">
           <thead className="text-xs text-gray-900 uppercase dark:text-white">
             <tr>
