@@ -6,6 +6,7 @@ import UserAreaSelectBox from "./UserAreaSelectBox";
 import LanguageSelectBox from "./LanguageSelectBox";
 import { MenuContext } from "@/context/MenuContext";
 import { MdSettings } from "react-icons/md";
+import Link from "next/link";
 
 const MainHeader = () => {
   const initialTheme =
@@ -45,7 +46,11 @@ const MainHeader = () => {
             onClick={() => themeSwitchHandler("light")}
           />
         )}
-        <MdSettings size={ 24 } />
+        <Link href="/setting-pulang">
+                <li className="flex justify-start items-cente rounded-xl p-2 w-full cursor-pointer">
+                  <MdSettings size={24} />
+                </li>
+        </Link>
         <div>
           <UserAreaSelectBox />
         </div>
