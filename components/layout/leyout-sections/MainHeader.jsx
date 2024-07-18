@@ -5,6 +5,8 @@ import { FaBars, FaSun, FaMoon } from "react-icons/fa";
 import UserAreaSelectBox from "./UserAreaSelectBox";
 import LanguageSelectBox from "./LanguageSelectBox";
 import { MenuContext } from "@/context/MenuContext";
+import { MdSettings } from "react-icons/md";
+import Link from "next/link";
 
 const MainHeader = () => {
   const initialTheme =
@@ -44,7 +46,9 @@ const MainHeader = () => {
             onClick={() => themeSwitchHandler("light")}
           />
         )}
-
+        <Link href="/setting-pulang">
+                  <MdSettings size={24} />
+        </Link>
         <div>
           <UserAreaSelectBox />
         </div>

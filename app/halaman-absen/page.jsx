@@ -107,7 +107,7 @@ const FaceComparison = () => {
       });
       alert("Absen berhasil!");
     } else {
-      setSimilarity("Tidak dapat mendeteksi kedua wajah");
+      setSimilarity("Tidak dapat mendeteksi wajah");
     }
   };
 

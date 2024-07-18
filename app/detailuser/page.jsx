@@ -13,11 +13,11 @@ const DetailUser = () => {
       window.location.href = "http://localhost:3000/login";
     } else {
       const parsedUserData = JSON.parse(userData);
-      // Pastikan parsedUserData adalah arrayy
+      // Pastikan parsedUserData adalah array
       if (Array.isArray(parsedUserData)) {
         setUsers(parsedUserData);
       } else {
-        // Jika bukan array, bungkus menjadi arrayy
+        // Jika bukan array, bungkus menjadi array
         setUsers([parsedUserData]);
       }
     }
@@ -49,7 +49,13 @@ const DetailUser = () => {
             {users.map((user) => (
               <tr key={user.id} className="bg-white dark:bg-slate-900">
                 <td className="px-6 py-4">
-                  <img className="w-24 h-18" src={user.url} alt="user photo" />
+                  <Link href="/edit-potoprofile">
+                    <img
+                      className="w-24 h-18 cursor-pointer"
+                      src={user.url}
+                      alt="user photo"
+                    />
+                  </Link>
                 </td>
                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {user.name}
@@ -83,11 +89,13 @@ const DetailUser = () => {
             </Link>
           </div>
           <div className="flex flex-col items-center pb-10">
-            <img
-              className="w-24 h-24 mb-3 rounded-full shadow-lg"
-              src={user.url}
-              alt="Bonnie image"
-            />
+            <Link href="/edit-potoprofile">
+              <img
+                className="w-24 h-24 mb-3 rounded-full shadow-lg cursor-pointer"
+                src={user.url}
+                alt="Bonnie image"
+              />
+            </Link>
             <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
               {user.name}
             </h5>
