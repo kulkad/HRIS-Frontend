@@ -45,9 +45,7 @@ const MainHeader = () => {
             onClick={() => themeSwitchHandler("light")}
           />
         )}
-        <a href="">
         <MdSettings size={ 24 } />
-        </a>
         <div>
           <UserAreaSelectBox />
         </div>
