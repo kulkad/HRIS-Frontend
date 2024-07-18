@@ -48,6 +48,8 @@ const FaceComparison = () => {
     fetchUserPhotos();
   }, []);
 
+  
+
   // Fungsi untuk mengambil gambar dari webcam dan menyimpannya ke state
   const capture = (setImage, imageRef) => {
     const imageSrc = webcamRef.current.getScreenshot();

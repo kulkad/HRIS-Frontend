@@ -25,6 +25,7 @@ const FaceComparison = () => {
       await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
       await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
       setInitializing(false);
+      console.log("Models loaded");
     };
     loadModels();
   }, []);
@@ -33,6 +34,7 @@ const FaceComparison = () => {
     try {
       const response = await axios.get("http://localhost:5001/userfotoabsen");
       setUserPhotos(response.data);
+      console.log("User photos fetched:", response.data);
     } catch (error) {
       console.error("Error fetching user photos: ", error);
     }
@@ -46,30 +48,38 @@ const FaceComparison = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImage(imageSrc);
     imageRef.current.src = imageSrc;
+    // console.log("Captured image:", imageSrc);
   };
+
+  // console.log("coba", currentUser);
 
   const calculateSimilarity = async () => {
     capture(setImage2, imageRef2);
-
+    
     const img2 = imageRef2.current;
     let isAbsenSuccess = false;
     let matchedUser = null;
-
+    
     for (let userPhoto of userPhotos) {
+      // console.log('coba', userPhoto.url_foto_absen);
       const img1 = new Image();
       img1.crossOrigin = "anonymous";
       img1.src = userPhoto.url_foto_absen;
       await new Promise((resolve) => (img1.onload = resolve));
+      
+      // console.log("Comparing with user photo:", userPhoto);
 
       const detection1 = await faceapi
         .detectSingleFace(img1, new faceapi.SsdMobilenetv1Options())
         .withFaceLandmarks()
         .withFaceDescriptor();
+      // console.log("Detection1:", detection1);
 
       const detection2 = await faceapi
         .detectSingleFace(img2, new faceapi.SsdMobilenetv1Options())
         .withFaceLandmarks()
         .withFaceDescriptor();
+      // console.log("Detection2:", detection2);
 
       if (detection1 && detection2) {
         const distance = faceapi.euclideanDistance(
@@ -77,6 +87,7 @@ const FaceComparison = () => {
           detection2.descriptor
         );
         const similarityScore = (1 - distance).toFixed(2);
+        // console.log("Similarity score:", similarityScore);
 
         if (similarityScore >= 0.6) {
           isAbsenSuccess = true;
@@ -90,6 +101,7 @@ const FaceComparison = () => {
     if (isAbsenSuccess && matchedUser) {
       setAbsenSuccess(true);
       setCurrentUser(matchedUser);
+      console.log("Absen berhasil untuk user:", matchedUser);
       await axios.post("http://localhost:5001/absen", {
         userId: matchedUser.uuid,
       });
@@ -140,8 +152,8 @@ const FaceComparison = () => {
         )}
         {absenSuccess && currentUser && (
           <p className="text-blue-600 font-semibold">
-            Hai {currentUser.name}, absen berhasil!
-            Silahkan melanjutkan aktifitas anda!
+            Hai {currentUser.name}, absen berhasil! Silahkan melanjutkan
+            aktifitas anda!
           </p>
         )}
       </div>
