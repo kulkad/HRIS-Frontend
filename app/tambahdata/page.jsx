@@ -182,12 +182,14 @@ const TambahData = () => {
           />
         </div>
 
-        {preview ? (
-          <figure className="image is-128x128">
-            <img src={preview} alt="Preview Image" />
+        {preview && (
+          <figure className="mt-4">
+            <img
+              src={preview}
+              alt="Preview Image"
+              className="w-32 h-32 object-cover rounded-full"
+            />
           </figure>
-        ) : (
-          ""
         )}
 
         <input

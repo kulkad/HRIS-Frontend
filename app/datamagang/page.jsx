@@ -125,28 +125,21 @@ const DataMagang = () => {
 
   return (
     <div className="bg-white dark:bg-slate-900 dark:text-white rounded-lg mx-4 p-4 text-xl sm:block">
-      <Link href="/halaman-data">
-        <div className="flex items-center sm:hidden">
-          <IoIosArrowBack className="mr-1 ml-1" />
-        </div>
-      </Link>
-      <div className="grid grid-cols-3 gap-4">
-        <p className="px-4 py-6 font-semibold text-center col-span-3">
-          DATA MAGANG
-        </p>
-        <div className="flex justify-center col-span-3 mb-2">
-          <Link
-            key={user.uuid}
-            href={`/tambahdata/?role=Magang`}
-            className="bg-green-400 hover:bg-green-600 rounded-xl w-36 h-11 text-center py-1"
-          >
-            Tambah Data
-          </Link>
-        </div>
-      </div>
       {successMessage && <p className="text-green-600">{successMessage}</p>}
       {/* Tampilkan pesan jika ada */}
       <div className="relative overflow-x-auto hidden sm:block">
+        <div className="grid grid-cols-3 gap-4">
+          <p className="px-4 py-6 font-semibold">DATA MAGANG</p>
+          <div className="flex justify-end col-span-2 bg-white p-5 rounded-lg mb-2 dark:bg-slate-90">
+            <Link
+              key={user.uuid}
+              href={`/tambahdata/?role=Manager`}
+              className="bg-green-400 hover:bg-green-600 rounded-xl w-36 h-11 text-center py-1"
+            >
+              Tambah Data
+            </Link>
+          </div>
+        </div>
         {usersByRole.length === 0 ? (
           <p className="text-center py-4">Tidak ada data</p>
         ) : (
@@ -229,8 +222,26 @@ const DataMagang = () => {
           </nav>
         </div>
       </div>
-            {/* Tampilan untuk layar kecil */}
-            <div className="bg-white min-h-screen flex flex-col rounded-lg mx-2 p-3 text-xl dark:bg-slate-900 sm:hidden">
+
+      {/* Tampilan untuk layar kecil */}
+      <div className="bg-white min-h-screen flex flex-col rounded-lg mx-2 p-3 text-xl dark:bg-slate-900 sm:hidden">
+        <div className="flex gap-4">
+          <Link href="/halaman-data">
+            <li className="flex py-10 items-center sm:hidden">
+              <IoIosArrowBack className="mr-1 ml-1" />
+            </li>
+          </Link>
+          <p className="py-6 font-semibold">DATA MAGANG</p>
+          <div className="flex justify-end bg-white p-5 rounded-lg mb-2 dark:bg-slate-900 mt-3">
+            <Link
+              key={user.uuid}
+              href={`/tambahdata/?role=Manager`}
+              className="bg-green-400 hover:bg-green-600 rounded-xl w-36 h-11 text-center py-1"
+            >
+              Tambah Data
+            </Link>
+          </div>
+        </div>
         {usersByRole.length === 0 ? (
           <p className="text-center py-4 sm:hidden">Tidak ada data</p>
         ) : (
