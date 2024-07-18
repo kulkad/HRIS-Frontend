@@ -17,7 +17,7 @@ const DetailUser = () => {
       if (Array.isArray(parsedUserData)) {
         setUsers(parsedUserData);
       } else {
-        // Jika bukan array, bungkus menjadi array
+        // Jika bukan array, bungkus menjadi arrayy
         setUsers([parsedUserData]);
       }
     }
