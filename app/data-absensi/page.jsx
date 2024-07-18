@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { SlOptionsVertical } from "react-icons/sl";
 import Skeleton from 'react-loading-skeleton'
@@ -11,7 +10,13 @@ import Link from "next/link";
 const DataKaryawan = () => {
   // Pengecekan Route Apakah User Sudah Login Atau belum
   const [user, setUser] = useState(null);
-  // const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedRole, setSelectedRole] = useState("");
+  const [data, setData] = useState([
+    { id: 1, name: "Jahdan Paku Bumi", role: "PKL", time: "123" },
+    { id: 2, name: "Piqih Palu Bumi", role: "Manager", time: "123" },
+    // Add more data as needed
+  ]);
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -43,6 +48,24 @@ const DataKaryawan = () => {
     );
   }
 
+  // Handle Search Input Change
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Handle Role Change
+  const handleRoleChange = (e) => {
+    setSelectedRole(e.target.value);
+  };
+
+  // Filter Data Based on Search Query and Selected Role
+  const filteredData = data.filter((item) => {
+    return (
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      (selectedRole === "" || item.role === selectedRole)
+    );
+  });
+
   return (
     <div className="bg-white rounded-lg mx-4 p-2 text-xl dark:bg-gray-800">
       <div className="grid grid-cols-3 gap-4">
@@ -52,7 +75,7 @@ const DataKaryawan = () => {
           <form className="flex flex-wrap items-center space-x-4">
             <div>
               <label
-                for="role"
+                htmlFor="role"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-200"
               >
                 Role
@@ -60,35 +83,45 @@ const DataKaryawan = () => {
               <select
                 id="role"
                 name="role"
+                value={selectedRole}
+                onChange={handleRoleChange}
                 className="dark:text-gray-800 mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               >
-                <option className="dark:text-gray-800">Manager</option>
-                <option className="dark:text-gray-800">Karyawan</option>
-                <option className="dark:text-gray-800">Magang</option>
-                <option className="dark:text-gray-800">PKL</option>
+                <option value="" className="dark:text-gray-800">All</option>
+                <option value="Manager" className="dark:text-gray-800">
+                  Manager
+                </option>
+                <option value="Karyawan" className="dark:text-gray-800">
+                  Karyawan
+                </option>
+                <option value="Magang" className="dark:text-gray-800">
+                  Magang
+                </option>
+                <option value="PKL" className="dark:text-gray-800">PKL</option>
               </select>
             </div>
 
             <div>
               <label
-                for="name"
+                htmlFor="name"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-200"
               >
                 Nama
               </label>
-              <select
+              <input
+                type="text"
                 id="name"
                 name="name"
+                placeholder="Cari Nama..."
+                value={searchQuery}
+                onChange={handleSearchChange}
                 className="dark:text-gray-800 mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              >
-                <option>John Doe</option>
-                <option>Michael Johnson</option>
-              </select>
+              />
             </div>
 
             <div>
               <label
-                for="date"
+                htmlFor="date"
                 className="block mt-1 text-sm font-medium text-gray-700 dark:text-gray-200"
               >
                 Date
@@ -126,10 +159,10 @@ const DataKaryawan = () => {
                 Nama
               </th>
               <th scope="col" className="px-6 py-3">
-                Time
+                Role
               </th>
               <th scope="col" className="px-6 py-3">
-                Date
+                Time
               </th>
               <th scope="col" className="px-6 py-3">
                 Action
@@ -137,34 +170,36 @@ const DataKaryawan = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white dark:bg-gray-800">
-              <th className="px-6 py-4">1</th>
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-gray-400"
-              >
-                Jahdan Paku Bumi
-              </th>
-              <td className="px-6 py-4">PKL</td>
-              <td className="px-6 py-4">123</td>
-              <td className="px-6 py-4">
-                <li className="flex justify-start items-center hover:bg-blue-200 hover:text-gray-800 rounded-xl p-2">
-                  <BiSolidUserDetail te className="mr-1" />
-                  <a href="/detailabsen">Detail</a>
-                </li>
-              </td>
-            </tr>
+            {filteredData.map((item, index) => (
+              <tr key={item.id} className="bg-white dark:bg-gray-800">
+                <th className="px-6 py-4">{index + 1}</th>
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-gray-400"
+                >
+                  {item.name}
+                </th>
+                <td className="px-6 py-4">{item.role}</td>
+                <td className="px-6 py-4">{item.time}</td>
+                <td className="px-6 py-4">
+                  <li className="flex justify-start items-center hover:bg-blue-200 hover:text-gray-800 rounded-xl p-2">
+                    <BiSolidUserDetail className="mr-1" />
+                    <Link href="/detailabsen">Detail</Link>
+                  </li>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
 
       {/* Tampilan untuk layar kecil */}
-      <div class="relative overflow-x-auto w-full flex sm:hidden">
-        <div class=" p-4 leading-normal">
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+      <div className="relative overflow-x-auto w-full flex sm:hidden">
+        <div className="p-4 leading-normal">
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             Ang Badarudin
           </h5>
-          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
             angbadarudin@gmail.com
           </p>
         </div>
