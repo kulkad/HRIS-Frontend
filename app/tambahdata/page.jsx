@@ -10,6 +10,8 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { IoIosArrowBack } from "react-icons/io";
+import Link from "next/link";
 
 const TambahData = () => {
   const { id } = useParams(); // Mengambil ID dari URL
@@ -20,6 +22,7 @@ const TambahData = () => {
   const [confpassword, setConfpassword] = useState("");
   const [file, setFile] = useState("");
   const [preview, setpreview] = useState("");
+  
 
   useEffect(() => {
     // Mengambil parameter query 'role' dari URL
@@ -86,8 +89,14 @@ const TambahData = () => {
   }
 
   return (
-    <div className="bg-white rounded-lg mx-4 p-4 text-xl">
-      <h1 className="mt-1 mb-4 font-semibold">Form Tambah User</h1>
+    <div className="bg-white rounded-lg mx-4 p-4 text-xl dark:bg-slate-900">
+      <div className="flex items-center mb-4">
+        <Link href="/" className="sm:hidden">
+          <IoIosArrowBack className="mr-2 text-xl dark:text-white" />
+        </Link>
+        <h1 className="text-lg font-semibold dark:text-white">Form Tambah User</h1>
+      </div>
+
 
       <form className="max-w" onSubmit={saveData}>
         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
