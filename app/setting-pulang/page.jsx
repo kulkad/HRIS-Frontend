@@ -16,13 +16,7 @@ export default function HalamanData() {
     });
   }, []);
 
-  const menuItems = [
-    { icon: FaUser, text: "Data Manager", link: "/datamanager" },
-    { icon: FaUser, text: "Data Karyawan", link: "/datakaryawan" },
-    { icon: FaUser, text: "Data Magang", link: "/datamagang" },
-    { icon: FaUser, text: "Data PKL", link: "/datapkl" },
-  ];
-
+  
 return (
   <div
     className="w-full dark:bg-slate-900 dark:text-white max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl"
@@ -34,28 +28,23 @@ return (
               <IoIosArrowBack className="mr-1"/>
             </li>
           </Link>
-          <h1 className="text-xl font-semibold">Data Pengguna</h1>
+          <h1 className="text-xl font-semibold ml-2">Setting Jam Pulang</h1>
         </div>
         <div className="p-4">
           <ul className="space-y-4 dark:text-white">
-            {menuItems.map((item, index) => (
-              <li key={index} className="flex items-center justify-between">
-                <Link href={item.link || "#"} passHref>
-                  <div className="flex items-center space-x-4">
-                    <item.icon className="text-2xl text-gray-700 dark:text-white" />
-                    <div>
-                      <p className="font-semibold">{item.text}</p>
-                      {item.description && (
-                        <p className="text-sm text-gray-500">
-                          {item.description}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </Link>
-                {!item.new && <FaChevronRight className="text-gray-400" />}
-              </li>
-            ))}
+            <div className="grid grid-rows-1">
+              <label className="font-semibold">Karyawan : </label>
+              <input type="text" name="" className="hover:border-sky-400" />
+            </div>
+            <div className="grid grid-rows-1">
+              <label className="font-semibold">Magang : </label>
+              <input type="text" name="" className="hover:border-sky-400"/>
+            </div>
+            <div className="grid grid-rows-1">
+              <label className="font-semibold">PKL : </label>
+              <input type="text" name="" className="hover:border-sky-400"/>
+            </div>
+            <input type="submit" value="Submit" className="bg-green-500 text-sky-50 hover:bg-green-700 focus:ring-2" />
           </ul>
         </div>
       </div>
