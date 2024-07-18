@@ -13,7 +13,7 @@ const DetailUser = () => {
       window.location.href = "http://localhost:3000/login";
     } else {
       const parsedUserData = JSON.parse(userData);
-      // Pastikan parsedUserData adalah array
+      // Pastikan parsedUserData adalah arrayy
       if (Array.isArray(parsedUserData)) {
         setUsers(parsedUserData);
       } else {
