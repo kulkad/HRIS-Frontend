@@ -31,15 +31,19 @@ const EditFotoProfile = () => {
 
   const saveFotoProfile = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
+    const formData = new FormData();  
     formData.append("file", file);
 
     try {
-      await axios.patch(`http://localhost:5001/updateuser/${id}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.patch(
+        `http://localhost:5001/userfotoprofile/${user.uuid}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       alert("Foto profil berhasil diperbarui");
       window.location.reload();
     } catch (error) {
@@ -65,7 +69,9 @@ const EditFotoProfile = () => {
         <Link href="/profile">
           <IoIosArrowBack className="mr-2 text-xl dark:text-white" />
         </Link>
-        <h1 className="text-lg font-semibold dark:text-white">Edit Foto Profil</h1>
+        <h1 className="text-lg font-semibold dark:text-white">
+          Edit Foto Profil
+        </h1>
       </div>
 
       <form className="max-w" onSubmit={saveFotoProfile}>
