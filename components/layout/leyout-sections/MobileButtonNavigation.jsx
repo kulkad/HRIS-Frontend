@@ -17,7 +17,7 @@ const navButtonsList = [
   { id: 1, label: "Home", icon: <IoHome />, path: "/" },
   { id: 2, label: "Data", icon: <FaTasks />, path: "/data-absensi" },
   { id: 3, label: "Absen", icon: <PiUserFocusDuotone />, path: "/halaman-absen" },
-  { id: 4, label: "Add", icon: <PiFolderSimpleUserLight />, path: "/halaman-data" },
+  { id: 4, label: "Add", icon: <PiFolderSimpleUserLight />, path: "/data_mobile" },
 ];
 
 const MobileButtonNavigation = () => {

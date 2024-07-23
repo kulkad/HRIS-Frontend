@@ -122,7 +122,7 @@ const DataMagang = () => {
           <div className="flex justify-end col-span-2 bg-white p-5 rounded-lg mb-2 dark:bg-slate-90">
             <Link
               key={user.uuid}
-              href={`/tambahdata/?role=Manager`}
+              href={`/tambah/?role=Manager`}
               className="bg-green-400 hover:bg-green-600 rounded-xl w-36 h-11 text-center py-1"
             >
               Tambah Data
@@ -173,7 +173,7 @@ const DataMagang = () => {
                     </Link>
                     <Link
                       key={user.uuid}
-                      href={`/daftarabsen/${user.uuid}?role=${user.role}`}
+                      href={`/register/${user.uuid}?role=${user.role}`}
                       className="flex items-center hover:bg-blue-200 hover:text-gray-800 rounded-xl p-2 w-full"
                     >
                       {user.url_foto_absen == null ? (
